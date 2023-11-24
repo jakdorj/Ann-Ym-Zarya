@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://kutto-51d46-default-rtdb.firebaseio.com/"
+  // mika eccomerce firebase database url:
+  baseURL: "https://oirhon-user-default-rtdb.firebaseio.com/",
 });
 
 export default instance;
