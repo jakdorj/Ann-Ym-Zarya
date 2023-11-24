@@ -1,7 +1,8 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/dashboard/Dashboard";
+import axios from "./axios-orders";
 
 // home pages
 const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
@@ -106,6 +107,32 @@ const Checkout = lazy(() => import("./pages/other/Checkout"));
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
 const App = () => {
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = () => {
+    axios
+      .get(`colorList.json`)
+      .then((res) => {
+        const data = Object.entries(res.data).reverse();
+        console.log("data: ", data);
+        document.documentElement.style.setProperty(
+          "--brand",
+          data[0][1].data.brandColor
+        );
+        // document.documentElement.style.setProperty(
+        //   "--border",
+        //   data[0][1].data.borderColor
+        // );
+        // document.documentElement.style.setProperty(
+        //   "--button",
+        //   data[0][1].data.buttonColor
+        // );
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+      });
+  };
   return (
     <Router>
       <ScrollToTop>

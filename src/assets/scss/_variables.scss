@@ -1,3 +1,8 @@
+:root{
+    --brand: yellow;
+    --brandHover: #fa6bff;
+    --headingColor: #000;
+}
 // Font Family
 $poppins: "Poppins", sans-serif;
 $abrilfatface: "Abril Fatface", cursive;
@@ -21,11 +26,12 @@ $bg-black: #000000;
 $bg-grey: #f6f6f8;
 $bg-purple: #f0e0ff;
 
-// Heading Color
-$heading-color: #000000;
+// Heading Color - Гарчигны өнгө 
+$heading-color: var(--headingColor);
 
 // Theme Color
-$theme-color: #a749ff;
+// $theme-color: #a749ff;
+$theme-color: var(--brand);
 
 // Responsive Variables
 $xx-layout: "only screen and (min-width: 1366px) and (max-width: 1600px)";
