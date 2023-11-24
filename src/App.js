@@ -114,20 +114,19 @@ const App = () => {
     axios
       .get(`colorList.json`)
       .then((res) => {
-        const data = Object.entries(res.data).reverse();
-        console.log("data: ", data);
+        // const data = Object.entries(res.data).reverse();
         document.documentElement.style.setProperty(
           "--brand",
-          data[0][1].data.brandColor
+          res.data.data.brandColor
         );
-        // document.documentElement.style.setProperty(
-        //   "--border",
-        //   data[0][1].data.borderColor
-        // );
-        // document.documentElement.style.setProperty(
-        //   "--button",
-        //   data[0][1].data.buttonColor
-        // );
+        document.documentElement.style.setProperty(
+          "--brandHover",
+          res.data.data.brandHover
+        );
+        document.documentElement.style.setProperty(
+          "--headingColor",
+          res.data.data.headingColor
+        );
       })
       .catch((err) => {
         console.log("err: ", err);

@@ -11,8 +11,8 @@ const { Meta } = Card;
 const Tools = () => {
   const [colors, setColors] = useState({
     brandColor: "#ccc",
-    buttonColor: "#ccc",
-    borderColor: "#ccc",
+    brandHover: "#ccc",
+    headingColor: "#ccc",
     pkId: "",
   });
   const [edit, setEdit] = useState(false);
@@ -26,15 +26,14 @@ const Tools = () => {
   }, []);
 
   const save = () => {
-    console.log("object", colors);
     const token = localStorage.getItem("idToken");
     setEdit(false);
     const body = {
       localId: localStorage.getItem("localId"),
       data: {
         brandColor: colors.brandColor,
-        buttonColor: colors.buttonColor,
-        borderColor: colors.borderColor,
+        brandHover: colors.brandHover,
+        headingColor: colors.headingColor,
       },
     };
     axios
@@ -53,16 +52,16 @@ const Tools = () => {
       .get(`colorList.json`)
       .then((res) => {
         const data = Object.entries(res.data).reverse();
-        console.log("data: ", data[0][0]);
         setColors({
           ...colors,
-          brandColor: data[0][1].data.brandColor,
-          buttonColor: data[0][1].data.buttonColor,
-          borderColor: data[0][1].data.borderColor,
+          brandColor: res.data.data.brandColor,
+          brandHover: res.data.data.brandHover,
+          headingColor: res.data.data.headingColor,
           pkId: data[0][0],
         });
       })
       .catch((err) => {
+        message.error("Бранд өнгө оруулааггүй байна!");
         console.log("err: ", err);
       })
       .finally(() => {
@@ -140,12 +139,12 @@ const Tools = () => {
                         disabled={!edit}
                         size="small"
                         format="hex"
-                        value={colors.buttonColor}
+                        value={colors.brandHover}
                         showText
                         onChange={(e) =>
                           setColors({
                             ...colors,
-                            buttonColor:
+                            brandHover:
                               typeof e === "string"
                                 ? e.toHexString()
                                 : e.toHexString(),
@@ -165,12 +164,12 @@ const Tools = () => {
                         disabled={!edit}
                         size="small"
                         // format="hex"
-                        value={colors.borderColor}
+                        value={colors.headingColor}
                         showText
                         onChange={(e) =>
                           setColors({
                             ...colors,
-                            borderColor: e.toHexString(),
+                            headingColor: e.toHexString(),
                           })
                         }
                       />

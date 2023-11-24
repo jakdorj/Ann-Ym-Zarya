@@ -97,7 +97,6 @@ const Dashboard = () => {
                   background: colorBgContainer,
                 }}
               >
-                <Theme />
                 <Tools />
               </div>
             </Content>
