@@ -44,11 +44,6 @@ const IconGroup = ({ iconWhiteClass }) => {
         <div className="account-dropdown">
           <ul>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/dashboard"}>
-                Хяналтын самбар
-              </Link>
-            </li>
-            <li>
               <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
             </li>
             <li>

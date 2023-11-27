@@ -346,9 +346,12 @@ const MobileNavMenu = () => {
           <Link to={process.env.PUBLIC_URL + "/"}>{t("pages")}</Link>
           <ul className="sub-menu">
             <li>
-              <Link to={process.env.PUBLIC_URL + "/cart"}>
-                {t("cart")}
+              <Link to={process.env.PUBLIC_URL + "/dashboard"}>
+                {t("dashboard")}
               </Link>
+            </li>
+            <li>
+              <Link to={process.env.PUBLIC_URL + "/cart"}>{t("cart")}</Link>
             </li>
             <li>
               <Link to={process.env.PUBLIC_URL + "/checkout"}>
