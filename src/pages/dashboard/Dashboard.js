@@ -1,25 +1,44 @@
 import React, { Fragment } from "react";
-import { useSelector } from "react-redux";
-import { useParams, useLocation } from "react-router-dom";
 import SEO from "../../components/seo";
 import LayoutSeven from "../../layouts/LayoutSeven";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
+import { DashboardOutlined } from "@ant-design/icons";
+import { Layout, Menu, Tabs, theme } from "antd";
 import Theme from "../../components/dashboard/Theme";
 import Tools from "../../components/dashboard/tools";
+import { useState } from "react";
 const { Header, Content, Footer, Sider } = Layout;
 const Dashboard = () => {
-  let { pathname } = useLocation();
-  let { id } = useParams();
-  const { products } = useSelector((state) => state.product);
-  const product = products.find((product) => product.id === id);
+  const [menuItems, setMenuItems] = useState([
+    { id: 0, label: "Theme", icon: DashboardOutlined },
+    { id: 1, label: "Dashboard", icon: DashboardOutlined },
+  ]);
+  const [menuKey, setMenuKey] = useState("0");
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const menuhandler = (e) => {
+    setMenuKey(e.key);
+  };
+  const items = [
+    {
+      key: "1",
+      label: "Theme",
+      children: <Theme />,
+    },
+    {
+      key: "2",
+      label: "Brand color",
+      children: <Tools />,
+    },
+    {
+      key: "3",
+      label: "Tab 3",
+      children: "Content of Tab Pane 3",
+    },
+  ];
+  const onChange = (key) => {
+    // console.log(key);
+  };
   return (
     <Fragment>
       <SEO
@@ -32,15 +51,6 @@ const Dashboard = () => {
         <div
           style={{ width: "100%", height: "100px ", background: "#000" }}
         ></div>
-        {/* <Breadcrumb
-          pages={[
-            { label: "Үндсэн хуудас", path: process.env.PUBLIC_URL + "/" },
-            {
-              label: "Хяналтын самбар",
-              path: process.env.PUBLIC_URL + pathname,
-            },
-          ]}
-        /> */}
         <Layout>
           <Sider
             breakpoint="lg"
@@ -64,16 +74,12 @@ const Dashboard = () => {
             <Menu
               theme="dark"
               mode="inline"
-              defaultSelectedKeys={["4"]}
-              items={[
-                UserOutlined,
-                VideoCameraOutlined,
-                UploadOutlined,
-                UserOutlined,
-              ].map((icon, index) => ({
-                key: String(index + 1),
-                icon: React.createElement(icon),
-                label: `nav ${index + 1}`,
+              onClick={menuhandler}
+              defaultSelectedKeys={["0"]}
+              items={menuItems.map((e, i) => ({
+                key: i,
+                label: e.label,
+                icon: React.createElement(e.icon),
               }))}
             />
           </Sider>
@@ -96,7 +102,13 @@ const Dashboard = () => {
                   background: colorBgContainer,
                 }}
               >
-                <Tools />
+                {menuKey === "0" ? (
+                  <Tabs
+                    defaultActiveKey="1"
+                    items={items}
+                    onChange={onChange}
+                  />
+                ) : null}
               </div>
             </Content>
             <Footer
@@ -104,7 +116,7 @@ const Dashboard = () => {
                 textAlign: "center",
               }}
             >
-              Ant Design ©2023 Created by Ant UED
+              Mika urlan ©2023 Created by Mika
             </Footer>
           </Layout>
         </Layout>
