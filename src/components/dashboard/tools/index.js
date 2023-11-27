@@ -406,11 +406,11 @@ const Tools = () => {
                   <Popconfirm
                     title={
                       <div style={{ textTransform: "uppercase" }}>
-                        {"asdasdasasd"}
+                        {"Лого солих"}
                       </div>
                     }
-                    placement="bottomLeft"
-                    description={"Та загварыг сонгоход итгэлттэй байна уу?"}
+                    placement="bottom"
+                    description={"Та лого өөрчлөхдөө итгэлттэй байна уу?"}
                     onConfirm={confirm}
                     onCancel={cancel}
                     okText="Тийм"
