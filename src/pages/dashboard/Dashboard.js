@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { useParams, useLocation } from "react-router-dom";
 import SEO from "../../components/seo";
-import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import LayoutSeven from "../../layouts/LayoutSeven";
 import {
   UploadOutlined,

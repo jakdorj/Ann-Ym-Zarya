@@ -20,7 +20,6 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
       <nav>
         <ul>
           <li>
-            {console.log("mainContext: ", mainContext)}
             <Link to={process.env.PUBLIC_URL + "/"}>
               {t("home")}
               {/* {sidebarMenu ? (
