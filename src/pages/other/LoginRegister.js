@@ -48,7 +48,7 @@ const LoginRegister = () => {
     };
     axios
       .post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA50mQ29ONmPn5XHuhE_T6_YTr5HLTUSF8",
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB0ss4fbA7lMJu_4qpl6sZsIq0QpuRynOQ",
         body
       )
       .then((res) => {
