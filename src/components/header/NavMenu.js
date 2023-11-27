@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { useContext } from "react";
-// import MainContext from "../mainContext/mainContext";
+import MainContext from "../mainContext/mainContext";
 
 const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   const { t } = useTranslation();
-  // const mainContext = useContext(MainContext);
+  const mainContext = useContext(MainContext);
 
   return (
     <div
@@ -20,6 +20,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
       <nav>
         <ul>
           <li>
+            {console.log("mainContext: ", mainContext)}
             <Link to={process.env.PUBLIC_URL + "/"}>
               {t("home")}
               {/* {sidebarMenu ? (
@@ -56,13 +57,13 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
               )}
             </Link>
             <ul className="submenu">
-              {/* {mainContext.user ?  */}
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/dashboard"}>
-                  {t("dashboard")}
-                </Link>
-              </li>
-              {/* : null } */}
+              {mainContext.user ? (
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/dashboard"}>
+                    {t("dashboard")}
+                  </Link>
+                </li>
+              ) : null}
               <li>
                 <Link to={process.env.PUBLIC_URL + "/cart"}>{t("cart")}</Link>
               </li>

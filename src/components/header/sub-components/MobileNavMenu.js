@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-// import { useContext } from "react";
-// import MainContext from "../../mainContext/mainContext";
+import { useContext } from "react";
+import MainContext from "../../mainContext/mainContext";
 
 const MobileNavMenu = () => {
   const { t } = useTranslation();
-  // const mainContext = useContext(MainContext);
+  const mainContext = useContext(MainContext);
 
   return (
     <nav className="offcanvas-navigation" id="offcanvas-navigation">
@@ -25,13 +25,13 @@ const MobileNavMenu = () => {
             <li>
               <Link to={process.env.PUBLIC_URL + "/cart"}>{t("cart")}</Link>
             </li>
-            {/* {mainContext.user ?  */}
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/dashboard"}>
-                {t("dashboard")}
-              </Link>
-            </li>
-            {/* : null } */}
+            {mainContext.user ? (
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/dashboard"}>
+                  {t("dashboard")}
+                </Link>
+              </li>
+            ) : null}
             <li>
               <Link to={process.env.PUBLIC_URL + "/checkout"}>
                 {t("checkout")}
