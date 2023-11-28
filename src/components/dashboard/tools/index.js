@@ -196,13 +196,8 @@ const Tools = () => {
   };
 
   const confirm = (params) => {
-    console.log("params");
-    console.log("object", blackImg);
-    console.log("whiteImg", whiteImg);
     const blackLogo = converBlackImg();
     const whiteLogo = converWhiteImg();
-    console.log("blackLogo", blackLogo);
-    console.log("whiteLogo", whiteLogo);
     if ((blackLogo === "", whiteLogo === "")) {
       message.error("Дахин оролдоно уу!!");
     } else {

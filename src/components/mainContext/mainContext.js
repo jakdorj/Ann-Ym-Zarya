@@ -1,14 +1,17 @@
+import axios from "../../axios-orders";
 import React, { useEffect, useState } from "react";
 const MainContext = React.createContext();
 export const MainItem = (props) => {
   const [language, setLanguage] = useState("");
   const [langName, setLangName] = useState("English");
   const [user, setUser] = useState(false);
+  const [logo, setLogo] = useState("");
 
   useEffect(() => {
+    getLogos();
     getLanguage();
     getAdmin();
-  }, []);
+  }, [logo]);
   const getLanguage = () => {
     if (localStorage.getItem("language")) {
       if (localStorage.getItem("language") == 0) {
@@ -45,9 +48,23 @@ export const MainItem = (props) => {
     setUser(false);
     getLanguage();
   };
+  const getLogos = () => {
+    axios
+      .get(`logoList.json`)
+      .then((res) => {
+        setLogo(res.data.data);
+      })
+      .catch((err) => {
+        // message.error("Бранд лого оруулааггүй байна!");
+        console.log("err: ", err);
+      })
+      .finally(() => {
+        // setLogoLoading(false);
+      });
+  };
   return (
     <MainContext.Provider
-      value={{ langName, language, onChangeLanguage, user, logout }}
+      value={{ langName, language, onChangeLanguage, user, logout, logo }}
     >
       {props.children}
     </MainContext.Provider>
