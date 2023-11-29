@@ -6,8 +6,6 @@ import NavMenu from "../../components/header/NavMenu";
 import IconGroup from "../../components/header/IconGroup";
 import MobileMenu from "../../components/header/MobileMenu";
 import HeaderTop from "../../components/header/HeaderTop";
-import MainContext from "../../components/mainContext/mainContext";
-import { useContext } from "react";
 
 const HeaderOne = ({
   layout,
@@ -19,9 +17,7 @@ const HeaderOne = ({
 }) => {
   const [scroll, setScroll] = useState(0);
   const [headerTop, setHeaderTop] = useState(0);
-  const mainContext = useContext(MainContext);
   useEffect(() => {
-    console.log("mainContext.logo", mainContext.logo);
     const header = document.querySelector(".sticky-bar");
     setHeaderTop(header.offsetTop);
     window.addEventListener("scroll", handleScroll);
