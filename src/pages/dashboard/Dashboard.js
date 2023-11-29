@@ -6,11 +6,13 @@ import { Layout, Menu, Tabs, theme } from "antd";
 import Theme from "../../components/dashboard/Theme";
 import Tools from "../../components/dashboard/tools";
 import { useState } from "react";
+import HomeSlider from "../../components/dashboard/homeSlider";
 const { Header, Content, Footer, Sider } = Layout;
 const Dashboard = () => {
   const [menuItems, setMenuItems] = useState([
     { id: 0, label: "Theme", icon: DashboardOutlined },
     { id: 1, label: "Dashboard", icon: DashboardOutlined },
+    { id: 2, label: "Home slider", icon: DashboardOutlined },
   ]);
   const [menuKey, setMenuKey] = useState("0");
   const {
@@ -108,6 +110,8 @@ const Dashboard = () => {
                     items={items}
                     onChange={onChange}
                   />
+                ) : menuKey === "2" ? (
+                  <HomeSlider />
                 ) : null}
               </div>
             </Content>

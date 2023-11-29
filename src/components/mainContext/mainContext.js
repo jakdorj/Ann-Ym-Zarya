@@ -14,7 +14,7 @@ export const MainItem = (props) => {
   }, [logo]);
   const getLanguage = () => {
     if (localStorage.getItem("language")) {
-      if (localStorage.getItem("language") == 0) {
+      if (localStorage.getItem("language") === 0) {
         // eng = 0 || mn = 1
         setLangName("English");
         setLanguage("data.eng");
