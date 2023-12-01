@@ -1,0 +1,25 @@
+-- home slider change
+-- theme home category
+-- mongolian, english, german
+-- category item, 
+-- item add, edit, delete
+
+	item: 	title, 
+		description
+		images
+		count
+		quantity
+		price: 
+		colors: [red, yellow]
+		sizes: [x, m, xl, xxl]
+		state: new arrivals, featured products, best seller
+		type: fashion, kids, christmas
+		percent: 10%
+		
+-- Deal of the day, time 00:00:00
+	Featured Products, best seller, New Arrivals
+
+-- order history
+	add, edit, delete
+
+checkout - dansni dugaar, vne, userInformation orderID, bankni utga:utasni dugaar

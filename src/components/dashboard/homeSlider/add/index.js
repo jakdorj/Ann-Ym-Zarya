@@ -11,7 +11,7 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-const AddDogModal = (props) => {
+const Add = ({ getData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -82,10 +82,10 @@ const AddDogModal = (props) => {
       };
       setTimeout(() => {
         axios
-          .post(`dogList.json?&auth=${token}`, body)
+          .post(`homeSlider.json?&auth=${token}`, body)
           .then((res) => {
             if (res.data.name) message.success("Амжилттай");
-            props.getDogList();
+            getData();
             setIsModalOpen(false);
             //   props.getRegistrationList()
           })
@@ -108,10 +108,10 @@ const AddDogModal = (props) => {
         size="large"
         style={{ marginBottom: "10px", marginLeft: "10px", marginTop: "10px" }}
       >
-        + Нохой нэмэх
+        + Баннер Нэмэх
       </Button>
       <Modal
-        title="Нохой нэмэх"
+        title="Баннер нэмэх"
         open={isModalOpen}
         onCancel={handleCancel}
         footer={null}
@@ -246,4 +246,4 @@ const AddDogModal = (props) => {
     </div>
   );
 };
-export default AddDogModal;
+export default Add;

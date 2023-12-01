@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import MainContext from "../mainContext/mainContext";
 
 const Logo = ({ logoClass }) => {
   const mainContext = useContext(MainContext);
+  useEffect(() => {}, [mainContext.logo.logoBlack]);
   return (
     <div className={clsx(logoClass)}>
       <Link to={process.env.PUBLIC_URL + "/"}>

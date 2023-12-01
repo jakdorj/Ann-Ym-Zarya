@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 // import AddDogModal from "./addDogModal";
 import axios from "./../../../axios-orders";
+import Add from "./add";
 // import EditDog from "./editDog";
 // import DeleteDog from "./delete";
 
@@ -33,8 +34,9 @@ const HomeSlider = () => {
     axios
       .get(`homeSlider.json`)
       .then((res) => {
+        console.log("homeSlider ===> ", res.data);
         // const data = Object.entries(res.data).reverse();
-        setSilderData(data);
+        setSilderData([]);
       })
       .catch((err) => {
         console.log("err: ", err);
@@ -132,19 +134,27 @@ const HomeSlider = () => {
       ellipsis: true,
     },
     {
-      title: "Бага гарчиг",
-      dataIndex: "subTitle",
+      title: "Гарчиг",
+      dataIndex: "title",
+      key: "title",
+      ellipsis: true,
+      ...getColumnSearchProps("title"),
+    },
+    {
+      title: "Жижиг гарчиг дээд",
+      dataIndex: "smallTitleUp",
       key: "subTitle",
       ellipsis: true,
       width: "180px",
       ...getColumnSearchProps("pedId"),
     },
     {
-      title: "Гарчиг",
-      dataIndex: "title",
-      key: "title",
+      title: "Жижиг гарчиг доод",
+      dataIndex: "smallTitleDown",
+      key: "subTitle",
       ellipsis: true,
-      ...getColumnSearchProps("title"),
+      width: "180px",
+      ...getColumnSearchProps("pedId"),
     },
     {
       title: "Зураг",
@@ -187,7 +197,7 @@ const HomeSlider = () => {
   return (
     <div>
       <section>
-        {/* <AddDogModal getDogList={getDogList} /> */}
+        <Add getData={getData} />
         <Table
           columns={columns}
           bordered

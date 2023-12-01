@@ -1,27 +1,56 @@
 import React, { Fragment } from "react";
 import SEO from "../../components/seo";
 import LayoutSeven from "../../layouts/LayoutSeven";
-import { DashboardOutlined } from "@ant-design/icons";
+import {
+  DashboardOutlined,
+  MailOutlined,
+  AppstoreOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
 import { Layout, Menu, Tabs, theme } from "antd";
 import Theme from "../../components/dashboard/Theme";
 import Tools from "../../components/dashboard/tools";
 import { useState } from "react";
 import HomeSlider from "../../components/dashboard/homeSlider";
 const { Header, Content, Footer, Sider } = Layout;
+function getItem(label, key, icon, children, type) {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  };
+}
 const Dashboard = () => {
-  const [menuItems, setMenuItems] = useState([
+  const [menuItems] = useState([
     { id: 0, label: "Theme", icon: DashboardOutlined },
     { id: 1, label: "Dashboard", icon: DashboardOutlined },
-    { id: 2, label: "Home slider", icon: DashboardOutlined },
+    { id: 2, label: "Banner", icon: DashboardOutlined },
   ]);
-  const [menuKey, setMenuKey] = useState("0");
+  const [menuKey, setMenuKey] = useState("theme");
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const menuhandler = (e) => {
+    console.log("menuhandler: ", e);
     setMenuKey(e.key);
   };
-  const items = [
+  const mItems = [
+    getItem("Theme", "theme", <MailOutlined />),
+    getItem("Banner", "banner", <AppstoreOutlined />, [
+      getItem("Home banner", "homeBanner"),
+      getItem("busad", "6"),
+      // getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
+    ]),
+    getItem("Navigation Three", "sub4", <SettingOutlined />, [
+      getItem("Option 9", "9"),
+      getItem("Option 10", "10"),
+      getItem("Option 11", "11"),
+      getItem("Option 12", "12"),
+    ]),
+  ];
+  const tabItems = [
     {
       key: "1",
       label: "Theme",
@@ -75,14 +104,10 @@ const Dashboard = () => {
             />
             <Menu
               theme="dark"
-              mode="inline"
+              mode="vertical"
               onClick={menuhandler}
               defaultSelectedKeys={["0"]}
-              items={menuItems.map((e, i) => ({
-                key: i,
-                label: e.label,
-                icon: React.createElement(e.icon),
-              }))}
+              items={mItems}
             />
           </Sider>
           <Layout>
@@ -104,13 +129,13 @@ const Dashboard = () => {
                   background: colorBgContainer,
                 }}
               >
-                {menuKey === "0" ? (
+                {menuKey === "theme" ? (
                   <Tabs
                     defaultActiveKey="1"
-                    items={items}
+                    items={tabItems}
                     onChange={onChange}
                   />
-                ) : menuKey === "2" ? (
+                ) : menuKey === "homeBanner" ? (
                   <HomeSlider />
                 ) : null}
               </div>

@@ -11,7 +11,7 @@ export const MainItem = (props) => {
     getLogos();
     getLanguage();
     getAdmin();
-  }, [logo]);
+  }, []);
   const getLanguage = () => {
     if (localStorage.getItem("language")) {
       if (localStorage.getItem("language") === 0) {
