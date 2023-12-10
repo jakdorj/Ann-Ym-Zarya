@@ -1,9 +1,18 @@
-import { Button, Form, Input, InputNumber, Modal, Upload, message } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Modal,
+  Select,
+  Upload,
+  message,
+} from "antd";
+import {PlusOutlined} from "@ant-design/icons";
 import axios from "../../../../axios-orders";
-import { EditOutlined } from "@ant-design/icons";
-import { useState } from "react";
-const { TextArea } = Input;
+import {EditOutlined, InfoCircleOutlined} from "@ant-design/icons";
+import {useState} from "react";
+const {TextArea} = Input;
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -11,7 +20,7 @@ const getBase64 = (file) =>
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
-const EditDog = (props) => {
+const Edit = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [getInfo, setInfo] = useState({});
   const [fileList, setFileList] = useState([]);
@@ -54,7 +63,6 @@ const EditDog = (props) => {
     </div>
   );
   const showModal = () => {
-    console.log("props: ", props.info);
     if (props.info.img.length === 1) {
       setFileList([
         {
@@ -65,7 +73,6 @@ const EditDog = (props) => {
         },
       ]);
     } else if (props.info.img.length === 2) {
-      console.log("2r dohi: ");
       setFileList([
         {
           uid: "-1",
@@ -150,26 +157,18 @@ const EditDog = (props) => {
       const body = {
         localId: localStorage.getItem("localId"),
         values: {
-          age: values.age,
-          birth: values.birth,
-          color: values.color,
-          country: values.country,
-          description: values.description,
-          gender: values.gender,
-          pedId: values.pedId,
-          price: values.price,
-          size: values.size,
           title: values.title,
           type: values.type,
+          smallTitleUp: values.smallTitleUp,
+          smallTitleDown: values.smallTitleDown,
           img: img,
         },
       };
-      console.log("body: ", body);
       axios
-        .patch(`dogList/${props.data}.json?&auth=${token}`, body)
+        .patch(`homeSlider/${props.data}.json?&auth=${token}`, body)
         .then((res) => {
           if (res.data.name) message.success("Success");
-          props.getDogList();
+          props.getData();
           setIsModalOpen(false);
         })
         .catch((err) => {
@@ -185,7 +184,7 @@ const EditDog = (props) => {
         type="primary"
         onClick={showModal}
         size="small"
-        icon={<EditOutlined style={{ display: "block" }} />}
+        icon={<EditOutlined style={{display: "block"}} />}
       ></Button>
       <Modal
         title="Registation add"
@@ -198,28 +197,20 @@ const EditDog = (props) => {
           initialValues={{
             remember: true,
             title: getInfo.title,
-            age: getInfo.age,
-            size: getInfo.size,
-            gender: getInfo.gender,
-            color: getInfo.color,
-            description: getInfo.description,
-            pedId: getInfo.pedId,
-            price: getInfo.price,
-            birth: getInfo.birth,
-            country: getInfo.country,
+            smallTitleDown: getInfo.smallTitleDown,
+            smallTitleUp: getInfo.smallTitleUp,
             type: getInfo.type,
             img: getInfo.img ? getInfo.img[0] : "",
           }}
           onFinish={onFinish}
         >
           <Upload
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             listType="picture-circle"
             fileList={fileList}
             onPreview={handlePreview}
             onChange={handleChange}
           >
-            {fileList.length >= 5 ? null : uploadButton}
+            {fileList.length >= 4 ? null : uploadButton}
           </Upload>
           <Modal
             open={previewOpen}
@@ -227,92 +218,49 @@ const EditDog = (props) => {
             footer={null}
             onCancel={handleCancelImg}
           >
-            <img alt="example" style={{ width: "100%" }} src={previewImage} />
+            <img alt="example" style={{width: "100%"}} src={previewImage} />
           </Modal>
-          <Form.Item
-            label="Ped Id"
-            name="pedId"
-            rules={[{ required: true, message: " Ped Id гаа оруулна уу!" }]}
-          >
-            <Input placeholder="Ped Id" />
-          </Form.Item>
           <Form.Item
             label="Гарчиг"
             name="title"
-            rules={[{ required: true, message: " Гарчиг гаа оруулна уу!" }]}
+            rules={[{required: true, message: "Гарчиг аа оруулна уу!"}]}
           >
-            <Input placeholder="Гарчиг" />
+            <Input placeholder="Гарчиг" allowClear size="small" />
           </Form.Item>
+
           <Form.Item
-            label="Төрсөн он"
-            name="birth"
-            rules={[{ required: true, message: " Төрсөн он оо оруулна уу!" }]}
+            label="Гарчиг/Дээд/"
+            name="smallTitleUp"
+            rules={[{required: true, message: "Гарчиг/Дээд/ аа оруулна уу!"}]}
           >
-            <Input placeholder="Төрсөн он" />
+            <Input placeholder="Гарчиг/Дээд/" allowClear />
           </Form.Item>
+
           <Form.Item
-            label="Үнэ"
-            name="price"
-            rules={[{ required: true, message: " Үнэ ээ оруулна уу!" }]}
+            label="Гарчиг/Доод/"
+            name="smallTitleDown"
+            tooltip={{title: "Заавал биш", icon: <InfoCircleOutlined />}}
+            rules={[{required: false, message: "Гарчиг/Доод/ аа оруулна уу!"}]}
           >
-            <InputNumber
-              placeholder="Үнэ"
-              formatter={(value) =>
-                `₮ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-              }
-              style={{ width: "100%" }}
+            <Input placeholder="Гарчиг/Доод/" allowClear />
+          </Form.Item>
+          <Form.Item name="type" label="Төрөл">
+            <Select
+              defaultValue="0"
+              style={{
+                width: 120,
+              }}
+              options={[
+                {
+                  value: "0",
+                  label: "Идэвхгүй",
+                },
+                {
+                  value: "1",
+                  label: "Идэвхтэй",
+                },
+              ]}
             />
-          </Form.Item>
-          <Form.Item
-            label="Нас"
-            name="age"
-            rules={[{ required: true, message: " Нас аа оруулна уу!" }]}
-          >
-            <InputNumber style={{ width: "100%" }} />
-          </Form.Item>
-          <Form.Item
-            label="Хүйс"
-            name="gender"
-            rules={[{ required: true, message: " Хүйс ээ оруулна уу!" }]}
-          >
-            <Input placeholder="Хүйс" />
-          </Form.Item>
-          <Form.Item
-            label="Хэмжээ"
-            name="size"
-            rules={[{ required: true, message: " Хэмжээ гээ оруулна уу!" }]}
-          >
-            <Input placeholder="Хэмжээ" />
-          </Form.Item>
-          <Form.Item
-            label="Төрөл"
-            name="type"
-            rules={[{ required: true, message: " Төрөл өө оруулна уу!" }]}
-          >
-            <Input placeholder="Төрөл" />
-          </Form.Item>
-          <Form.Item
-            label="Өнгө"
-            name="color"
-            rules={[{ required: true, message: " Өнгө өө оруулна уу!" }]}
-          >
-            <Input placeholder="Өнгө" />
-          </Form.Item>
-          <Form.Item
-            label="Хот"
-            name="country"
-            rules={[{ required: true, message: " Хот оо оруулна уу!" }]}
-          >
-            <Input placeholder="Хот" />
-          </Form.Item>
-          <Form.Item
-            label="Дэлгэрэнгуй"
-            name="description"
-            rules={[
-              { required: true, message: "Дэлгэрэнгуй мэдээлэлээ оруулна уу!" },
-            ]}
-          >
-            <TextArea placeholder="Дэлгэрэнгуй" showCount />
           </Form.Item>
 
           <Form.Item>
@@ -320,7 +268,7 @@ const EditDog = (props) => {
               type="primary"
               htmlType="submit"
               className="login-form-button"
-              style={{ width: "100%" }}
+              style={{width: "100%"}}
             >
               {" "}
               Хадгалах{" "}
@@ -331,4 +279,4 @@ const EditDog = (props) => {
     </div>
   );
 };
-export default EditDog;
+export default Edit;

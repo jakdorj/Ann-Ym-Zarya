@@ -1,33 +1,36 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { EffectFade } from 'swiper';
-import Swiper, { SwiperSlide } from "../../components/swiper";
-import sliderData from "../../data/hero-sliders/hero-slider-nine.json";
+import {EffectFade} from "swiper";
+import Swiper, {SwiperSlide} from "../../components/swiper";
 import HeroSliderNineSingle from "../../components/hero-slider/HeroSliderNineSingle.js";
+import {useContext, useEffect, useState} from "react";
+import MainContext from "../../components/mainContext/mainContext.js";
 
 const params = {
   effect: "fade",
   fadeEffect: {
-    crossFade: true
+    crossFade: true,
   },
   modules: [EffectFade],
   loop: true,
   speed: 1000,
   navigation: true,
-  autoHeight: false
+  autoHeight: false,
 };
 
-const HeroSliderNine = ({ spaceLeftClass, spaceRightClass }) => {
+const HeroSliderNine = ({spaceLeftClass, spaceRightClass}) => {
+  const mainContext = useContext(MainContext);
+  useEffect(() => {
+    console.log("aHeroSliderNine", mainContext.homeSliderData);
+  }, [mainContext.homeSliderData]);
   return (
     <div className={clsx("slider-area", spaceLeftClass, spaceRightClass)}>
       <div className="slider-active nav-style-1">
-        {sliderData && (
+        {mainContext.homeSliderData && (
           <Swiper options={params}>
-            {sliderData.map((single, key) => (
+            {mainContext.homeSliderData.map((e, key) => (
               <SwiperSlide key={key}>
-                <HeroSliderNineSingle
-                  data={single}
-                />
+                <HeroSliderNineSingle data={e[1].values} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -39,7 +42,7 @@ const HeroSliderNine = ({ spaceLeftClass, spaceRightClass }) => {
 
 HeroSliderNine.propTypes = {
   spaceLeftClass: PropTypes.string,
-  spaceRightClass: PropTypes.string
+  spaceRightClass: PropTypes.string,
 };
 
 export default HeroSliderNine;

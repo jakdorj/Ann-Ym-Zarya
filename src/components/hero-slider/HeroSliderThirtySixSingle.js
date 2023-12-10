@@ -1,12 +1,14 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
-const HeroSliderThirtySixSingle = ({ data }) => {
+const HeroSliderThirtySixSingle = ({data}) => {
   return (
     <div
       className="single-slider-2 slider-height-2 res-white-overly-xs d-flex valentine-slider-bg align-items-center bg-img"
       style={{
-        backgroundImage: `url(${process.env.PUBLIC_URL + data.backgroundImage})`
+        backgroundImage: `url(${
+          process.env.PUBLIC_URL + data.backgroundImage
+        })`,
       }}
     >
       <div className="container">
@@ -22,14 +24,14 @@ const HeroSliderThirtySixSingle = ({ data }) => {
               </div>
               <h1
                 className="animated"
-                dangerouslySetInnerHTML={{ __html: data.title }}
+                dangerouslySetInnerHTML={{__html: data.title}}
               />
               <div className="valentine-btn btn-hover">
                 <Link
                   className="animated"
                   to={process.env.PUBLIC_URL + "/shop-grid-standard"}
                 >
-                  SHOP NOW
+                  SHOP NOW HeroSliderThirtySixSingle
                 </Link>
               </div>
             </div>
@@ -41,7 +43,7 @@ const HeroSliderThirtySixSingle = ({ data }) => {
 };
 
 HeroSliderThirtySixSingle.propTypes = {
-  data: PropTypes.shape({})
+  data: PropTypes.shape({}),
 };
 
 export default HeroSliderThirtySixSingle;

@@ -1,16 +1,18 @@
 import axios from "../../axios-orders";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 const MainContext = React.createContext();
 export const MainItem = (props) => {
   const [language, setLanguage] = useState("");
   const [langName, setLangName] = useState("English");
   const [user, setUser] = useState(false);
   const [logo, setLogo] = useState("");
+  const [homeSliderData, setHomeSliderData] = useState("");
 
   useEffect(() => {
     getLogos();
     getLanguage();
     getAdmin();
+    homeSlider();
   }, []);
   const getLanguage = () => {
     if (localStorage.getItem("language")) {
@@ -62,9 +64,29 @@ export const MainItem = (props) => {
         // setLogoLoading(false);
       });
   };
+  const homeSlider = () => {
+    axios
+      .get(`homeSlider.json`)
+      .then((res) => {
+        const data = Object.entries(res.data).reverse();
+        // setSilderData(data);
+        setHomeSliderData(data);
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+      });
+  };
   return (
     <MainContext.Provider
-      value={{ langName, language, onChangeLanguage, user, logout, logo }}
+      value={{
+        langName,
+        language,
+        onChangeLanguage,
+        user,
+        logout,
+        logo,
+        homeSliderData,
+      }}
     >
       {props.children}
     </MainContext.Provider>

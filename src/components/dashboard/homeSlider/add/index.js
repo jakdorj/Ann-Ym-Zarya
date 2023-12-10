@@ -1,8 +1,17 @@
-import { Button, Form, Input, InputNumber, Modal, Upload, message } from "antd";
-import { useState } from "react";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Modal,
+  Select,
+  Upload,
+  message,
+} from "antd";
+import {useState} from "react";
 import axios from "../../../../axios-orders";
-import { PlusOutlined } from "@ant-design/icons";
-const { TextArea } = Input;
+import {PlusOutlined, InfoCircleOutlined} from "@ant-design/icons";
+const {TextArea} = Input;
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -11,7 +20,7 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-const Add = ({ getData }) => {
+const Add = ({getData}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -44,7 +53,7 @@ const Add = ({ getData }) => {
   const uploadButton = (
     <div>
       <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Зураг</div>
+      <div style={{marginTop: 8}}>Зураг</div>
     </div>
   );
   const showModal = () => {
@@ -67,27 +76,20 @@ const Add = ({ getData }) => {
         localId: localStorage.getItem("localId"),
         values: {
           title: values.title,
-          age: values.age,
-          size: values.size,
-          birth: values.birth,
-          color: values.color,
-          country: values.country,
-          description: values.description,
-          gender: values.gender,
-          pedId: values.pedId,
-          price: values.price,
+          smallTitleUp: values.smallTitleUp,
+          smallTitleDown: values.smallTitleDown,
           type: values.type,
           img: img,
         },
       };
       setTimeout(() => {
+        console.log("zurags: ", body);
         axios
           .post(`homeSlider.json?&auth=${token}`, body)
           .then((res) => {
-            if (res.data.name) message.success("Амжилттай");
+            // if (res.data.name) message.success("Амжилттай");
             getData();
             setIsModalOpen(false);
-            //   props.getRegistrationList()
           })
           .catch((err) => {
             message.error("Амжилтгүй");
@@ -99,6 +101,9 @@ const Add = ({ getData }) => {
       }, 800);
     }
   };
+  const selHandleChange = (value) => {
+    console.log(`selected ${value}`);
+  };
 
   return (
     <div>
@@ -106,7 +111,7 @@ const Add = ({ getData }) => {
         type="primary"
         onClick={showModal}
         size="large"
-        style={{ marginBottom: "10px", marginLeft: "10px", marginTop: "10px" }}
+        style={{marginBottom: "10px", marginLeft: "10px", marginTop: "10px"}}
       >
         + Баннер Нэмэх
       </Button>
@@ -117,19 +122,18 @@ const Add = ({ getData }) => {
         footer={null}
       >
         <Form
-          size="middle"
-          initialValues={{ remember: true }}
+          size="large"
+          initialValues={{remember: true, type: "0"}}
           onFinish={onFinish}
-          style={{ marginTop: "20px" }}
+          style={{marginTop: "20px"}}
         >
           <Upload
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             listType="picture-circle"
             fileList={fileList}
             onPreview={handlePreview}
             onChange={handleChange}
           >
-            {fileList.length >= 8 ? null : uploadButton}
+            {fileList.length >= 4 ? null : uploadButton}
           </Upload>
           <Modal
             open={previewOpen}
@@ -137,96 +141,50 @@ const Add = ({ getData }) => {
             footer={null}
             onCancel={handleCancelImg}
           >
-            <img alt="example" style={{ width: "100%" }} src={previewImage} />
+            <img alt="example" style={{width: "100%"}} src={previewImage} />
           </Modal>
-          <Form.Item
-            label="Pet ID"
-            name="pedId"
-            rules={[{ required: true, message: "Ped ID оруулна уу!" }]}
-          >
-            <Input placeholder="Pet ID" allowClear />
-          </Form.Item>
           <Form.Item
             label="Гарчиг"
             name="title"
-            rules={[{ required: true, message: "Гарчиг аа оруулна уу!" }]}
+            rules={[{required: true, message: "Гарчиг аа оруулна уу!"}]}
           >
-            <Input placeholder="Гарчиг" allowClear />
-          </Form.Item>
-          <Form.Item
-            label="Төрсөн он"
-            name="birth"
-            rules={[{ required: true, message: "Төрсөн он оо оруулна уу!" }]}
-          >
-            <Input placeholder="Төрсөн он" allowClear />
-          </Form.Item>
-          <Form.Item
-            label="Үнэ"
-            name="price"
-            rules={[{ required: true, message: "Үнэ ээ оруулна уу!" }]}
-          >
-            <InputNumber
-              defaultValue={10000}
-              formatter={(value) =>
-                `₮ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-              }
-              style={{ width: "100%" }}
-            />
-          </Form.Item>
-          <Form.Item
-            label="Нас"
-            name="age"
-            rules={[{ required: true, message: "Нас аа оруулна уу!" }]}
-          >
-            <InputNumber placeholder="Нас" style={{ width: "100%" }} />
-          </Form.Item>
-          <Form.Item
-            label="Хүйс"
-            name="gender"
-            rules={[{ required: true, message: "Хүйс ээ оруулна уу!" }]}
-          >
-            <Input placeholder="Хүйс" allowClear />
-          </Form.Item>
-          <Form.Item
-            label="Хэмжээ"
-            name="size"
-            rules={[{ required: true, message: "Хэмжээ ээ оруулна уу!" }]}
-          >
-            <Input placeholder="Хэмжээ" allowClear />
-          </Form.Item>
-          <Form.Item
-            label="Төрөл"
-            name="type"
-            rules={[{ required: true, message: "Төрөл өө оруулна уу!" }]}
-          >
-            <Input placeholder="Төрөл" allowClear />
+            <Input placeholder="Гарчиг" allowClear size="small" />
           </Form.Item>
 
           <Form.Item
-            label="Өнгө"
-            name="color"
-            rules={[{ required: true, message: "Өнгө өө оруулна уу!" }]}
+            label="Гарчиг/Дээд/"
+            name="smallTitleUp"
+            rules={[{required: true, message: "Гарчиг/Дээд/ аа оруулна уу!"}]}
           >
-            <Input placeholder="Өнгө" allowClear />
+            <Input placeholder="Гарчиг/Дээд/" allowClear />
           </Form.Item>
+
           <Form.Item
-            label="Хот"
-            name="country"
-            rules={[{ required: true, message: "Хот оо оруулна уу!" }]}
+            label="Гарчиг/Доод/"
+            name="smallTitleDown"
+            tooltip={{title: "Заавал биш", icon: <InfoCircleOutlined />}}
+            rules={[{required: false, message: "Гарчиг/Доод/ аа оруулна уу!"}]}
           >
-            <Input placeholder="Хот" allowClear />
+            <Input placeholder="Гарчиг/Доод/" allowClear />
           </Form.Item>
-          <Form.Item
-            label="Дэлгэрэнгуй"
-            name="description"
-            rules={[
-              {
-                required: true,
-                message: "Дэлгэрэнгуй мэдээлэл ээ оруулна уу!",
-              },
-            ]}
-          >
-            <TextArea placeholder="Дэлгэрэнгуй" showCount allowClear />
+          <Form.Item name="type" label="Төрөл">
+            <Select
+              defaultValue="0"
+              style={{
+                width: 120,
+              }}
+              onChange={selHandleChange}
+              options={[
+                {
+                  value: "0",
+                  label: "Идэвхгүй",
+                },
+                {
+                  value: "1",
+                  label: "Идэвхтэй",
+                },
+              ]}
+            />
           </Form.Item>
           <Form.Item>
             <Button
@@ -234,7 +192,7 @@ const Add = ({ getData }) => {
               type="primary"
               htmlType="submit"
               className="login-form-button"
-              style={{ width: "100%" }}
+              style={{width: "100%"}}
               loading={btnLoad}
             >
               {" "}

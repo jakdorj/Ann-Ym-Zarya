@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
-const HeroSliderTwelveSingle = ({ data }) => {
+const HeroSliderTwelveSingle = ({data}) => {
   return (
     <div
       className={clsx("slider-height-4 d-flex align-items-center bg-img")}
-      style={{ backgroundImage: `url(${process.env.PUBLIC_URL + data.image})` }}
+      style={{backgroundImage: `url(${process.env.PUBLIC_URL + data.image})`}}
     >
       <div className="container">
         <div className="row">
@@ -20,7 +20,7 @@ const HeroSliderTwelveSingle = ({ data }) => {
                   className="animated"
                   to={process.env.PUBLIC_URL + data.url}
                 >
-                  SHOP NOW
+                  SHOP NOW HeroSliderTwelveSingle
                 </Link>
               </div>
             </div>
@@ -32,7 +32,7 @@ const HeroSliderTwelveSingle = ({ data }) => {
 };
 
 HeroSliderTwelveSingle.propTypes = {
-  data: PropTypes.shape({})
+  data: PropTypes.shape({}),
 };
 
 export default HeroSliderTwelveSingle;

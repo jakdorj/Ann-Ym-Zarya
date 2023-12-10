@@ -1,10 +1,12 @@
-import { Button, Image, Input, Space, Table } from "antd";
+import {Button, Image, Input, Space, Table, Tag} from "antd";
 import Highlighter from "react-highlight-words";
-import { useEffect, useRef, useState } from "react";
-import { SearchOutlined } from "@ant-design/icons";
+import {useEffect, useRef, useState} from "react";
+import {SearchOutlined} from "@ant-design/icons";
 // import AddDogModal from "./addDogModal";
 import axios from "./../../../axios-orders";
 import Add from "./add";
+import Delete from "./delete";
+import Edit from "./edit";
 // import EditDog from "./editDog";
 // import DeleteDog from "./delete";
 
@@ -22,8 +24,19 @@ const HomeSlider = () => {
   }, []);
   const data = getSliderData.map((e, i) => ({
     key: i,
-    // title: e[1].values ? e[1].values.title : "",
-    // img: e[1].values ? (e[1].values.img ? e[1].values.img[0] : "") : "",
+    title: e[1].values ? e[1].values.title : "",
+    smallTitleUp: e[1].values
+      ? e[1].values.smallTitleUp
+        ? e[1].values.smallTitleUp
+        : ""
+      : "",
+    smallTitleDown: e[1].values
+      ? e[1].values.smallTitleDown
+        ? e[1].values.smallTitleDown
+        : ""
+      : "",
+    type: e[1].values ? (e[1].values.type ? e[1].values.type : "") : "",
+    img: e[1].values ? (e[1].values.img ? e[1].values.img[0] : "") : "",
     action: e,
     allData: e,
   }));
@@ -34,9 +47,8 @@ const HomeSlider = () => {
     axios
       .get(`homeSlider.json`)
       .then((res) => {
-        console.log("homeSlider ===> ", res.data);
-        // const data = Object.entries(res.data).reverse();
-        setSilderData([]);
+        const data = Object.entries(res.data).reverse();
+        setSilderData(data);
       })
       .catch((err) => {
         console.log("err: ", err);
@@ -62,7 +74,7 @@ const HomeSlider = () => {
       clearFilters,
       close,
     }) => (
-      <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
+      <div style={{padding: 8}} onKeyDown={(e) => e.stopPropagation()}>
         <Input
           ref={searchInput}
           placeholder={`Search ${dataIndex}`}
@@ -82,14 +94,14 @@ const HomeSlider = () => {
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
             size="small"
-            style={{ width: 90 }}
+            style={{width: 90}}
           >
             Search
           </Button>
           <Button
             onClick={() => clearFilters && handleReset(clearFilters)}
             size="small"
-            style={{ width: 90 }}
+            style={{width: 90}}
           >
             Reset
           </Button>
@@ -141,20 +153,20 @@ const HomeSlider = () => {
       ...getColumnSearchProps("title"),
     },
     {
-      title: "Жижиг гарчиг дээд",
+      title: "Жижиг гарчиг /Дээд/",
       dataIndex: "smallTitleUp",
-      key: "subTitle",
+      key: "smallTitleUp",
       ellipsis: true,
       width: "180px",
-      ...getColumnSearchProps("pedId"),
+      ...getColumnSearchProps("smallTitleUp"),
     },
     {
-      title: "Жижиг гарчиг доод",
+      title: "Жижиг гарчиг /Доод/",
       dataIndex: "smallTitleDown",
-      key: "subTitle",
+      key: "smallTitleDown",
       ellipsis: true,
       width: "180px",
-      ...getColumnSearchProps("pedId"),
+      ...getColumnSearchProps("smallTitleDown"),
     },
     {
       title: "Зураг",
@@ -174,7 +186,16 @@ const HomeSlider = () => {
       key: "type",
       width: "120px",
       ellipsis: true,
-      ...getColumnSearchProps("type"),
+      render: (type) => (
+        <div>
+          {" "}
+          {type === "1" ? (
+            <Tag color="#87d068">Идэвхтэй</Tag>
+          ) : (
+            <Tag color="red">Идэвхгүй</Tag>
+          )}
+        </div>
+      ),
     },
     {
       title: "Үйлдэл",
@@ -183,13 +204,9 @@ const HomeSlider = () => {
       width: "100px",
       fixed: "right",
       render: (action) => (
-        <div style={{ display: "flex", gap: "10px" }}>
-          {/* <EditDog
-            data={action[0]}
-            getDogList={getDogList}
-            info={action[1].values}
-          />
-          <DeleteDog data={action[0]} getDogList={getDogList} /> */}
+        <div style={{display: "flex", gap: "10px"}}>
+          <Edit data={action[0]} getData={getData} info={action[1].values} />
+          <Delete data={action[0]} getData={getData} />
         </div>
       ),
     },
@@ -202,7 +219,7 @@ const HomeSlider = () => {
           columns={columns}
           bordered
           dataSource={data}
-          scroll={{ y: 600, x: 1200 }}
+          scroll={{y: 600, x: 1200}}
           loading={loadingTable}
           pagination={{
             total: 0,
