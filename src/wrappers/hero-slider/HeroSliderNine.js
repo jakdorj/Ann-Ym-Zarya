@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import {EffectFade} from "swiper";
-import Swiper, {SwiperSlide} from "../../components/swiper";
+import { EffectFade } from "swiper";
+import Swiper, { SwiperSlide } from "../../components/swiper";
 import HeroSliderNineSingle from "../../components/hero-slider/HeroSliderNineSingle.js";
-import {useContext, useEffect, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import MainContext from "../../components/mainContext/mainContext.js";
 
 const params = {
@@ -18,7 +18,7 @@ const params = {
   autoHeight: false,
 };
 
-const HeroSliderNine = ({spaceLeftClass, spaceRightClass}) => {
+const HeroSliderNine = ({ spaceLeftClass, spaceRightClass }) => {
   const mainContext = useContext(MainContext);
   useEffect(() => {
     console.log("aHeroSliderNine", mainContext.homeSliderData);
@@ -30,7 +30,7 @@ const HeroSliderNine = ({spaceLeftClass, spaceRightClass}) => {
           <Swiper options={params}>
             {mainContext.homeSliderData.map((e, key) => (
               <SwiperSlide key={key}>
-                <HeroSliderNineSingle data={e[1].values} />
+                <HeroSliderNineSingle data={e} />
               </SwiperSlide>
             ))}
           </Swiper>

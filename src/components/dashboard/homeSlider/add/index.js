@@ -1,17 +1,7 @@
-import {
-  Button,
-  Form,
-  Input,
-  InputNumber,
-  Modal,
-  Select,
-  Upload,
-  message,
-} from "antd";
-import {useState} from "react";
+import { Button, Form, Input, Modal, Select, Upload, message } from "antd";
+import { useState } from "react";
 import axios from "../../../../axios-orders";
-import {PlusOutlined, InfoCircleOutlined} from "@ant-design/icons";
-const {TextArea} = Input;
+import { PlusOutlined, InfoCircleOutlined } from "@ant-design/icons";
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -20,7 +10,7 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-const Add = ({getData}) => {
+const Add = ({ getData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -53,7 +43,7 @@ const Add = ({getData}) => {
   const uploadButton = (
     <div>
       <PlusOutlined />
-      <div style={{marginTop: 8}}>Зураг</div>
+      <div style={{ marginTop: 8 }}>Зураг</div>
     </div>
   );
   const showModal = () => {
@@ -75,10 +65,14 @@ const Add = ({getData}) => {
       const body = {
         localId: localStorage.getItem("localId"),
         values: {
-          title: values.title,
-          smallTitleUp: values.smallTitleUp,
-          smallTitleDown: values.smallTitleDown,
+          titleMn: values.titleMn,
+          titleEng: values.titleEng,
+          subTitleMn: values.subTitleMn,
+          subTitleEng: values.subTitleEng,
+          buttonNameMn: values.buttonNameMn,
+          buttonNameEng: values.buttonNameEng,
           type: values.type,
+          first: values.first,
           img: img,
         },
       };
@@ -110,8 +104,8 @@ const Add = ({getData}) => {
       <Button
         type="primary"
         onClick={showModal}
-        size="large"
-        style={{marginBottom: "10px", marginLeft: "10px", marginTop: "10px"}}
+        size="middle"
+        style={{ marginBottom: "10px", marginLeft: "10px", marginTop: "10px" }}
       >
         + Баннер Нэмэх
       </Button>
@@ -122,10 +116,17 @@ const Add = ({getData}) => {
         footer={null}
       >
         <Form
-          size="large"
-          initialValues={{remember: true, type: "0"}}
+          size="small"
           onFinish={onFinish}
-          style={{marginTop: "20px"}}
+          style={{ marginTop: "20px" }}
+          labelAlign="left"
+          labelCol={{
+            span: 7,
+          }}
+          wrapperCol={{
+            span: 24,
+          }}
+          layout="horizontal"
         >
           <Upload
             listType="picture-circle"
@@ -133,7 +134,7 @@ const Add = ({getData}) => {
             onPreview={handlePreview}
             onChange={handleChange}
           >
-            {fileList.length >= 4 ? null : uploadButton}
+            {fileList.length >= 1 ? null : uploadButton}
           </Upload>
           <Modal
             open={previewOpen}
@@ -141,38 +142,73 @@ const Add = ({getData}) => {
             footer={null}
             onCancel={handleCancelImg}
           >
-            <img alt="example" style={{width: "100%"}} src={previewImage} />
+            <img alt="example" style={{ width: "100%" }} src={previewImage} />
           </Modal>
           <Form.Item
             label="Гарчиг"
-            name="title"
-            rules={[{required: true, message: "Гарчиг аа оруулна уу!"}]}
+            name="titleMn"
+            rules={[{ required: true, message: "Гарчиг аа оруулна уу!" }]}
           >
             <Input placeholder="Гарчиг" allowClear size="small" />
           </Form.Item>
-
           <Form.Item
-            label="Гарчиг/Дээд/"
-            name="smallTitleUp"
-            rules={[{required: true, message: "Гарчиг/Дээд/ аа оруулна уу!"}]}
+            label="Title"
+            name="titleEng"
+            rules={[{ required: true, message: "Гарчиг аа оруулна уу!" }]}
           >
-            <Input placeholder="Гарчиг/Дээд/" allowClear />
+            <Input placeholder="Title" allowClear size="small" />
+          </Form.Item>
+          <Form.Item
+            label="Гарчиг/Дэд/"
+            name="subTitleMn"
+            tooltip={{
+              title: "<br/> - текстийг доош нь унгана.",
+              icon: <InfoCircleOutlined />,
+            }}
+            rules={[{ required: true, message: "Гарчиг/Дэд/ аа оруулна уу!" }]}
+          >
+            <Input placeholder="Гарчиг/Дэд/" allowClear />
           </Form.Item>
 
           <Form.Item
+            label="Subtitle"
+            name="subTitleEng"
+            tooltip={{
+              title: "<br/> - текстийг доош нь унгана.",
+              icon: <InfoCircleOutlined />,
+            }}
+            rules={[{ required: true, message: "Гарчиг/Дэд/ аа оруулна уу!" }]}
+          >
+            <Input placeholder="Subtitle" allowClear />
+          </Form.Item>
+          {/* <Form.Item
             label="Гарчиг/Доод/"
             name="smallTitleDown"
-            tooltip={{title: "Заавал биш", icon: <InfoCircleOutlined />}}
-            rules={[{required: false, message: "Гарчиг/Доод/ аа оруулна уу!"}]}
+            tooltip={{ title: "Заавал биш", icon: <InfoCircleOutlined /> }}
+            rules={[
+              { required: false, message: "Гарчиг/Доод/ аа оруулна уу!" },
+            ]}
           >
             <Input placeholder="Гарчиг/Доод/" allowClear />
+          </Form.Item> */}
+          <Form.Item
+            label="Товчлуур"
+            name="buttonNameMn"
+            rules={[{ required: true, message: "Товчлуур нэр ээ оруулна уу!" }]}
+          >
+            <Input placeholder="Товчлуур нэр" allowClear />
+          </Form.Item>
+          <Form.Item
+            label="Button name"
+            name="buttonNameEng"
+            rules={[{ required: true, message: "Товчлуур нэр ээ оруулна уу!" }]}
+          >
+            <Input placeholder="Button name" allowClear />
           </Form.Item>
           <Form.Item name="type" label="Төрөл">
             <Select
+              size="large"
               defaultValue="0"
-              style={{
-                width: 120,
-              }}
               onChange={selHandleChange}
               options={[
                 {
@@ -186,13 +222,29 @@ const Add = ({getData}) => {
               ]}
             />
           </Form.Item>
+          <Form.Item name="first" label="Хамгийн эхэнд">
+            <Select
+              size="large"
+              defaultValue="B"
+              options={[
+                {
+                  value: "B",
+                  label: "Идэвхгүй",
+                },
+                {
+                  value: "A",
+                  label: "Идэвхтэй",
+                },
+              ]}
+            />
+          </Form.Item>
           <Form.Item>
             <Button
               size="large"
               type="primary"
               htmlType="submit"
               className="login-form-button"
-              style={{width: "100%"}}
+              style={{ width: "100%" }}
               loading={btnLoad}
             >
               {" "}

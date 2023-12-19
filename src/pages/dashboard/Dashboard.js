@@ -12,6 +12,7 @@ import Theme from "../../components/dashboard/Theme";
 import Tools from "../../components/dashboard/tools";
 import { useState } from "react";
 import HomeSlider from "../../components/dashboard/homeSlider";
+import ThemeChristmas from "../../components/dashboard/themeChristmas";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children, type) {
   return {
@@ -23,6 +24,7 @@ function getItem(label, key, icon, children, type) {
   };
 }
 const Dashboard = () => {
+  const [collapsed, setCollapsed] = useState(true);
   const [menuItems] = useState([
     { id: 0, label: "Theme", icon: DashboardOutlined },
     { id: 1, label: "Dashboard", icon: DashboardOutlined },
@@ -63,8 +65,8 @@ const Dashboard = () => {
     },
     {
       key: "3",
-      label: "Tab 3",
-      children: "Content of Tab Pane 3",
+      label: "Theme christmas",
+      children: <ThemeChristmas />,
     },
   ];
   const onChange = (key) => {
@@ -84,14 +86,17 @@ const Dashboard = () => {
         ></div>
         <Layout>
           <Sider
-            breakpoint="lg"
-            collapsedWidth="0"
-            onBreakpoint={(broken) => {
-              console.log(broken);
-            }}
-            onCollapse={(collapsed, type) => {
-              console.log(collapsed, type);
-            }}
+            collapsible
+            collapsed={collapsed}
+            onCollapse={(value) => setCollapsed(value)}
+            // breakpoint="lg"
+            // collapsedWidth="0"
+            // onBreakpoint={(broken) => {
+            //   console.log(broken);
+            // }}
+            // onCollapse={(collapsed, type) => {
+            //   console.log(collapsed, type);
+            // }}
           >
             <div
               style={{
@@ -106,17 +111,17 @@ const Dashboard = () => {
               theme="dark"
               mode="vertical"
               onClick={menuhandler}
-              defaultSelectedKeys={["0"]}
+              defaultSelectedKeys={["theme"]}
               items={mItems}
             />
           </Sider>
           <Layout>
-            <Header
+            {/* <Header
               style={{
                 padding: 0,
                 background: colorBgContainer,
               }}
-            />
+            /> */}
             <Content
               style={{
                 margin: "24px 16px 0",
@@ -125,7 +130,7 @@ const Dashboard = () => {
               <div
                 style={{
                   padding: 24,
-                  minHeight: 700,
+                  minHeight: 900,
                   background: colorBgContainer,
                 }}
               >

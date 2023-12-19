@@ -9,10 +9,11 @@ const HeroSliderThirtyFour = () => {
         style={{
           backgroundImage: `url(${
             process.env.PUBLIC_URL + sliderData.backgroundImage
-          })`
+          })`,
         }}
       >
         <div className="container">
+          {console.log("aHeroSliderThirtyFour")}
           <div className="row">
             <div className="col-xl-12 col-lg-12 col-md-12 col-12">
               <div className="slider-content-3 slider-content-3-white slider-animated-1 text-center">

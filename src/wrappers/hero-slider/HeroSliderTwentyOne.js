@@ -1,8 +1,8 @@
-import {EffectFade} from "swiper";
-import Swiper, {SwiperSlide} from "../../components/swiper";
+import { EffectFade } from "swiper";
+import Swiper, { SwiperSlide } from "../../components/swiper";
 import sliderData from "../../data/hero-sliders/hero-slider-twenty-one.json";
 import HeroSliderTwentyOneSingle from "../../components/hero-slider/HeroSliderTwentyOneSingle.js";
-import {useContext, useEffect, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "../../axios-orders.js";
 import MainContext from "../../components/mainContext/mainContext.js";
 
@@ -30,7 +30,7 @@ const HeroSliderTwentyOne = () => {
           <Swiper options={params}>
             {mainContext.homeSliderData.map((e, key) => (
               <SwiperSlide key={key}>
-                <HeroSliderTwentyOneSingle data={e[1].values} />
+                <HeroSliderTwentyOneSingle data={e} />
               </SwiperSlide>
             ))}
           </Swiper>

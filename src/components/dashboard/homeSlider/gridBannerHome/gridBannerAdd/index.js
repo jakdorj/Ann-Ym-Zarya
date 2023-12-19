@@ -1,18 +1,7 @@
-import {
-  Button,
-  Form,
-  Input,
-  InputNumber,
-  Modal,
-  Select,
-  Upload,
-  message,
-} from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import axios from "../../../../axios-orders";
-import { EditOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Modal, Select, Upload, message } from "antd";
 import { useState } from "react";
-const { TextArea } = Input;
+import axios from "../../../../../axios-orders";
+import { PlusOutlined, InfoCircleOutlined } from "@ant-design/icons";
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -20,14 +9,15 @@ const getBase64 = (file) =>
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
-const Edit = (props) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [getInfo, setInfo] = useState({});
-  const [fileList, setFileList] = useState([]);
 
+const GridBannerAdd = ({ getData }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
+  const [fileList, setFileList] = useState([]);
+
+  const [btnLoad, setBtnLoad] = useState(false);
 
   const handleCancelImg = () => setPreviewOpen(false);
   const handlePreview = async (file) => {
@@ -53,151 +43,82 @@ const Edit = (props) => {
   const uploadButton = (
     <div>
       <PlusOutlined />
-      <div
-        style={{
-          marginTop: 8,
-        }}
-      >
-        Зураг
-      </div>
+      <div style={{ marginTop: 8 }}>Зураг</div>
     </div>
   );
   const showModal = () => {
-    if (props.info.img.length === 1) {
-      setFileList([
-        {
-          uid: "-1",
-          name: "image.png",
-          status: "done",
-          thumbUrl: props.info.img[0],
-        },
-      ]);
-    } else if (props.info.img.length === 2) {
-      setFileList([
-        {
-          uid: "-1",
-          name: "image.png",
-          status: "done",
-          thumbUrl: props.info.img[0],
-        },
-        {
-          uid: "-2",
-          name: "image2.png",
-          status: "done",
-          thumbUrl: props.info.img[1],
-        },
-      ]);
-    } else if (props.info.img.length === 3) {
-      setFileList([
-        {
-          uid: "-1",
-          name: "image.png",
-          status: "done",
-          thumbUrl: props.info.img[0],
-        },
-        {
-          uid: "-2",
-          name: "image2.png",
-          status: "done",
-          thumbUrl: props.info.img[1],
-        },
-        {
-          uid: "-3",
-          name: "image3.png",
-          status: "done",
-          thumbUrl: props.info.img[2],
-        },
-      ]);
-    } else if (props.info.img.length === 4) {
-      setFileList([
-        {
-          uid: "-1",
-          name: "image.png",
-          status: "done",
-          thumbUrl: props.info.img[0],
-        },
-        {
-          uid: "-2",
-          name: "image2.png",
-          status: "done",
-          thumbUrl: props.info.img[1],
-        },
-        {
-          uid: "-3",
-          name: "image3.png",
-          status: "done",
-          thumbUrl: props.info.img[2],
-        },
-        {
-          uid: "-4",
-          name: "image4.png",
-          status: "done",
-          thumbUrl: props.info.img[3],
-        },
-      ]);
-    }
-
-    setInfo(props.info);
+    console.log("asdasd asdasd");
     setIsModalOpen(true);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
   const onFinish = (values) => {
-    const token = localStorage.getItem("idToken");
-    const img = [];
-    fileList.forEach((element) => {
-      if (element.originFileObj) {
+    if (fileList.length === 0) {
+      message.error("Зураг заавал оруулна уу!");
+    } else {
+      setBtnLoad(true);
+      const token = localStorage.getItem("idToken");
+      const img = [];
+      fileList.forEach((element) => {
         getBasee64(element.originFileObj, (imageUrl) => img.push(imageUrl));
-      } else {
-        img.push(element.thumbUrl);
-      }
-    });
-    setTimeout(() => {
+      });
       const body = {
         localId: localStorage.getItem("localId"),
         values: {
           titleMn: values.titleMn,
-          type: values.type,
           titleEng: values.titleEng,
           subTitleMn: values.subTitleMn,
           subTitleEng: values.subTitleEng,
           buttonNameMn: values.buttonNameMn,
           buttonNameEng: values.buttonNameEng,
-          first: values.first,
+          type: values.type,
           img: img,
         },
       };
-      axios
-        .patch(`homeSlider/${props.data}.json?&auth=${token}`, body)
-        .then((res) => {
-          if (res.data.name) message.success("Success");
-          props.getData();
-          setIsModalOpen(false);
-        })
-        .catch((err) => {
-          console.log("err: ", err);
-          message.error("error");
-          setIsModalOpen(false);
-        });
-    }, 800);
+      setTimeout(() => {
+        console.log("zurags: ", body);
+        axios
+          .post(`homeSlider.json?&auth=${token}`, body)
+          .then((res) => {
+            // if (res.data.name) message.success("Амжилттай");
+            getData();
+            setIsModalOpen(false);
+          })
+          .catch((err) => {
+            message.error("Амжилтгүй");
+            setIsModalOpen(false);
+          })
+          .finally(() => {
+            setBtnLoad(false);
+          });
+      }, 800);
+    }
   };
+  const selHandleChange = (value) => {
+    console.log(`selected ${value}`);
+  };
+
   return (
     <div>
       <Button
         type="primary"
         onClick={showModal}
-        size="small"
-        icon={<EditOutlined style={{ display: "block" }} />}
-      ></Button>
+        size="middle"
+        style={{ marginBottom: "10px", marginLeft: "10px", marginTop: "10px" }}
+      >
+        + Grid banner Нэмэх
+      </Button>
       <Modal
-        title="Баннер засах"
+        title="Баннер нэмэх"
         open={isModalOpen}
         onCancel={handleCancel}
         footer={null}
       >
         <Form
-          size="middle"
+          size="small"
+          onFinish={onFinish}
+          style={{ marginTop: "20px" }}
           labelAlign="left"
           labelCol={{
             span: 7,
@@ -205,19 +126,7 @@ const Edit = (props) => {
           wrapperCol={{
             span: 24,
           }}
-          initialValues={{
-            remember: true,
-            titleMn: getInfo.titleMn,
-            titleEng: getInfo.titleEng,
-            subTitleMn: getInfo.subTitleMn,
-            subTitleEng: getInfo.subTitleEng,
-            buttonNameMn: getInfo.buttonNameMn,
-            buttonNameEng: getInfo.buttonNameEng,
-            first: getInfo.first,
-            type: getInfo.type,
-            img: getInfo.img ? getInfo.img[0] : "",
-          }}
-          onFinish={onFinish}
+          layout="horizontal"
         >
           <Upload
             listType="picture-circle"
@@ -300,6 +209,7 @@ const Edit = (props) => {
             <Select
               size="large"
               defaultValue="0"
+              onChange={selHandleChange}
               options={[
                 {
                   value: "0",
@@ -312,28 +222,14 @@ const Edit = (props) => {
               ]}
             />
           </Form.Item>
-          <Form.Item name="first" label="Хамгийн эхэнд">
-            <Select
-              size="large"
-              defaultValue="A"
-              options={[
-                {
-                  value: "B",
-                  label: "Идэвхгүй",
-                },
-                {
-                  value: "A",
-                  label: "Идэвхтэй",
-                },
-              ]}
-            />
-          </Form.Item>
           <Form.Item>
             <Button
+              size="large"
               type="primary"
               htmlType="submit"
               className="login-form-button"
               style={{ width: "100%" }}
+              loading={btnLoad}
             >
               {" "}
               Хадгалах{" "}
@@ -344,4 +240,4 @@ const Edit = (props) => {
     </div>
   );
 };
-export default Edit;
+export default GridBannerAdd;

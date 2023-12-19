@@ -1,5 +1,5 @@
 import axios from "../../axios-orders";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 const MainContext = React.createContext();
 export const MainItem = (props) => {
   const [language, setLanguage] = useState("");
@@ -66,11 +66,16 @@ export const MainItem = (props) => {
   };
   const homeSlider = () => {
     axios
-      .get(`homeSlider.json`)
+      .get(`homeSlider.json?orderBy="values/type"&equalTo="1"`)
       .then((res) => {
         const data = Object.entries(res.data).reverse();
         // setSilderData(data);
-        setHomeSliderData(data);
+        const resJson = [];
+        data.forEach((element) => {
+          resJson.push(element[1].values);
+        });
+        const datas = resJson.sort((a, b) => (a.first > b.first ? 1 : -1));
+        setHomeSliderData(datas);
       })
       .catch((err) => {
         console.log("err: ", err);

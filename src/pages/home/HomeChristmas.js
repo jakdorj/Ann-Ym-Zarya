@@ -13,7 +13,7 @@ const HomeChristmas = () => {
     <Fragment>
       <SEO
         titleTemplate="Christmas Home"
-        description="Christmas home of flone react minimalist eCommerce template."
+        description="Christmas home of mika ecommerce."
       />
       <LayoutNine
         headerContainerClass="container-fluid"

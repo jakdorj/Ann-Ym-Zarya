@@ -164,7 +164,6 @@ const Edit = (props) => {
           subTitleEng: values.subTitleEng,
           buttonNameMn: values.buttonNameMn,
           buttonNameEng: values.buttonNameEng,
-          first: values.first,
           img: img,
         },
       };
@@ -213,7 +212,6 @@ const Edit = (props) => {
             subTitleEng: getInfo.subTitleEng,
             buttonNameMn: getInfo.buttonNameMn,
             buttonNameEng: getInfo.buttonNameEng,
-            first: getInfo.first,
             type: getInfo.type,
             img: getInfo.img ? getInfo.img[0] : "",
           }}
@@ -312,22 +310,7 @@ const Edit = (props) => {
               ]}
             />
           </Form.Item>
-          <Form.Item name="first" label="Хамгийн эхэнд">
-            <Select
-              size="large"
-              defaultValue="A"
-              options={[
-                {
-                  value: "B",
-                  label: "Идэвхгүй",
-                },
-                {
-                  value: "A",
-                  label: "Идэвхтэй",
-                },
-              ]}
-            />
-          </Form.Item>
+
           <Form.Item>
             <Button
               type="primary"

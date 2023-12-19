@@ -1,7 +1,25 @@
 import { Link } from "react-router-dom";
 import sliderData from "../../data/hero-sliders/hero-slider-thirty-three.json";
+import MainContext from "../../components/mainContext/mainContext";
+import { useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const HeroSliderThirtyThree = () => {
+  const mainContext = useContext(MainContext);
+  const { i18n } = useTranslation();
+  useEffect(() => {
+    console.log("HomeChristmas", mainContext.homeSliderData);
+  }, [mainContext.homeSliderData]);
+
+  //   <Link
+  //   className="animated"
+  //   to={process.env.PUBLIC_URL + "/shop-grid-standard"}
+  // >
+  //   {i18n.resolvedLanguage === "en"
+  //     ? data.buttonNameEng
+  //     : data.buttonNameMn}
+  // </Link>
+
   return (
     <div className="slider-area position-relative">
       <span
@@ -9,7 +27,7 @@ const HeroSliderThirtyThree = () => {
         style={{
           backgroundImage: `url(${
             process.env.PUBLIC_URL + "/assets/img/icon-img/snow1.png"
-          })`
+          })`,
         }}
       />
       <div
@@ -17,7 +35,7 @@ const HeroSliderThirtyThree = () => {
         style={{
           backgroundImage: `url(${
             process.env.PUBLIC_URL + sliderData.backgroundImage
-          })`
+          })`,
         }}
       >
         <div className="container">
@@ -28,7 +46,7 @@ const HeroSliderThirtyThree = () => {
                 <h1 dangerouslySetInnerHTML={{ __html: sliderData.subtitle }} />
                 <div className="slider-btn btn-hover">
                   <Link to={process.env.PUBLIC_URL + sliderData.url}>
-                    SHOP NOW
+                    SHOP NOW christmas
                   </Link>
                 </div>
               </div>

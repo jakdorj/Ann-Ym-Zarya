@@ -1,14 +1,11 @@
-import { Button, Image, Input, Space, Table, Tabs, Tag } from "antd";
+import { Button, Image, Input, Space, Table, Tag } from "antd";
 import Highlighter from "react-highlight-words";
 import { useEffect, useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import axios from "./../../../axios-orders";
-import Add from "./add";
-import Delete from "./delete";
-import Edit from "./edit";
-import GridBannerHomeTab from "./gridBannerHome";
+import axios from "./../../../../axios-orders";
+import GridBannerAdd from "./gridBannerAdd";
 
-const HomeSlider = () => {
+const GridBannerHomeTab = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -26,7 +23,6 @@ const HomeSlider = () => {
     titleEng: e[1].values ? e[1].values.titleEng : "",
     buttonNameMn: e[1].values ? e[1].values.buttonNameMn : "",
     buttonNameEng: e[1].values ? e[1].values.buttonNameEng : "",
-    first: e[1].values ? (e[1].values.first ? e[1].values.first : "") : "",
     subTitleMn: e[1].values
       ? e[1].values.subTitleMn
         ? e[1].values.subTitleMn
@@ -226,24 +222,6 @@ const HomeSlider = () => {
       ),
     },
     {
-      title: "Хамгийн эхэнд",
-      dataIndex: "first",
-      key: "first",
-      width: "100px",
-      ellipsis: true,
-      fixed: "right",
-      render: (type) => (
-        <div>
-          {" "}
-          {type === "A" ? (
-            <Tag color="#87d068">Идэвхтэй</Tag>
-          ) : (
-            <Tag color="red">Идэвхгүй</Tag>
-          )}
-        </div>
-      ),
-    },
-    {
       title: "Үйлдэл",
       dataIndex: "allData",
       key: "allData",
@@ -251,49 +229,29 @@ const HomeSlider = () => {
       fixed: "right",
       render: (action) => (
         <div style={{ display: "flex", gap: "10px" }}>
-          <Edit data={action[0]} getData={getData} info={action[1].values} />
-          <Delete data={action[0]} getData={getData} />
+          {/* <Edit data={action[0]} getData={getData} info={action[1].values} />
+          <Delete data={action[0]} getData={getData} /> */}
         </div>
       ),
     },
   ];
-  const tabItems = [
-    {
-      key: "1",
-      label: "Home banner",
-      children: (
-        <>
-          <Add getData={getData} />
-          <Table
-            columns={columns}
-            bordered
-            dataSource={data}
-            scroll={{ y: 600, x: 1200 }}
-            loading={loadingTable}
-            pagination={{
-              total: 0,
-              showTotal: (total) => `Нийт: ${total}`,
-            }}
-          />
-        </>
-      ),
-    },
-    {
-      key: "2",
-      label: "Grid Banner home",
-      // children: <GridBannerHomeTab />,
-      children: "",
-    },
-  ];
-  const onChange = (key) => {
-    // console.log(key);
-  };
   return (
     <div>
       <section>
-        <Tabs defaultActiveKey="1" items={tabItems} onChange={onChange} />
+        <GridBannerAdd getData={getData} />
+        <Table
+          columns={columns}
+          bordered
+          dataSource={data}
+          scroll={{ y: 600, x: 1200 }}
+          loading={loadingTable}
+          pagination={{
+            total: 0,
+            showTotal: (total) => `Нийт: ${total} - Нохой`,
+          }}
+        />
       </section>
     </div>
   );
 };
-export default HomeSlider;
+export default GridBannerHomeTab;

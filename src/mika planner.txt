@@ -1,19 +1,26 @@
 -- home slider change
 -- theme home category
 -- mongolian, english, german
+
 -- category item, 
+	category:	titleMn
+			titleEng 
+			
 -- item add, edit, delete
 
 	item: 	title, 
 		description
-		images
+		images[6]
 		count
 		quantity
 		price: 
 		colors: [red, yellow]
 		sizes: [x, m, xl, xxl]
-		state: new arrivals, featured products, best seller
-		type: fashion, kids, christmas
+		type: new arrivals, featured products, best seller, default
+		status: active, unactive,
+		categoryType: fashion, kids, christmas, titleEng
+		themeType: blackFriday, chirstmast, valentine,
+		themeImages: 
 		percent: 10%
 		
 -- Deal of the day, time 00:00:00
