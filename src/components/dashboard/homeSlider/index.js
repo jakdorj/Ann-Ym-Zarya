@@ -6,7 +6,6 @@ import axios from "./../../../axios-orders";
 import Add from "./add";
 import Delete from "./delete";
 import Edit from "./edit";
-import GridBannerHomeTab from "./gridBannerHome";
 
 const HomeSlider = () => {
   const [searchText, setSearchText] = useState("");

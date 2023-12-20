@@ -14,7 +14,7 @@ import {
   EllipsisOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../../../axios-orders";
 import css from "./style.module.css";
 import { useNavigate } from "react-router-dom";
@@ -34,8 +34,6 @@ const Tools = () => {
     pkId: "",
   });
   const [edit, setEdit] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [logoImg, setLogoImg] = useState("");
   const [logoLoading, setLogoLoading] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [fileListWhite, setFileListWhite] = useState([]);
@@ -74,7 +72,6 @@ const Tools = () => {
   };
 
   const getData = async () => {
-    setLoading(true);
     setLogoLoading(false);
     await axios
       .get(`colorList.json`)
@@ -90,9 +87,7 @@ const Tools = () => {
         message.error("Бранд өнгө оруулааггүй байна!");
         console.log("err: ", err);
       })
-      .finally(() => {
-        setLoading(false);
-      });
+      .finally(() => {});
     await axios
       .get(`logoList.json`)
       .then((res) => {

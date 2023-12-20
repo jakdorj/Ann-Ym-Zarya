@@ -5,7 +5,7 @@ import { Popconfirm, Skeleton, Tag, message } from "antd";
 import axios from "../../axios-orders";
 import { useEffect } from "react";
 const Theme = () => {
-  const [themes, setThemes] = useState([
+  const [themes] = useState([
     {
       title: "Home-01",
       img: "https://reactdemo.hasthemes.com/flone/p2/img/flone_preview/fashion-home-2.png",

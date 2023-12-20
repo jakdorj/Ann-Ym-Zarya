@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import SEO from "../../components/seo";
 import LayoutSeven from "../../layouts/LayoutSeven";
 import {
-  DashboardOutlined,
   MailOutlined,
   AppstoreOutlined,
   SettingOutlined,
@@ -13,7 +12,7 @@ import Tools from "../../components/dashboard/tools";
 import { useState } from "react";
 import HomeSlider from "../../components/dashboard/homeSlider";
 import ThemeChristmas from "../../components/dashboard/themeChristmas";
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -25,11 +24,6 @@ function getItem(label, key, icon, children, type) {
 }
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(true);
-  const [menuItems] = useState([
-    { id: 0, label: "Theme", icon: DashboardOutlined },
-    { id: 1, label: "Dashboard", icon: DashboardOutlined },
-    { id: 2, label: "Banner", icon: DashboardOutlined },
-  ]);
   const [menuKey, setMenuKey] = useState("theme");
   const {
     token: { colorBgContainer },

@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
 import sliderData from "../../data/hero-sliders/hero-slider-thirty-three.json";
 import MainContext from "../../components/mainContext/mainContext";
-import { useContext, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import { useContext, useEffect } from "react"; 
 
 const HeroSliderThirtyThree = () => {
-  const mainContext = useContext(MainContext);
-  const { i18n } = useTranslation();
+  const mainContext = useContext(MainContext); 
   useEffect(() => {
     console.log("HomeChristmas", mainContext.homeSliderData);
   }, [mainContext.homeSliderData]);

@@ -1,18 +1,8 @@
-import {
-  Button,
-  Form,
-  Input,
-  InputNumber,
-  Modal,
-  Select,
-  Upload,
-  message,
-} from "antd";
+import { Button, Form, Input, Modal, Select, Upload, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import axios from "../../../../axios-orders";
 import { EditOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import { useState } from "react";
-const { TextArea } = Input;
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();

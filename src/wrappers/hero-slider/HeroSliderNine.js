@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { EffectFade } from "swiper";
 import Swiper, { SwiperSlide } from "../../components/swiper";
 import HeroSliderNineSingle from "../../components/hero-slider/HeroSliderNineSingle.js";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import MainContext from "../../components/mainContext/mainContext.js";
 
 const params = {
