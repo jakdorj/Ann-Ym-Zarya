@@ -96,7 +96,22 @@ const ThemeChristmas = () => {
     // tabValue: 1 = english | 2 = mongol
     // updateChristmas: true = update | false = save
     if (updateChristmas) {
-      console.log("update");
+      // console.log("update");
+      const token = localStorage.getItem("idToken");
+      const body = {
+        localId: localStorage.getItem("localId"),
+        values: { ...getData },
+      };
+      axios
+        .patch(`christmastTheme/${getChristmaskey}.json?&auth=${token}`, body)
+        .then((res) => {
+          getDataFunc();
+          message.success("Амжилттай");
+        })
+        .catch((err) => {
+          console.log("err: ", err);
+          message.error("error");
+        });
       return;
     } else {
       if (
@@ -267,6 +282,7 @@ const ThemeChristmas = () => {
           </div>
 
           <BannerArea
+            tabValue={tabValue}
             getDataFunc={getDataFunc}
             updateChristmas={updateChristmas}
             getChristmaskey={getChristmaskey}

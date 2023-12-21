@@ -39,7 +39,7 @@ const HomeChristmas = () => {
         <CountDownSix
           spaceTopClass="pt-95"
           spaceBottomClass="pb-95"
-          dateTime="November 13, 2023 12:12:00"
+          dateTime="12-24-2023 16:14:26"
           countDownImage="/assets/img/banner/deal-11.png"
         />
         {/* testimonial */}

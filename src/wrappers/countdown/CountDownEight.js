@@ -7,13 +7,17 @@ const CountDownEight = ({
   backgroundImage,
   dateTime,
   spaceTopClass,
-  spaceBottomClass
+  spaceBottomClass,
 }) => {
   return (
     <div
-      className={clsx("funfact-area funfact-valentine bg-img", spaceTopClass, spaceBottomClass)}
+      className={clsx(
+        "funfact-area funfact-valentine bg-img",
+        spaceTopClass,
+        spaceBottomClass
+      )}
       style={{
-        backgroundImage: `url(${process.env.PUBLIC_URL + backgroundImage})`
+        backgroundImage: `url(${process.env.PUBLIC_URL + backgroundImage})`,
       }}
     >
       <div className="container">
@@ -41,7 +45,7 @@ CountDownEight.propTypes = {
   backgroundImage: PropTypes.string,
   dateTime: PropTypes.string,
   spaceBottomClass: PropTypes.string,
-  spaceTopClass: PropTypes.string
+  spaceTopClass: PropTypes.string,
 };
 
 export default CountDownEight;

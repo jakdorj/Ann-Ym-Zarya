@@ -48,9 +48,9 @@ const BackgroundImage = ({
       axios
         .patch(`christmastTheme/${getChristmaskey}.json?&auth=${token}`, body)
         .then((res) => {
+          setIsModalOpen(false);
           getDataFunc();
           message.success("Амжилттай");
-          setIsModalOpen(false);
         })
         .catch((err) => {
           console.log("err: ", err);
