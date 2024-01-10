@@ -1,16 +1,17 @@
-import { Button, Tabs, Typography, message } from "antd";
-import { useEffect, useState } from "react";
+import {Button, Tabs, Typography, message} from "antd";
+import {useEffect, useState} from "react";
 // import { SearchOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import axios from "../../../axios-orders";
 import css from "./style.module.css";
 import BackgroundImage from "./backgroundImage";
 import HomeBgImgSmall from "./homeBgImgSmall";
 import BannerArea from "./bannerArea";
-const { Paragraph } = Typography;
+const {Paragraph} = Typography;
 const ThemeChristmas = () => {
   const [getChristmaskey, setChristmaskey] = useState();
   // const [loadingTable, setLoadingTable] = useState(false);
   const [updateChristmas, setUpdateChristmas] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [getData, setData] = useState({
     titleMn: "Шинэ Жилийн Сollection",
     titleEng: "New Year Offer Collection",
@@ -18,6 +19,8 @@ const ThemeChristmas = () => {
     subTitleEng: "Christmas Sale",
     buttonNameMn: "Дэлгүүр",
     buttonNameEng: "Shop now",
+    homeBgImgSmall: "",
+    homeBgImgFull: "assets/img/tour/banner-background-image1.jpg",
   });
   //   homeBgImgFull: "",
   // homeBgImgSmall: "",
@@ -80,6 +83,7 @@ const ThemeChristmas = () => {
           return;
         } else {
           const data = Object.entries(res.data).reverse();
+          console.log("result chirstmas: ", data);
           setData(data[0][1].values);
           setChristmaskey(data[0][0]);
           setUpdateChristmas(true);
@@ -95,12 +99,13 @@ const ThemeChristmas = () => {
   const save = () => {
     // tabValue: 1 = english | 2 = mongol
     // updateChristmas: true = update | false = save
+    setLoading(true);
     if (updateChristmas) {
       // console.log("update");
       const token = localStorage.getItem("idToken");
       const body = {
         localId: localStorage.getItem("localId"),
-        values: { ...getData },
+        values: {...getData},
       };
       axios
         .patch(`christmastTheme/${getChristmaskey}.json?&auth=${token}`, body)
@@ -111,6 +116,9 @@ const ThemeChristmas = () => {
         .catch((err) => {
           console.log("err: ", err);
           message.error("error");
+        })
+        .finally(() => {
+          setLoading(false);
         });
       return;
     } else {
@@ -143,13 +151,12 @@ const ThemeChristmas = () => {
             .then((res) => {
               // if (res.data.name) message.success("Амжилттай");
               getDataFunc();
-              console.log("res: ", res);
             })
             .catch((err) => {
               message.error("Амжилтгүй");
             })
             .finally(() => {
-              // setBtnLoad(false);
+              setLoading(false);
             });
         }, 800);
       }
@@ -175,12 +182,12 @@ const ThemeChristmas = () => {
           >
             <img
               alt="mika"
-              style={{ width: "100%", height: "100%" }}
+              style={{width: "100%", height: "100%"}}
               height={100}
               width={100}
-              src="assets/img/tour/banner-background-image1.jpg"
+              src={getData.homeBgImgFull}
             />
-            <div style={{ position: "absolute", top: "20px", left: "20px" }}>
+            <div style={{position: "absolute", top: "20px", left: "20px"}}>
               <BackgroundImage
                 getDataFunc={getDataFunc}
                 updateChristmas={updateChristmas}
@@ -209,8 +216,8 @@ const ThemeChristmas = () => {
                         editable={{
                           onChange: (e) =>
                             tabValue === "1"
-                              ? setData({ ...getData, subTitleEng: e })
-                              : setData({ ...getData, subTitleMn: e }),
+                              ? setData({...getData, subTitleEng: e})
+                              : setData({...getData, subTitleMn: e}),
                         }}
                       >
                         {tabValue === "1"
@@ -231,8 +238,8 @@ const ThemeChristmas = () => {
                     editable={{
                       onChange: (e) =>
                         tabValue === "1"
-                          ? setData({ ...getData, titleEng: e })
-                          : setData({ ...getData, titleMn: e }),
+                          ? setData({...getData, titleEng: e})
+                          : setData({...getData, titleMn: e}),
                     }}
                   >
                     {tabValue === "1" ? getData.titleEng : getData.titleMn}
@@ -250,12 +257,12 @@ const ThemeChristmas = () => {
                     }}
                   >
                     <Paragraph
-                      style={{ fontSize: "16px", margin: 0 }}
+                      style={{fontSize: "16px", margin: 0}}
                       editable={{
                         onChange: (e) =>
                           tabValue === "1"
-                            ? setData({ ...getData, buttonNameEng: e })
-                            : setData({ ...getData, buttonNameMn: e }),
+                            ? setData({...getData, buttonNameEng: e})
+                            : setData({...getData, buttonNameMn: e}),
                       }}
                     >
                       {tabValue === "1"
@@ -266,6 +273,15 @@ const ThemeChristmas = () => {
                 </div>
               </div>
               <div className={css.DetailImg}>
+                <div style={{position: "absolute"}}>
+                  <img
+                    alt="mika"
+                    style={{width: "100%", height: "100%"}}
+                    height={100}
+                    width={100}
+                    src={getData.homeBgImgSmall}
+                  />
+                </div>
                 <HomeBgImgSmall
                   getDataFunc={getDataFunc}
                   updateChristmas={updateChristmas}
@@ -276,7 +292,12 @@ const ThemeChristmas = () => {
             </div>
           </div>
           <div>
-            <Button onClick={save} type="primary" size="large">
+            <Button
+              onClick={save}
+              type="primary"
+              size="large"
+              loading={loading}
+            >
               Хадгалах
             </Button>
           </div>

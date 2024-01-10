@@ -1,48 +1,48 @@
-.box{
-    position: relative;
-    width: 370px;
-    height: 218px;
-    background: #ccc;
+.box {
+  position: relative;
+  width: 370px;
+  height: 218px;
+  background: #ccc;
 }
-.detail{
-    position: absolute;
-    top: 40px;
-    left: 36px;
+.detail {
+  position: absolute;
+  top: 40px;
+  left: 36px;
 }
-.subFlex{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-family: Cormorant Garamond;
-    margin-top: -10px;
+.subFlex {
+  display: flex;
+
+  gap: 5px;
+  font-family: Cormorant Garamond;
+  margin-top: -10px;
 }
-.title{
-    color: #df262b;
-    font-size: 36px; 
-    font-weight: 600;
-    margin: 0;
-    font-family: Cormorant Garamond;
+.title {
+  color: #df262b;
+  font-size: 36px;
+  font-weight: 600;
+  margin: 0;
+  font-family: Cormorant Garamond;
 }
-.subTitle{
-    font-weight: 600;
-    font-size: 18px; 
-    
+.subTitle {
+  font-weight: 600;
+  font-size: 18px;
 }
-.price{
-    color: #df262b;
-    font-size: 20px;
-    font-weight: 600;
+.price {
+  color: #df262b;
+  font-size: 20px;
+  font-weight: 600;
 }
-.dod{
-    position: relative;
-    width: 549px;
-    height: 352px;
-    border: 1px solid #ccc;
+.dod {
+  position: relative;
+  width: 549px;
+  height: 100%;
+  max-height: 352px;
+  border: 1px solid #ccc;
 }
-.datePick{
-    position: absolute;
-    display: flex;
-    gap: 20px;
-    top: 20px;
-    left: 50px;
+.datePick {
+  position: absolute;
+  display: flex;
+  gap: 20px;
+  top: 20px;
+  left: 50px;
 }

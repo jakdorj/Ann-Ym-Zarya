@@ -1,5 +1,5 @@
 import axios from "../../axios-orders";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 const MainContext = React.createContext();
 export const MainItem = (props) => {
   const [language, setLanguage] = useState("");
@@ -7,12 +7,14 @@ export const MainItem = (props) => {
   const [user, setUser] = useState(false);
   const [logo, setLogo] = useState("");
   const [homeSliderData, setHomeSliderData] = useState("");
-
+  const [christmasData, setChrismasData] = useState();
+  const [christmasDataLoad, setChrismasDataLoad] = useState(false);
   useEffect(() => {
     getLogos();
     getLanguage();
     getAdmin();
     homeSlider();
+    getChristmas();
   }, []);
   const getLanguage = () => {
     if (localStorage.getItem("language")) {
@@ -81,6 +83,27 @@ export const MainItem = (props) => {
         console.log("err: ", err);
       });
   };
+  const getChristmas = () => {
+    setChrismasDataLoad(true);
+    axios
+      .get(`christmastTheme.json`)
+      .then((res) => {
+        console.log("res: ", res.data);
+        if (res.data === "" || res.data === null) {
+          console.log("null");
+          return;
+        } else {
+          const data = Object.entries(res.data).reverse();
+          return setChrismasData(data[0][1].values);
+        }
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+      })
+      .finally(() => {
+        setChrismasDataLoad(false);
+      });
+  };
   return (
     <MainContext.Provider
       value={{
@@ -91,6 +114,8 @@ export const MainItem = (props) => {
         logout,
         logo,
         homeSliderData,
+        christmasData,
+        christmasDataLoad,
       }}
     >
       {props.children}

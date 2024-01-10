@@ -1,6 +1,6 @@
-import { Button, Modal, Upload, message } from "antd";
-import { useState } from "react";
-import { PlusOutlined } from "@ant-design/icons";
+import {Button, Modal, Upload, message} from "antd";
+import {useState} from "react";
+import {PlusOutlined} from "@ant-design/icons";
 import axios from "../../../../axios-orders";
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -19,6 +19,7 @@ const HomeBgImgSmall = ({
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [bgImg, setBgImg] = useState("");
 
@@ -34,6 +35,7 @@ const HomeBgImgSmall = ({
     reader.readAsDataURL(img);
   }
   const handleOk = () => {
+    setLoading(true);
     if (fileList.length === 0) {
       return message.error("Зураг заавал оруулна уу!");
     }
@@ -43,7 +45,7 @@ const HomeBgImgSmall = ({
       const token = localStorage.getItem("idToken");
       const body = {
         localId: localStorage.getItem("localId"),
-        values: { ...getData, homeBgImgSmall: bgImg },
+        values: {...getData, homeBgImgSmall: bgImg},
       };
       axios
         .patch(`christmastTheme/${getChristmaskey}.json?&auth=${token}`, body)
@@ -56,6 +58,9 @@ const HomeBgImgSmall = ({
           console.log("err: ", err);
           message.error("error");
           setIsModalOpen(false);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     } else {
       // updateChristmas: true = update | false = save
@@ -84,7 +89,7 @@ const HomeBgImgSmall = ({
             message.error("Амжилтгүй");
           })
           .finally(() => {
-            // setBtnLoad(false);
+            setLoading(false);
           });
       }, 800);
     }
@@ -108,7 +113,7 @@ const HomeBgImgSmall = ({
   const uploadButton = (
     <div>
       <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Зураг</div>
+      <div style={{marginTop: 8}}>Зураг</div>
     </div>
   );
   const handleChange = (file) => {
@@ -127,6 +132,7 @@ const HomeBgImgSmall = ({
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        confirmLoading={loading}
       >
         <Upload
           listType="picture-circle"
@@ -142,7 +148,7 @@ const HomeBgImgSmall = ({
           footer={null}
           onCancel={handleCancelImg}
         >
-          <img alt="example" style={{ width: "100%" }} src={previewImage} />
+          <img alt="example" style={{width: "100%"}} src={previewImage} />
         </Modal>
       </Modal>
     </div>

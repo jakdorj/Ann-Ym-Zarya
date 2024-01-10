@@ -1,19 +1,21 @@
 import {
   Button,
   DatePicker,
+  Divider,
   Modal,
   Space,
   Typography,
   Upload,
   message,
 } from "antd";
-import { useState } from "react";
-import { PlusOutlined } from "@ant-design/icons";
+import {useEffect, useState} from "react";
+import {PlusOutlined} from "@ant-design/icons";
 import axios from "../../../../axios-orders";
 import css from "./style.module.css";
 import dayjs from "dayjs";
-const { Paragraph } = Typography;
-const { RangePicker } = DatePicker;
+import BABI from "./bannerAreaBgImg";
+const {Paragraph} = Typography;
+const {RangePicker} = DatePicker;
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -32,6 +34,7 @@ const BannerArea = ({
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [item, setItem] = useState({
     itemTitleOneMn: "Эрэгтэй хүүхэд",
     itemTitleOneEng: "Male kids",
@@ -40,16 +43,16 @@ const BannerArea = ({
     itemTitleThreeMn: "Бусад хувцас",
     itemTitleThreeEng: "Other clothes",
 
-    itemSubTitleOneMn: "Starting at",
+    itemSubTitleOneMn: "Эхлэх үнэ",
     itemSubTitleOneEng: "Starting at",
-    itemSubTwoMn: "Starting at",
-    itemSubTwoEng: "Starting at",
-    itemSubThreeMn: "Starting at",
-    itemSubThreeEng: "Starting at",
+    itemSubTitleTwoMn: "Эхлэх үнэ",
+    itemSubTitleTwoEng: "Starting at",
+    itemSubTitleThreeMn: "Эхлэх үнэ",
+    itemSubTitleThreeEng: "Starting at",
 
-    itemOnePrice: "$99",
-    itemTwoPrice: "$99",
-    itemThreePrice: "$99",
+    itemOnePrice: "99",
+    itemTwoPrice: "99",
+    itemThreePrice: "99",
 
     itemOneImg: "assets/img/tour/banner-48.png",
     itemTwoImg: "assets/img/tour/banner-49.png",
@@ -62,10 +65,17 @@ const BannerArea = ({
   const [fileList, setFileList] = useState([]);
   const [bgImg, setBgImg] = useState("");
 
+  useEffect(() => {
+    console.log("updateChristmas: ", getData);
+    if (updateChristmas) {
+      setItem(getData);
+    }
+    setLoading(false);
+  }, [getData]);
   const onChange = (value, dateString) => {
     console.log("Selected Time: ", value);
     console.log("Formatted Selected Time: ", dateString);
-    setItem({ ...item, dealOfTheDayTime: dateString });
+    setItem({...item, dealOfTheDayTime: dateString});
   };
   const onOk = (value) => {
     console.log("onOk: ", value);
@@ -85,57 +95,8 @@ const BannerArea = ({
     if (fileList.length === 0) {
       return message.error("Зураг заавал оруулна уу!");
     }
-    // setIsModalOpen(false);
-    // updateChristmas: true = update | false = save
-    if (updateChristmas) {
-      const token = localStorage.getItem("idToken");
-      const body = {
-        localId: localStorage.getItem("localId"),
-        values: { ...getData, homeBgImgSmall: bgImg },
-      };
-      axios
-        .patch(`christmastTheme/${getChristmaskey}.json?&auth=${token}`, body)
-        .then((res) => {
-          getDataFunc();
-          message.success("Амжилттай");
-          setIsModalOpen(false);
-        })
-        .catch((err) => {
-          console.log("err: ", err);
-          message.error("error");
-          setIsModalOpen(false);
-        });
-    } else {
-      // updateChristmas: true = update | false = save
-      const token = localStorage.getItem("idToken");
-      const body = {
-        localId: localStorage.getItem("localId"),
-        values: {
-          titleMn: getData.titleMn,
-          titleEng: getData.titleEng,
-          subTitleMn: getData.subTitleMn,
-          subTitleEng: getData.subTitleEng,
-          buttonNameMn: getData.buttonNameMn,
-          buttonNameEng: getData.buttonNameEng,
-          homeBgImgSmall: bgImg,
-        },
-      };
-      setTimeout(() => {
-        axios
-          .post(`christmastTheme.json?&auth=${token}`, body)
-          .then((res) => {
-            // if (res.data.name) message.success("Амжилттай");
-            getDataFunc();
-            message.success("Амжилттай");
-          })
-          .catch((err) => {
-            message.error("Амжилтгүй");
-          })
-          .finally(() => {
-            // setBtnLoad(false);
-          });
-      }, 800);
-    }
+    setIsModalOpen(false);
+    setItem({...item, dealOfTheDayImg: bgImg});
   };
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -156,7 +117,7 @@ const BannerArea = ({
   const uploadButton = (
     <div>
       <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Зураг</div>
+      <div style={{marginTop: 8}}>Зураг</div>
     </div>
   );
   const handleChange = (file) => {
@@ -165,16 +126,61 @@ const BannerArea = ({
       setBgImg(imageUrl);
     });
   };
+  const bannerAreaSave = () => {
+    setLoading(true);
+    if (updateChristmas) {
+      console.log("updateChristmas: ", updateChristmas);
+      const token = localStorage.getItem("idToken");
+      const body = {
+        localId: localStorage.getItem("localId"),
+        values: {...item},
+      };
+      axios
+        .patch(`christmastTheme/${getChristmaskey}.json?&auth=${token}`, body)
+        .then((res) => {
+          getDataFunc();
+          message.success("Амжилттай");
+          setIsModalOpen(false);
+        })
+        .catch((err) => {
+          console.log("err: ", err);
+          message.error("error");
+          setIsModalOpen(false);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      // updateChristmas: true = update | false = save
+      const token = localStorage.getItem("idToken");
+      const body = {
+        localId: localStorage.getItem("localId"),
+        values: {...item},
+      };
+      setTimeout(() => {
+        axios
+          .post(`christmastTheme.json?&auth=${token}`, body)
+          .then((res) => {
+            // if (res.data.name) message.success("Амжилттай");
+            getDataFunc();
+            message.success("Амжилттай");
+          })
+          .catch((err) => {
+            message.error("Амжилтгүй");
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }, 800);
+    }
+  };
   return (
-    <div style={{ width: "100%", marginTop: "30px" }}>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <div style={{ display: "flex", gap: "20px" }}>
+    <div style={{width: "100%", marginTop: "30px"}}>
+      <Divider orientation="center">Banner Area</Divider>
+      <div style={{display: "flex", justifyContent: "center"}}>
+        <div style={{display: "flex", gap: "20px"}}>
           <div className={css.box}>
-            <img
-              alt="example"
-              style={{ width: "100%" }}
-              src={item.itemOneImg}
-            />
+            <img alt="example" style={{width: "100%"}} src={item.itemOneImg} />
             <div className={css.detail}>
               <div className={css.title}>
                 {/* {item.itemTitleOneEng} */}
@@ -188,8 +194,8 @@ const BannerArea = ({
                   editable={{
                     onChange: (e) =>
                       tabValue === "1"
-                        ? setItem({ ...item, itemTitleOneEng: e })
-                        : setItem({ ...item, itemTitleOneMn: e }),
+                        ? setItem({...item, itemTitleOneEng: e})
+                        : setItem({...item, itemTitleOneMn: e}),
                   }}
                 >
                   {tabValue === "1"
@@ -208,8 +214,8 @@ const BannerArea = ({
                     editable={{
                       onChange: (e) =>
                         tabValue === "1"
-                          ? setItem({ ...item, itemSubTitleOneEng: e })
-                          : setItem({ ...item, itemSubTitleOneMn: e }),
+                          ? setItem({...item, itemSubTitleOneEng: e})
+                          : setItem({...item, itemSubTitleOneMn: e}),
                     }}
                   >
                     {tabValue === "1"
@@ -227,96 +233,218 @@ const BannerArea = ({
                       fontFamily: "Cormorant Garamond",
                     }}
                     editable={{
-                      onChange: (e) => setItem({ ...item, itemOnePrice: e }),
+                      onChange: (e) => setItem({...item, itemOnePrice: e}),
                     }}
                   >
-                    {item.itemOnePrice}
+                    ${item.itemOnePrice}
                   </Paragraph>
                 </div>
               </div>
             </div>
+            <div style={{position: "absolute", bottom: "20px", right: "20px"}}>
+              <BABI setItem={setItem} item={item} imgNumber={1} />
+            </div>
           </div>
           <div className={css.box}>
-            <img
-              alt="example"
-              style={{ width: "100%" }}
-              src={item.itemTwoImg}
-            />
+            <img alt="example" style={{width: "100%"}} src={item.itemTwoImg} />
             <div className={css.detail}>
-              <div className={css.title}>{item.itemTitleTwoEng}</div>
-              <div className={css.subFlex}>
-                <div className={css.subTitle}>{item.itemSubTwoEng}</div>
-                <div className={css.price}>{item.itemTwoPrice}</div>
+              <div className={css.title}>
+                {/* {item.itemTitleOneEng} */}
+                <Paragraph
+                  style={{
+                    fontSize: "36px",
+                    color: "#df262b",
+                    margin: 0,
+                    fontFamily: "Cormorant Garamond",
+                  }}
+                  editable={{
+                    onChange: (e) =>
+                      tabValue === "1"
+                        ? setItem({...item, itemTitleTwoEng: e})
+                        : setItem({...item, itemTitleTwoMn: e}),
+                  }}
+                >
+                  {tabValue === "1"
+                    ? item.itemTitleTwoEng
+                    : item.itemTitleTwoMn}
+                </Paragraph>
               </div>
+              <div className={css.subFlex}>
+                <div className={css.subTitle}>
+                  <Paragraph
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: "600",
+                      fontFamily: "Cormorant Garamond",
+                    }}
+                    editable={{
+                      onChange: (e) =>
+                        tabValue === "1"
+                          ? setItem({...item, itemSubTitleTwoEng: e})
+                          : setItem({...item, itemSubTitleTwoMn: e}),
+                    }}
+                  >
+                    {tabValue === "1"
+                      ? item.itemSubTitleTwoEng
+                      : item.itemSubTitleTwoMn}
+                  </Paragraph>
+                </div>
+                <div className={css.price}>
+                  <Paragraph
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: "600",
+                      color: "#df262b",
+                      margin: 0,
+                      fontFamily: "Cormorant Garamond",
+                    }}
+                    editable={{
+                      onChange: (e) => setItem({...item, itemTwoPrice: e}),
+                    }}
+                  >
+                    ${item.itemTwoPrice}
+                  </Paragraph>
+                </div>
+              </div>
+            </div>
+            <div style={{position: "absolute", bottom: "20px", right: "20px"}}>
+              <BABI setItem={setItem} item={item} imgNumber={2} />
             </div>
           </div>
           <div className={css.box}>
             <img
               alt="example"
-              style={{ width: "100%" }}
+              style={{width: "100%"}}
               src={item.itemThreeImg}
             />
             <div className={css.detail}>
-              <div className={css.title}>{item.itemTitleThreeEng}</div>
-              <div className={css.subFlex}>
-                <div className={css.subTitle}>{item.itemSubThreeEng}</div>
-                <div className={css.price}>{item.itemThreePrice}</div>
+              <div className={css.title}>
+                {/* {item.itemTitleOneEng} */}
+                <Paragraph
+                  style={{
+                    fontSize: "36px",
+                    color: "#df262b",
+                    margin: 0,
+                    fontFamily: "Cormorant Garamond",
+                  }}
+                  editable={{
+                    onChange: (e) =>
+                      tabValue === "1"
+                        ? setItem({...item, itemTitleThreeEng: e})
+                        : setItem({...item, itemTitleThreeMn: e}),
+                  }}
+                >
+                  {tabValue === "1"
+                    ? item.itemTitleThreeEng
+                    : item.itemTitleThreeMn}
+                </Paragraph>
               </div>
+              <div className={css.subFlex}>
+                <div className={css.subTitle}>
+                  <Paragraph
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: "600",
+                      fontFamily: "Cormorant Garamond",
+                    }}
+                    editable={{
+                      onChange: (e) =>
+                        tabValue === "1"
+                          ? setItem({...item, itemSubTitleThreeEng: e})
+                          : setItem({...item, itemSubTitleThreeMn: e}),
+                    }}
+                  >
+                    {tabValue === "1"
+                      ? item.itemSubTitleThreeEng
+                      : item.itemSubTitleThreeMn}
+                  </Paragraph>
+                </div>
+                <div className={css.price}>
+                  <Paragraph
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: "600",
+                      color: "#df262b",
+                      margin: 0,
+                      fontFamily: "Cormorant Garamond",
+                    }}
+                    editable={{
+                      onChange: (e) => setItem({...item, itemThreePrice: e}),
+                    }}
+                  >
+                    ${item.itemThreePrice}
+                  </Paragraph>
+                </div>
+              </div>
+            </div>
+            <div style={{position: "absolute", bottom: "20px", right: "20px"}}>
+              <BABI setItem={setItem} item={item} imgNumber={3} />
             </div>
           </div>
         </div>
       </div>
-      <Modal
-        title="Зураг солих"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Upload
-          listType="picture-circle"
-          fileList={fileList}
-          onPreview={handlePreview}
-          onChange={handleChange}
-        >
-          {fileList.length >= 1 ? null : uploadButton}
-        </Upload>
+      <Divider orientation="center">Deal of the day</Divider>
+      <div style={{display: "flex", justifyContent: "center"}}>
         <Modal
-          open={previewOpen}
-          title={previewTitle}
-          footer={null}
-          onCancel={handleCancelImg}
+          title="Зураг солих"
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
         >
-          <img alt="example" style={{ width: "100%" }} src={previewImage} />
+          <Upload
+            listType="picture-circle"
+            fileList={fileList}
+            onPreview={handlePreview}
+            onChange={handleChange}
+          >
+            {fileList.length >= 1 ? null : uploadButton}
+          </Upload>
+          <Modal
+            open={previewOpen}
+            title={previewTitle}
+            footer={null}
+            onCancel={handleCancelImg}
+          >
+            <img alt="example" style={{width: "100%"}} src={previewImage} />
+          </Modal>
         </Modal>
-      </Modal>
-      <div className={css.dod}>
-        <img
-          alt="example"
-          style={{ width: "100%" }}
-          src={item.dealOfTheDayImg}
-        />
-        <div className={css.datePick}>
-          <Button type="primary" onClick={showModal}>
-            + зураг солих / 549x352 /
+        <div className={css.dod}>
+          <img
+            alt="example"
+            style={{width: "100%"}}
+            src={item.dealOfTheDayImg}
+          />
+          <div className={css.datePick}>
+            <Button type="primary" onClick={showModal}>
+              + зураг солих / 549x352 /
+            </Button>
+            <Space direction="vertical" size={12}>
+              <DatePicker
+                value={dayjs(
+                  item.dealOfTheDayTime
+                    ? item.dealOfTheDayTime
+                    : "12-23-2023 16:14:26",
+                  "MM-DD-YYYY HH:mm:ss"
+                )}
+                showTime
+                onChange={onChange}
+                onOk={onOk}
+                format="MM-DD-YYYY HH:mm:ss"
+                // "November 13, 2024 12:12:00",
+              />
+            </Space>
+          </div>
+        </div>
+
+        <div>
+          <Button
+            type="primary"
+            size="large"
+            onClick={bannerAreaSave}
+            loading={loading}
+          >
+            Хадгалах
           </Button>
-          <Space direction="vertical" size={12}>
-            <DatePicker
-              value={dayjs(item.dealOfTheDayTime, "MM-DD-YYYY HH:mm:ss")}
-              showTime
-              onChange={onChange}
-              onOk={onOk}
-              format="MM-DD-YYYY HH:mm:ss"
-              // "November 13, 2024 12:12:00",
-            />
-            {/* <RangePicker
-          showTime={{
-            format: "HH:mm",
-          }}
-          format="YYYY-MM-DD HH:mm"
-          onChange={onChange}
-          onOk={onOk}
-        /> */}
-          </Space>
         </div>
       </div>
     </div>
