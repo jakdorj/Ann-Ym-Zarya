@@ -3,6 +3,9 @@ import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/dashboard/Dashboard";
 import axios from "./axios-orders";
+import { store } from "./store/store";
+import { setProducts } from "./store/slices/product-slice";
+import products from "./data/products.json";
 
 // home pages
 const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
@@ -115,18 +118,8 @@ const App = () => {
       .get(`colorList.json`)
       .then((res) => {
         // const data = Object.entries(res.data).reverse();
-        document.documentElement.style.setProperty(
-          "--brand",
-          res.data.data.brandColor
-        );
-        document.documentElement.style.setProperty(
-          "--brandHover",
-          res.data.data.brandHover
-        );
-        document.documentElement.style.setProperty(
-          "--headingColor",
-          res.data.data.headingColor
-        );
+        console.log("colors:::: ", res.data);
+        store.dispatch(setProducts(products));
       })
       .catch((err) => {
         console.log("err: ", err);

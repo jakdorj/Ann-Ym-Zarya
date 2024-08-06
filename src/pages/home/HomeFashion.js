@@ -17,15 +17,13 @@ const HomeFashion = () => {
         headerContainerClass="container-fluid"
         headerPaddingClass="header-padding-1"
       >
+        amraa
         {/* hero slider */}
         <HeroSliderOne />
-
         {/* featured icon */}
         <FeatureIcon spaceTopClass="pt-100" spaceBottomClass="pb-60" />
-
         {/* tab product */}
         <TabProduct spaceBottomClass="pb-60" category="fashion" />
-
         {/* blog featured */}
         <BlogFeatured spaceBottomClass="pb-55" />
       </LayoutOne>

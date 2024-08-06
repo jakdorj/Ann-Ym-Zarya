@@ -2,7 +2,7 @@
   {
     "id": "1",
     "sku": "asdf123",
-    "name": "Lorem ipsum jacket",
+    "name": "Amraa",
     "price": 12.45,
     "discount": 10,
     "offerEnd": "October 5, 2024 12:11:00",
@@ -88,7 +88,7 @@
   {
     "id": "2",
     "sku": "asdf124",
-    "name": "Lorem ipsum coat",
+    "name": "amraa2",
     "price": 18.5,
     "discount": 15,
     "new": false,
@@ -174,7 +174,7 @@
   {
     "id": "3",
     "sku": "asdf125",
-    "name": "Lorem ipsum jacket",
+    "name": "amraa3",
     "price": 17.45,
     "discount": 40,
     "offerEnd": "October 2, 2024 12:11:00",
@@ -197,7 +197,7 @@
   {
     "id": "4",
     "sku": "asdf126",
-    "name": "Lorem ipsum fashion coat",
+    "name": "amraa5",
     "price": 15.5,
     "discount": 0,
     "new": true,
@@ -282,7 +282,7 @@
   {
     "id": "5",
     "sku": "asdf127",
-    "name": "Lorem ipsum female coat",
+    "name": "amraa6",
     "price": 25.5,
     "discount": 10,
     "new": true,
@@ -367,7 +367,7 @@
   {
     "id": "6",
     "sku": "asdf128",
-    "name": "Lorem ipsum jacket",
+    "name": "amraa7",
     "price": 19.85,
     "discount": 0,
     "offerEnd": "October 17, 2024 12:11:00",
@@ -453,7 +453,7 @@
   {
     "id": "7",
     "sku": "asdf129",
-    "name": "Lorem ipsum fashion female coat",
+    "name": "amraa8",
     "price": 55.5,
     "discount": 40,
     "new": true,
@@ -538,7 +538,7 @@
   {
     "id": "8",
     "sku": "asdf130",
-    "name": "Lorem ipsum fashion jacket",
+    "name": "amraa9",
     "price": 29.85,
     "discount": 10,
     "offerEnd": "October 18, 2024 12:11:00",
@@ -561,7 +561,7 @@
   {
     "id": "9",
     "sku": "asdf131",
-    "name": "Lorem ipsum fashion female top",
+    "name": "amraa 9",
     "price": 35.6,
     "discount": 0,
     "new": false,
@@ -584,7 +584,7 @@
   {
     "id": "10",
     "sku": "asdf132",
-    "name": "Lorem ipsum blender",
+    "name": "amraa 10",
     "price": 15.6,
     "discount": 0,
     "new": false,
@@ -606,7 +606,7 @@
   {
     "id": "11",
     "sku": "asdf133",
-    "name": "Lorem ipsum speaker",
+    "name": "amraa 11",
     "price": 10.6,
     "discount": 10,
     "new": true,
@@ -628,7 +628,7 @@
   {
     "id": "12",
     "sku": "asdf134",
-    "name": "Lorem ipsum camera",
+    "name": "amraa 12",
     "price": 12.5,
     "discount": 20,
     "new": true,
@@ -650,7 +650,7 @@
   {
     "id": "13",
     "sku": "asdf135",
-    "name": "Lorem ipsum monitor",
+    "name": "amraa 13",
     "price": 14.5,
     "discount": 30,
     "new": false,
@@ -672,7 +672,7 @@
   {
     "id": "14",
     "sku": "asdf136",
-    "name": "Lorem ipsum small speaker",
+    "name": "amraa 14",
     "price": 2.5,
     "discount": 10,
     "new": true,
@@ -694,7 +694,7 @@
   {
     "id": "15",
     "sku": "asdf137",
-    "name": "Lorem ipsum microphone",
+    "name": "amraa 15",
     "price": 12.5,
     "discount": 0,
     "new": false,
@@ -716,7 +716,7 @@
   {
     "id": "16",
     "sku": "asdf138",
-    "name": "Lorem ipsum grinder",
+    "name": "amraa 16",
     "price": 22.5,
     "discount": 20,
     "new": true,
@@ -738,7 +738,7 @@
   {
     "id": "17",
     "sku": "asdf139",
-    "name": "Lorem ipsum bluetooth",
+    "name": "amraa 17",
     "price": 32.5,
     "discount": 10,
     "new": true,
@@ -760,7 +760,7 @@
   {
     "id": "18",
     "sku": "asdf140",
-    "name": "Lorem ipsum chair one",
+    "name": "amraa 18",
     "price": 15.6,
     "discount": 0,
     "new": false,
@@ -782,7 +782,7 @@
   {
     "id": "19",
     "sku": "asdf141",
-    "name": "Lorem ipsum chair two",
+    "name": "amraa 19",
     "price": 10.6,
     "discount": 10,
     "new": true,
@@ -804,7 +804,7 @@
   {
     "id": "20",
     "sku": "asdf142",
-    "name": "Lorem ipsum chair three",
+    "name": "amraa 20",
     "price": 12.5,
     "discount": 20,
     "new": true,
@@ -826,7 +826,7 @@
   {
     "id": "21",
     "sku": "asdf143",
-    "name": "Lorem ipsum sofa one",
+    "name": "amraa 21",
     "price": 14.5,
     "discount": 30,
     "new": false,
@@ -848,7 +848,7 @@
   {
     "id": "22",
     "sku": "asdf144",
-    "name": "Lorem ipsum sofa two",
+    "name": "amraa 22",
     "price": 22.5,
     "discount": 10,
     "new": true,
@@ -870,7 +870,7 @@
   {
     "id": "23",
     "sku": "asdf145",
-    "name": "Lorem ipsum sofa three",
+    "name": "amraa 23",
     "price": 12.5,
     "discount": 0,
     "new": false,
@@ -892,7 +892,7 @@
   {
     "id": "24",
     "sku": "asdf146",
-    "name": "Lorem ipsum sofa four",
+    "name": "amraa 24",
     "price": 22.5,
     "discount": 20,
     "new": true,
@@ -914,7 +914,7 @@
   {
     "id": "25",
     "sku": "asdf147",
-    "name": "Lorem ipsum sofa five",
+    "name": "amraa 25",
     "price": 32.5,
     "discount": 10,
     "new": true,
@@ -936,7 +936,7 @@
   {
     "id": "26",
     "sku": "asdf148",
-    "name": "Lorem ipsum plant one",
+    "name": "amraa 26",
     "price": 15.6,
     "discount": 0,
     "new": false,
@@ -958,7 +958,7 @@
   {
     "id": "27",
     "sku": "asdf149",
-    "name": "Lorem ipsum plant two",
+    "name": "amraa 27",
     "price": 10.6,
     "discount": 10,
     "new": true,
@@ -980,7 +980,7 @@
   {
     "id": "28",
     "sku": "asdf150",
-    "name": "Lorem ipsum plant three",
+    "name": "amraa 28",
     "price": 12.5,
     "discount": 20,
     "new": true,
@@ -1002,7 +1002,7 @@
   {
     "id": "29",
     "sku": "asdf151",
-    "name": "Lorem ipsum plant four",
+    "name": "amraa 29",
     "price": 14.5,
     "discount": 30,
     "new": false,
@@ -1024,7 +1024,7 @@
   {
     "id": "30",
     "sku": "asdf152",
-    "name": "Lorem ipsum plant five",
+    "name": "amraa 30",
     "price": 22.5,
     "discount": 10,
     "new": true,
@@ -1046,7 +1046,7 @@
   {
     "id": "31",
     "sku": "asdf153",
-    "name": "Lorem ipsum plant six",
+    "name": "amraa 31",
     "price": 12.5,
     "discount": 0,
     "new": false,
@@ -1068,7 +1068,7 @@
   {
     "id": "32",
     "sku": "asdf154",
-    "name": "Lorem ipsum plant seven",
+    "name": "amraa 32",
     "price": 22.5,
     "discount": 20,
     "new": true,
@@ -1090,7 +1090,7 @@
   {
     "id": "33",
     "sku": "asdf155",
-    "name": "Lorem ipsum plant eight",
+    "name": "amraa 33",
     "price": 32.5,
     "discount": 10,
     "new": true,
@@ -1112,7 +1112,7 @@
   {
     "id": "34",
     "sku": "asdf156",
-    "name": "Lorem ipsum fruit one",
+    "name": "amraa 34",
     "price": 15.6,
     "discount": 0,
     "new": false,
@@ -1134,7 +1134,7 @@
   {
     "id": "35",
     "sku": "asdf157",
-    "name": "Lorem ipsum fruit two",
+    "name": "amraa 35",
     "price": 10.6,
     "discount": 10,
     "new": true,
@@ -1156,7 +1156,7 @@
   {
     "id": "36",
     "sku": "asdf158",
-    "name": "Lorem ipsum fruit three",
+    "name": "amraa 36",
     "price": 12.5,
     "discount": 20,
     "new": true,
@@ -1178,7 +1178,7 @@
   {
     "id": "37",
     "sku": "asdf159",
-    "name": "Lorem ipsum fruit four",
+    "name": "amraa 37",
     "price": 14.5,
     "discount": 30,
     "new": false,
@@ -1200,7 +1200,7 @@
   {
     "id": "38",
     "sku": "asdf160",
-    "name": "Lorem ipsum fruit five",
+    "name": "amraa 38",
     "price": 22.5,
     "discount": 10,
     "new": true,
@@ -1222,7 +1222,7 @@
   {
     "id": "39",
     "sku": "asdf161",
-    "name": "Lorem ipsum fruit six",
+    "name": "amraa 39",
     "price": 12.5,
     "discount": 0,
     "new": false,
@@ -1244,7 +1244,7 @@
   {
     "id": "40",
     "sku": "asdf162",
-    "name": "Lorem ipsum fruit seven",
+    "name": "amraa 40",
     "price": 22.5,
     "discount": 20,
     "new": true,
@@ -1266,7 +1266,7 @@
   {
     "id": "41",
     "sku": "asdf163",
-    "name": "Lorem ipsum fruit eight",
+    "name": "amraa 41",
     "price": 32.5,
     "discount": 10,
     "new": true,
@@ -1288,7 +1288,7 @@
   {
     "id": "42",
     "sku": "asdf164",
-    "name": "Lorem ipsum lamp",
+    "name": "amraa 42",
     "price": 12.5,
     "discount": 20,
     "new": true,
@@ -1310,7 +1310,7 @@
   {
     "id": "43",
     "sku": "asdf165",
-    "name": "Lorem ipsum headphone",
+    "name": "amraa 43",
     "price": 16.5,
     "discount": 10,
     "new": false,
@@ -1332,7 +1332,7 @@
   {
     "id": "44",
     "sku": "asdf166",
-    "name": "Lorem ipsum flower one",
+    "name": "amraa 44",
     "price": 1.5,
     "discount": 20,
     "new": true,
@@ -1354,7 +1354,7 @@
   {
     "id": "45",
     "sku": "asdf167",
-    "name": "Lorem ipsum flower two",
+    "name": "amraa 45",
     "price": 6.5,
     "discount": 30,
     "new": false,
@@ -1376,7 +1376,7 @@
   {
     "id": "46",
     "sku": "asdf168",
-    "name": "Lorem ipsum flower three",
+    "name": "amraa 46",
     "price": 3.5,
     "discount": 5,
     "new": true,
@@ -1398,7 +1398,7 @@
   {
     "id": "47",
     "sku": "asdf169",
-    "name": "Lorem ipsum flower four",
+    "name": "amraa 47",
     "price": 4.5,
     "discount": 20,
     "new": true,
@@ -1420,7 +1420,7 @@
   {
     "id": "48",
     "sku": "asdf170",
-    "name": "Lorem ipsum flower five",
+    "name": "amraa 48",
     "price": 7.5,
     "discount": 30,
     "new": true,
@@ -1442,7 +1442,7 @@
   {
     "id": "49",
     "sku": "asdf171",
-    "name": "Lorem ipsum flower six",
+    "name": "amraa 49",
     "price": 4.5,
     "discount": 10,
     "new": false,
@@ -1464,7 +1464,7 @@
   {
     "id": "50",
     "sku": "asdf172",
-    "name": "Lorem ipsum flower seven",
+    "name": "amraa 50",
     "price": 3.5,
     "discount": 20,
     "new": true,
@@ -1486,7 +1486,7 @@
   {
     "id": "51",
     "sku": "asdf173",
-    "name": "Lorem ipsum flower eight",
+    "name": "amraa 51",
     "price": 2.5,
     "discount": 30,
     "new": true,
@@ -1508,7 +1508,7 @@
   {
     "id": "52",
     "sku": "asdf174",
-    "name": "Lorem ipsum book one",
+    "name": "amraa 52",
     "price": 6.5,
     "discount": 30,
     "new": true,
@@ -1530,7 +1530,7 @@
   {
     "id": "53",
     "sku": "asdf175",
-    "name": "Lorem ipsum book two",
+    "name": "amraa 53",
     "price": 4.2,
     "discount": 0,
     "new": true,
@@ -1552,7 +1552,7 @@
   {
     "id": "54",
     "sku": "asdf176",
-    "name": "Lorem ipsum book three",
+    "name": "amraa 54",
     "price": 6.6,
     "discount": 20,
     "new": true,
@@ -1574,7 +1574,7 @@
   {
     "id": "55",
     "sku": "asdf177",
-    "name": "Lorem ipsum book four",
+    "name": "amraa 55",
     "price": 7.1,
     "discount": 40,
     "new": true,
@@ -1596,7 +1596,7 @@
   {
     "id": "56",
     "sku": "asdf178",
-    "name": "Lorem ipsum book five",
+    "name": "amraa 56",
     "price": 8.6,
     "discount": 30,
     "new": false,
@@ -1618,7 +1618,7 @@
   {
     "id": "57",
     "sku": "asdf179",
-    "name": "Lorem ipsum book six",
+    "name": "amraa 57",
     "price": 5.5,
     "discount": 10,
     "new": true,
@@ -1640,7 +1640,7 @@
   {
     "id": "58",
     "sku": "asdf180",
-    "name": "Lorem ipsum book seven",
+    "name": "amraa 58",
     "price": 3.2,
     "discount": 20,
     "new": false,
@@ -1662,7 +1662,7 @@
   {
     "id": "59",
     "sku": "asdf181",
-    "name": "Lorem ipsum book eight",
+    "name": "amraa 59",
     "price": 8.5,
     "discount": 5,
     "new": true,
@@ -1684,7 +1684,7 @@
   {
     "id": "60",
     "sku": "asdf182",
-    "name": "Lorem ipsum cosmetics one",
+    "name": "amraa 60",
     "price": 3.5,
     "discount": 10,
     "new": true,
@@ -1706,7 +1706,7 @@
   {
     "id": "61",
     "sku": "asdf183",
-    "name": "Lorem ipsum cosmetics two",
+    "name": "amraa 61",
     "price": 18.5,
     "discount": 15,
     "new": false,
@@ -1728,7 +1728,7 @@
   {
     "id": "62",
     "sku": "asdf184",
-    "name": "Lorem ipsum cosmetics three",
+    "name": "amraa 62",
     "price": 4.2,
     "discount": 15,
     "new": true,
@@ -1750,7 +1750,7 @@
   {
     "id": "63",
     "sku": "asdf185",
-    "name": "Lorem ipsum cosmetics four",
+    "name": "amraa 63",
     "price": 1.5,
     "discount": 0,
     "new": false,
@@ -1772,7 +1772,7 @@
   {
     "id": "64",
     "sku": "asdf186",
-    "name": "Lorem ipsum cosmetics five",
+    "name": "amraa 64",
     "price": 6.3,
     "discount": 15,
     "new": true,
@@ -1794,7 +1794,7 @@
   {
     "id": "65",
     "sku": "asdf187",
-    "name": "Lorem ipsum cosmetics six",
+    "name": "amraa 65",
     "price": 4.5,
     "discount": 20,
     "new": false,
@@ -1816,7 +1816,7 @@
   {
     "id": "66",
     "sku": "asdf188",
-    "name": "Lorem ipsum cosmetics seven",
+    "name": "amraa 66",
     "price": 7.1,
     "discount": 45,
     "new": true,
@@ -1838,7 +1838,7 @@
   {
     "id": "67",
     "sku": "asdf189",
-    "name": "Lorem ipsum cosmetics eight",
+    "name": "amraa 67",
     "price": 9.0,
     "discount": 10,
     "new": false,
@@ -1860,7 +1860,7 @@
   {
     "id": "68",
     "sku": "asdf190",
-    "name": "Lorem ipsum accessories one",
+    "name": "amraa 68",
     "price": 3.1,
     "discount": 10,
     "new": true,
@@ -1882,7 +1882,7 @@
   {
     "id": "69",
     "sku": "asdf191",
-    "name": "Lorem ipsum accessories two",
+    "name": "amraa 69",
     "price": 12.43,
     "discount": 20,
     "new": false,
@@ -1904,7 +1904,7 @@
   {
     "id": "70",
     "sku": "asdf192",
-    "name": "Lorem ipsum accessories three",
+    "name": "amraa 70",
     "price": 12.5,
     "discount": 0,
     "new": true,
@@ -1926,7 +1926,7 @@
   {
     "id": "71",
     "sku": "asdf193",
-    "name": "Lorem ipsum accessories four",
+    "name": "amraa 71",
     "price": 19.33,
     "discount": 20,
     "new": false,
@@ -1948,7 +1948,7 @@
   {
     "id": "72",
     "sku": "asdf194",
-    "name": "Lorem ipsum accessories five",
+    "name": "amraa 72",
     "price": 12.35,
     "discount": 20,
     "new": true,
@@ -1970,7 +1970,7 @@
   {
     "id": "73",
     "sku": "asdf195",
-    "name": "Lorem ipsum accessories six",
+    "name": "amraa 73",
     "price": 12.45,
     "discount": 20,
     "new": true,
@@ -1992,7 +1992,7 @@
   {
     "id": "74",
     "sku": "asdf196",
-    "name": "Lorem ipsum accessories seven",
+    "name": "amraa 74",
     "price": 2.43,
     "discount": 10,
     "new": true,
@@ -2014,7 +2014,7 @@
   {
     "id": "75",
     "sku": "asdf197",
-    "name": "Lorem ipsum accessories eight",
+    "name": "amraa 75",
     "price": 13.4,
     "discount": 30,
     "new": true,
@@ -2036,7 +2036,7 @@
   {
     "id": "76",
     "sku": "asdf198",
-    "name": "Lorem ipsum accessories nine",
+    "name": "amraa 76",
     "price": 5.24,
     "discount": 30,
     "new": true,
@@ -2058,7 +2058,7 @@
   {
     "id": "77",
     "sku": "asdf199",
-    "name": "Lorem ipsum accessories ten",
+    "name": "amraa 77",
     "price": 2.2,
     "discount": 0,
     "new": true,
@@ -2080,7 +2080,7 @@
   {
     "id": "78",
     "sku": "asdf200",
-    "name": "Lorem ipsum accessories eleven",
+    "name": "amraa 78",
     "price": 12.65,
     "discount": 20,
     "new": true,
@@ -2102,7 +2102,7 @@
   {
     "id": "79",
     "sku": "asdf201",
-    "name": "Lorem ipsum accessories twelve",
+    "name": "amraa 79",
     "price": 9.52,
     "discount": 0,
     "new": true,
@@ -2124,7 +2124,7 @@
   {
     "id": "80",
     "sku": "asdf202",
-    "name": "Lorem ipsum handmade one",
+    "name": "amraa 80",
     "price": 19,
     "discount": 10,
     "new": true,
@@ -2146,7 +2146,7 @@
   {
     "id": "81",
     "sku": "asdf203",
-    "name": "Lorem ipsum handmade two",
+    "name": "amraa 81",
     "price": 12,
     "discount": 50,
     "new": false,
@@ -2168,7 +2168,7 @@
   {
     "id": "82",
     "sku": "asdf204",
-    "name": "Lorem ipsum handmade three",
+    "name": "amraa 82",
     "price": 5.52,
     "discount": 10,
     "new": true,
@@ -2190,7 +2190,7 @@
   {
     "id": "83",
     "sku": "asdf205",
-    "name": "Lorem ipsum handmade four",
+    "name": "amraa 83",
     "price": 2.13,
     "discount": 0,
     "new": true,
@@ -2212,7 +2212,7 @@
   {
     "id": "84",
     "sku": "asdf206",
-    "name": "Lorem ipsum handmade five",
+    "name": "amraa 84",
     "price": 12.9,
     "discount": 40,
     "new": false,
@@ -2234,7 +2234,7 @@
   {
     "id": "85",
     "sku": "asdf207",
-    "name": "Lorem ipsum handmade six",
+    "name": "amraa 85",
     "price": 3.78,
     "discount": 20,
     "new": true,
@@ -2256,7 +2256,7 @@
   {
     "id": "86",
     "sku": "asdf208",
-    "name": "Lorem ipsum handmade seven",
+    "name": "amraa 86",
     "price": 2.52,
     "discount": 10,
     "new": true,
@@ -2278,7 +2278,7 @@
   {
     "id": "87",
     "sku": "asdf209",
-    "name": "Lorem ipsum handmade eight",
+    "name": "amraa 87",
     "price": 6.4,
     "discount": 0,
     "new": true,
@@ -2300,7 +2300,7 @@
   {
     "id": "88",
     "sku": "asdf210",
-    "name": "Lorem ipsum kids one",
+    "name": "amraa 88",
     "price": 12.45,
     "discount": 10,
     "offerEnd": "October 5, 2024 12:11:00",
@@ -3897,6 +3897,7 @@
     "rating": 4,
     "saleCount": 14,
     "category": ["christmas"],
+    "text": "amraa 1",
     "tag": ["christmas"],
     "stock": 10,
     "image": [
@@ -3919,6 +3920,7 @@
     "rating": 5,
     "saleCount": 30,
     "category": ["christmas"],
+    "text": "amraa 1",
     "tag": ["christmas"],
     "stock": 40,
     "image": [
@@ -3941,6 +3943,7 @@
     "rating": 3,
     "saleCount": 30,
     "category": ["christmas"],
+    "text": "amraa 1",
     "tag": ["christmas"],
     "stock": 25,
     "image": [
@@ -3963,6 +3966,7 @@
     "rating": 3,
     "saleCount": 20,
     "category": ["christmas"],
+    "text": "amraa 1",
     "tag": ["christmas"],
     "stock": 40,
     "image": [
@@ -3985,6 +3989,7 @@
     "rating": 3,
     "saleCount": 20,
     "category": ["christmas"],
+    "text": "amraa 1",
     "tag": ["christmas"],
     "stock": 60,
     "image": [

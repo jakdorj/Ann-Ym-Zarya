@@ -9,43 +9,11 @@ import axios from "../../axios-orders";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 const HomeFashionTwo = () => {
   const [loading, setLoading] = useState(true);
   const router = useNavigate();
   useEffect(() => {
-    axios
-      .get(`theme.json`)
-      .then((res) => {
-        if (res.data.data.routerName === "home-fashion-two") {
-          router("/home-fashion-two");
-        } else if (res.data.data.routerName === "home-fashion-three") {
-          router("/home-fashion-three");
-        } else if (res.data.data.routerName === "home-fashion-four") {
-          router("/home-fashion-four");
-        } else if (res.data.data.routerName === "home-auto-parts") {
-          router("/home-auto-parts");
-        } else if (res.data.data.routerName === "home-grid-banner") {
-          router("/home-grid-banner");
-        } else if (res.data.data.routerName === "home-onepage-scroll") {
-          router("/home-onepage-scroll");
-        } else if (res.data.data.routerName === "home-christmas") {
-          router("/home-christmas");
-        } else if (res.data.data.routerName === "home-black-friday") {
-          router("/home-black-friday");
-        } else if (res.data.data.routerName === "home-black-friday-two") {
-          router("/home-black-friday-two");
-        } else if (res.data.data.routerName === "home-valentines-day") {
-          router("/home-valentines-day");
-        } else {
-          router("/HomeFashionTwo");
-        }
-      })
-      .catch((err) => {
-        console.log("err: ", err);
-        router("/home-fashion-two");
-      })
-      .finally(() => {});
-
     setTimeout(() => {
       setLoading(false);
     }, 1500);
@@ -63,21 +31,28 @@ const HomeFashionTwo = () => {
         </div>
       ) : null}
       <SEO
-        titleTemplate="Fashion Home"
+        titleTemplate="Үндсэн хуудас"
         description="Fashion home of flone react minimalist eCommerce template."
       />
       <LayoutOne
         headerContainerClass="container-fluid"
         headerPaddingClass="header-padding-2"
       >
+        <Breadcrumb
+          pages={[{ label: "Бондоолой", path: process.env.PUBLIC_URL + "/" }]}
+        />
         {/* hero slider */}
-        <HeroSliderNine spaceLeftClass="ml-70" spaceRightClass="mr-70" />
+        {/* <HeroSliderNine spaceLeftClass="ml-70" spaceRightClass="mr-70" /> */}
         {/* banner */}
-        <BannerOne spaceTopClass="pt-60" spaceBottomClass="pb-65" />
+        {/* <BannerOne spaceTopClass="pt-60" spaceBottomClass="pb-65" /> */}
         {/* tab product */}
-        <TabProductFive spaceBottomClass="pb-60" category="accessories" />
+        <TabProductFive
+          spaceBottomClass="pb-60"
+          spaceTopClass="pt-60"
+          category="accessories"
+        />
         {/* blog featured */}
-        <BlogFeatured spaceBottomClass="pb-55" />
+        {/* <BlogFeatured spaceBottomClass="pb-55" /> */}
       </LayoutOne>
     </Fragment>
   );

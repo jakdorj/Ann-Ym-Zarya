@@ -9,7 +9,7 @@ const TabProductFive = ({
   spaceTopClass,
   spaceBottomClass,
   category,
-  productTabClass
+  productTabClass,
 }) => {
   return (
     <div className={clsx("product-area", spaceTopClass, spaceBottomClass)}>
@@ -21,19 +21,19 @@ const TabProductFive = ({
           >
             <Nav.Item>
               <Nav.Link eventKey="newArrival">
-                <h4>New Arrivals</h4>
+                <h4>Шинэ бараа</h4>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="bestSeller">
-                <h4>Best Sellers</h4>
+                <h4>Захиалах бараа</h4>
               </Nav.Link>
             </Nav.Item>
-            <Nav.Item>
+            {/* <Nav.Item>
               <Nav.Link eventKey="saleItems">
                 <h4>Sale Items</h4>
               </Nav.Link>
-            </Nav.Item>
+            </Nav.Item> */}
           </Nav>
           <Tab.Content>
             <Tab.Pane eventKey="newArrival">
@@ -56,7 +56,7 @@ const TabProductFive = ({
                 />
               </div>
             </Tab.Pane>
-            <Tab.Pane eventKey="saleItems">
+            {/* <Tab.Pane eventKey="saleItems">
               <div className="row">
                 <ProductGridTwo
                   category={category}
@@ -65,7 +65,7 @@ const TabProductFive = ({
                   spaceBottomClass="mb-25"
                 />
               </div>
-            </Tab.Pane>
+            </Tab.Pane> */}
           </Tab.Content>
         </Tab.Container>
         <div className="view-more text-center mt-20 toggle-btn6 col-12">
@@ -73,7 +73,7 @@ const TabProductFive = ({
             className="loadMore6"
             to={process.env.PUBLIC_URL + "/shop-grid-standard"}
           >
-            VIEW MORE PRODUCTS
+            Дэлгэрэнгуй үзэх
           </Link>
         </div>
       </div>
@@ -85,7 +85,7 @@ TabProductFive.propTypes = {
   category: PropTypes.string,
   productTabClass: PropTypes.string,
   spaceBottomClass: PropTypes.string,
-  spaceTopClass: PropTypes.string
+  spaceTopClass: PropTypes.string,
 };
 
 export default TabProductFive;
