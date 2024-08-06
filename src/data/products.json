@@ -2307,8 +2307,8 @@
     "new": false,
     "rating": 4,
     "saleCount": 54,
-    "category": ["fashion", "kids"],
-    "tag": ["fashion", "kids"],
+    "category": ["kids"],
+    "tag": ["kids"],
     "variation": [
       {
         "color": "white",
