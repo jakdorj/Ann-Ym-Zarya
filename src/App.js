@@ -111,20 +111,21 @@ const NotFound = lazy(() => import("./pages/other/NotFound"));
 
 const App = () => {
   useEffect(() => {
-    getData();
+    store.dispatch(setProducts(products));
+    // getData();
   }, []);
-  const getData = () => {
-    axios
-      .get(`colorList.json`)
-      .then((res) => {
-        // const data = Object.entries(res.data).reverse();
-        console.log("colors:::: ", res.data);
-        store.dispatch(setProducts(products));
-      })
-      .catch((err) => {
-        console.log("err: ", err);
-      });
-  };
+  // const getData = () => {
+  //   axios
+  //     .get(`colorList.json`)
+  //     .then((res) => {
+  //       // const data = Object.entries(res.data).reverse();
+  //       console.log("colors:::: ", res.data);
+  //       store.dispatch(setProducts(products));
+  //     })
+  //     .catch((err) => {
+  //       console.log("err: ", err);
+  //     });
+  // };
   return (
     <Router>
       <ScrollToTop>
