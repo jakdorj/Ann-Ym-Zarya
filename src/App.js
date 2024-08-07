@@ -140,13 +140,14 @@ const App = () => {
           }
         >
           <Routes>
+            {/* // home default */}
             <Route
               path={process.env.PUBLIC_URL + "/"}
               element={<HomeFashionTwo />}
             />
 
             {/* Homepages */}
-            <Route
+            {/* <Route
               path={process.env.PUBLIC_URL + "/home-fashion"}
               element={<HomeFashion />}
             />
@@ -297,13 +298,14 @@ const App = () => {
             <Route
               path={process.env.PUBLIC_URL + "/home-valentines-day"}
               element={<HomeValentinesDay />}
-            />
+            /> */}
 
             {/* Shop pages */}
             <Route
               path={process.env.PUBLIC_URL + "/shop-grid-standard"}
               element={<ShopGridStandard />}
             />
+            {/*             
             <Route
               path={process.env.PUBLIC_URL + "/shop-grid-filter"}
               element={<ShopGridFilter />}
@@ -335,7 +337,7 @@ const App = () => {
             <Route
               path={process.env.PUBLIC_URL + "/shop-list-two-column"}
               element={<ShopListTwoColumn />}
-            />
+            /> */}
 
             {/* Shop product pages */}
             <Route
@@ -364,7 +366,7 @@ const App = () => {
             />
 
             {/* Blog pages */}
-            <Route
+            {/* <Route
               path={process.env.PUBLIC_URL + "/blog-standard"}
               element={<BlogStandard />}
             />
@@ -379,7 +381,7 @@ const App = () => {
             <Route
               path={process.env.PUBLIC_URL + "/blog-details-standard"}
               element={<BlogDetailsStandard />}
-            />
+            /> */}
 
             {/* Other pages */}
             <Route
@@ -390,10 +392,10 @@ const App = () => {
               path={process.env.PUBLIC_URL + "/contact"}
               element={<Contact />}
             />
-            <Route
+            {/* <Route
               path={process.env.PUBLIC_URL + "/my-account"}
               element={<MyAccount />}
-            />
+            /> */}
             <Route
               path={process.env.PUBLIC_URL + "/login-register"}
               element={<LoginRegister />}

@@ -144,7 +144,7 @@ const Dashboard = () => {
                 textAlign: "center",
               }}
             >
-              Mika urlan ©2023 Created by Mika
+              Bondooloi kids ©2023 Created by Bondooloi
             </Footer>
           </Layout>
         </Layout>

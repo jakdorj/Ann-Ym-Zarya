@@ -44,7 +44,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
               )} */}
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to={process.env.PUBLIC_URL + "/"}>
               {t("pages")}
               {sidebarMenu ? (
@@ -100,14 +100,9 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                 <Link to={process.env.PUBLIC_URL + "/contact"}>
                   {t("contact_us")}
                 </Link>
-              </li>
-              {/* <li>
-                <Link to={process.env.PUBLIC_URL + "/not-found"}>
-                  {t("404_page")}
-                </Link>
-              </li> */}
+              </li>  
             </ul>
-          </li>
+          </li> */}
           {/* <li>
             <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
               {t("blog")}

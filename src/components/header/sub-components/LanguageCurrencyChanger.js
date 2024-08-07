@@ -38,7 +38,7 @@ const LanguageCurrencyChanger = ({ currency }) => {
                 English
               </button>
             </li>
-            <li>
+            {/* <li>
               <button value="fn" onClick={(e) => changeLanguageTrigger(e)}>
                 French
               </button>
@@ -47,7 +47,7 @@ const LanguageCurrencyChanger = ({ currency }) => {
               <button value="de" onClick={(e) => changeLanguageTrigger(e)}>
                 Germany
               </button>
-            </li>
+            </li> */}
             <li>
               <button value="mn" onClick={(e) => changeLanguageTrigger(e)}>
                 Mongolian
@@ -56,7 +56,7 @@ const LanguageCurrencyChanger = ({ currency }) => {
           </ul>
         </div>
       </div>
-      <div className="same-language-currency use-style">
+      {/* <div className="same-language-currency use-style">
         <span>
           {currency.currencyName} <i className="fa fa-angle-down" />
         </span>
@@ -64,7 +64,7 @@ const LanguageCurrencyChanger = ({ currency }) => {
           <ul>
             <li>
               <button value="USD" onClick={(e) => setCurrencyTrigger(e)}>
-                USD
+                USD2
               </button>
             </li>
             <li>
@@ -79,9 +79,9 @@ const LanguageCurrencyChanger = ({ currency }) => {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
       <div className="same-language-currency">
-        <p>Call Us 3965410</p>
+        <p>Call Us +97688096009</p>
       </div>
     </div>
   );

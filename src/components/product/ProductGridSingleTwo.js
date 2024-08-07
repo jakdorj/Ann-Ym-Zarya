@@ -21,7 +21,9 @@ const ProductGridSingleTwo = ({
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const discountedPrice = getDiscountPrice(product.price, product.discount);
-  const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
+  const finalProductPrice = product.price
+    .toFixed(0)
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate
   ).toFixed(2);
@@ -49,12 +51,20 @@ const ProductGridSingleTwo = ({
           </Link>
           {product.discount || product.new ? (
             <div className="product-img-badges">
-              {product.discount ? (
+              {/* {product.discount ? (
                 <span className="pink">-{product.discount}%</span>
               ) : (
                 ""
-              )}
-              {product.new ? <span className="purple">New</span> : ""}
+              )} */}
+              {product.new ? <span className="purple">Шинэ</span> : ""}
+            </div>
+          ) : (
+            ""
+          )}
+
+          {product.order ? (
+            <div className="product-img-badges">
+              {product.order ? <span className="purple">Захиалга</span> : ""}
             </div>
           ) : (
             ""
@@ -87,7 +97,9 @@ const ProductGridSingleTwo = ({
                     : ""
                 }
                 disabled={cartItem !== undefined && cartItem.quantity > 0}
-                title={cartItem !== undefined ? "Added to cart" : "Add to cart"}
+                title={
+                  cartItem !== undefined ? "Сагсанд хийгдлээ" : "Add to cart"
+                }
               >
                 {" "}
                 <i className="fa fa-shopping-cart"></i>{" "}
@@ -102,7 +114,7 @@ const ProductGridSingleTwo = ({
               <i className="fa fa-eye"></i>
             </button>
 
-            <button
+            {/* <button
               className={compareItem !== undefined ? "active" : ""}
               disabled={compareItem !== undefined}
               title={
@@ -113,7 +125,7 @@ const ProductGridSingleTwo = ({
               onClick={() => dispatch(addToCompare(product))}
             >
               <i className="fa fa-retweet"></i>
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="product-content-2">
@@ -128,19 +140,19 @@ const ProductGridSingleTwo = ({
               </Link>
             </h3>
             <div className="price-2">
-              {discountedPrice !== null ? (
+              {/* {discountedPrice !== null ? (
                 <Fragment>
                   <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
                   <span className="old">
                     {currency.currencySymbol + finalProductPrice}
                   </span>
                 </Fragment>
-              ) : (
-                <span>{currency.currencySymbol + finalProductPrice} </span>
-              )}
+              ) : ( */}
+              <span>{finalProductPrice}₮ </span>
+              {/* )} */}
             </div>
           </div>
-          <div className="pro-wishlist-2">
+          {/* <div className="pro-wishlist-2">
             <button
               className={wishlistItem !== undefined ? "active" : ""}
               disabled={wishlistItem !== undefined}
@@ -153,7 +165,7 @@ const ProductGridSingleTwo = ({
             >
               <i className="fa fa-heart-o" />
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* product modal */}

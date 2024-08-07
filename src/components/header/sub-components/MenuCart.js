@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getDiscountPrice } from "../../../helpers/product";
-import { deleteFromCart } from "../../../store/slices/cart-slice"
+import { deleteFromCart } from "../../../store/slices/cart-slice";
 
 const MenuCart = () => {
   const dispatch = useDispatch();
@@ -20,13 +20,9 @@ const MenuCart = () => {
                 item.price,
                 item.discount
               );
-              const finalProductPrice = (
-                item.price * currency.currencyRate
-              ).toFixed(2);
-              const finalDiscountedPrice = (
-                discountedPrice * currency.currencyRate
-              ).toFixed(2);
-
+              const finalProductPrice = item.price * currency.currencyRate;
+              const finalDiscountedPrice =
+                discountedPrice * currency.currencyRate;
               discountedPrice != null
                 ? (cartTotalPrice += finalDiscountedPrice * item.quantity)
                 : (cartTotalPrice += finalProductPrice * item.quantity);
@@ -44,21 +40,22 @@ const MenuCart = () => {
                   </div>
                   <div className="shopping-cart-title">
                     <h4>
-                      <Link
-                        to={process.env.PUBLIC_URL + "/product/" + item.id}
-                      >
+                      <Link to={process.env.PUBLIC_URL + "/product/" + item.id}>
                         {" "}
                         {item.name}{" "}
                       </Link>
                     </h4>
-                    <h6>Qty: {item.quantity}</h6>
+                    <h6>Тоо ширхэг: {item.quantity}</h6>
                     <span>
                       {discountedPrice !== null
-                        ? currency.currencySymbol + finalDiscountedPrice
-                        : currency.currencySymbol + finalProductPrice}
+                        ? finalDiscountedPrice
+                            .toFixed(0)
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "₮"
+                        : finalProductPrice
+                            .toFixed(0)
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "₮"}
                     </span>
-                    {item.selectedProductColor &&
-                    item.selectedProductSize ? (
+                    {item.selectedProductColor && item.selectedProductSize ? (
                       <div className="cart-item-variation">
                         <span>Color: {item.selectedProductColor}</span>
                         <span>Size: {item.selectedProductSize}</span>
@@ -68,7 +65,9 @@ const MenuCart = () => {
                     )}
                   </div>
                   <div className="shopping-cart-delete">
-                    <button onClick={() => dispatch(deleteFromCart(item.cartItemId))}>
+                    <button
+                      onClick={() => dispatch(deleteFromCart(item.cartItemId))}
+                    >
                       <i className="fa fa-times-circle" />
                     </button>
                   </div>
@@ -78,26 +77,29 @@ const MenuCart = () => {
           </ul>
           <div className="shopping-cart-total">
             <h4>
-              Total :{" "}
+              Нийт дүн :{" "}
               <span className="shop-total">
-                {currency.currencySymbol + cartTotalPrice.toFixed(2)}
+                {cartTotalPrice
+                  .toFixed(0)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                ₮
               </span>
             </h4>
           </div>
           <div className="shopping-cart-btn btn-hover text-center">
             <Link className="default-btn" to={process.env.PUBLIC_URL + "/cart"}>
-              view cart
+              Сагс харах
             </Link>
             <Link
               className="default-btn"
               to={process.env.PUBLIC_URL + "/checkout"}
             >
-              checkout
+              Тооцоо хийх
             </Link>
           </div>
         </Fragment>
       ) : (
-        <p className="text-center">No items added to cart</p>
+        <p className="text-center">Сагсанд ямар ч бараа алга</p>
       )}
     </div>
   );

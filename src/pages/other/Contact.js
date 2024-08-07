@@ -1,9 +1,9 @@
-import { Fragment } from "react"; 
+import { Fragment } from "react";
 import { useLocation } from "react-router-dom";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import GoogleMap from "../../components/google-map"
+import GoogleMap from "../../components/google-map";
 
 const Contact = () => {
   let { pathname } = useLocation();
@@ -16,16 +16,29 @@ const Contact = () => {
       />
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
-        <Breadcrumb 
+        <Breadcrumb
           pages={[
-            {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "Contact", path: process.env.PUBLIC_URL + pathname }
-          ]} 
+            { label: "Home", path: process.env.PUBLIC_URL + "/" },
+            { label: "Contact", path: process.env.PUBLIC_URL + pathname },
+          ]}
         />
         <div className="contact-area pt-100 pb-100">
           <div className="container">
             <div className="contact-map mb-10">
-              <GoogleMap lat={47.444} lng={-122.176} />
+              <iframe
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  border: "1px solid #ccc",
+                }}
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d917.0816565403857!2d106.88456977700561!3d47.936534435182786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5d9693d6c47d344d%3A0xc6f9dba252d0cb3!2sSweet%20raisins%20LLC!5e0!3m2!1sen!2smn!4v1722951877412!5m2!1sen!2smn"
+                width="600"
+                height="450"
+                // style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
             </div>
             <div className="custom-row-2">
               <div className="col-12 col-lg-4 col-md-5">
@@ -35,8 +48,8 @@ const Contact = () => {
                       <i className="fa fa-phone" />
                     </div>
                     <div className="contact-info-dec">
-                      <p>+012 345 678 102</p>
-                      <p>+012 345 678 102</p>
+                      <p>+976 94262049</p>
+                      <p>+976 88096009</p>
                     </div>
                   </div>
                   <div className="single-contact-info">
@@ -45,13 +58,11 @@ const Contact = () => {
                     </div>
                     <div className="contact-info-dec">
                       <p>
-                        <a href="mailto:yourname@email.com">
-                          yourname@email.com
-                        </a>
+                        <a href="mailto:yourname@email.com">Email address</a>
                       </p>
                       <p>
-                        <a href="https://yourwebsitename.com">
-                          yourwebsitename.com
+                        <a href="mailto:yourname@email.com">
+                          bondooloi.kids@gmail.com
                         </a>
                       </p>
                     </div>
@@ -61,8 +72,8 @@ const Contact = () => {
                       <i className="fa fa-map-marker" />
                     </div>
                     <div className="contact-info-dec">
-                      <p>Address goes here, </p>
-                      <p>street, Crossroad 123.</p>
+                      <p>Зүүн Ард Аюуш,</p>
+                      <p>BGD - 23 khoroo, Ulaanbaatar 16070</p>
                     </div>
                   </div>
                   <div className="contact-social text-center">

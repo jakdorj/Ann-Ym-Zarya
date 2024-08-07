@@ -48,7 +48,7 @@ const LoginRegister = () => {
     };
     axios
       .post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB0ss4fbA7lMJu_4qpl6sZsIq0QpuRynOQ",
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCnXFTwPi1A785hgw2JtXoO70mMcDqu5WI",
         body
       )
       .then((res) => {
@@ -68,7 +68,6 @@ const LoginRegister = () => {
         }
       })
       .catch((err) => {
-        console.log("err: ", err);
         if (err.response.data.error.message === "INVALID_EMAIL") {
           api["error"]({
             message: "АЛДАА ГАРЛАА.",

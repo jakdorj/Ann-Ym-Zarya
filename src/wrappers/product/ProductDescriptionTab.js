@@ -1,9 +1,13 @@
-import PropTypes from "prop-types";
+import PropTypes, { array } from "prop-types";
 import clsx from "clsx";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 
-const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
+const ProductDescriptionTab = ({
+  spaceBottomClass,
+  productFullDesc,
+  product,
+}) => {
   return (
     <div className={clsx("description-review-area", spaceBottomClass)}>
       <div className="container">
@@ -11,22 +15,26 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
           <Tab.Container defaultActiveKey="productDescription">
             <Nav variant="pills" className="description-review-topbar">
               <Nav.Item>
-                <Nav.Link eventKey="additionalInfo">
-                  Additional Information
-                </Nav.Link>
+                <Nav.Link eventKey="additionalInfo">Нэмэлт мэдээлэл</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="productDescription">Description</Nav.Link>
+                <Nav.Link eventKey="productDescription">Дэлгэрэнгуй</Nav.Link>
               </Nav.Item>
-              <Nav.Item>
+              {/* <Nav.Item>
                 <Nav.Link eventKey="productReviews">Reviews(2)</Nav.Link>
-              </Nav.Item>
+              </Nav.Item> */}
             </Nav>
             <Tab.Content className="description-review-bottom">
               <Tab.Pane eventKey="additionalInfo">
                 <div className="product-anotherinfo-wrapper">
                   <ul>
-                    <li>
+                    {product.additionalInfo?.map((e, i) => (
+                      <li key={i}>
+                        <span>{e.label}</span> {e.value}
+                      </li>
+                    ))}
+
+                    {/* <li>
                       <span>Weight</span> 400 g
                     </li>
                     <li>
@@ -38,12 +46,13 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                     <li>
                       <span>Other Info</span> American heirloom jean shorts pug
                       seitan letterpress
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </Tab.Pane>
               <Tab.Pane eventKey="productDescription">
                 {productFullDesc}
+                {product?.name}
               </Tab.Pane>
               <Tab.Pane eventKey="productReviews">
                 <div className="row">
@@ -180,7 +189,8 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
 
 ProductDescriptionTab.propTypes = {
   productFullDesc: PropTypes.string,
-  spaceBottomClass: PropTypes.string
+  spaceBottomClass: PropTypes.string,
+  product: PropTypes.shape({}),
 };
 
 export default ProductDescriptionTab;

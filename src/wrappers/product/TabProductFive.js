@@ -14,7 +14,7 @@ const TabProductFive = ({
   return (
     <div className={clsx("product-area", spaceTopClass, spaceBottomClass)}>
       <div className="container">
-        <Tab.Container defaultActiveKey="bestSeller">
+        <Tab.Container defaultActiveKey="newArrival">
           <Nav
             variant="pills"
             className={clsx("product-tab-list-2 mb-60", productTabClass)}
@@ -25,7 +25,7 @@ const TabProductFive = ({
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="bestSeller">
+              <Nav.Link eventKey="order">
                 <h4>Захиалах бараа</h4>
               </Nav.Link>
             </Nav.Item>
@@ -39,18 +39,18 @@ const TabProductFive = ({
             <Tab.Pane eventKey="newArrival">
               <div className="row">
                 <ProductGridTwo
-                  category={category}
+                  category={"Шинэ"}
                   type="new"
                   limit={8}
                   spaceBottomClass="mb-25"
                 />
               </div>
             </Tab.Pane>
-            <Tab.Pane eventKey="bestSeller">
+            <Tab.Pane eventKey="order">
               <div className="row">
                 <ProductGridTwo
                   category={category}
-                  type="bestSeller"
+                  type="order"
                   limit={8}
                   spaceBottomClass="mb-25"
                 />

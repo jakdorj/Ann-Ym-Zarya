@@ -5,7 +5,12 @@ import SEO from "../../components/seo";
 import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import { addToCart, decreaseQuantity, deleteFromCart, deleteAllFromCart } from "../../store/slices/cart-slice";
+import {
+  addToCart,
+  decreaseQuantity,
+  deleteFromCart,
+  deleteAllFromCart,
+} from "../../store/slices/cart-slice";
 import { cartItemStock } from "../../helpers/product";
 
 const Cart = () => {
@@ -14,7 +19,7 @@ const Cart = () => {
   const [quantityCount] = useState(1);
   const dispatch = useDispatch();
   let { pathname } = useLocation();
-  
+
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -27,29 +32,29 @@ const Cart = () => {
 
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
-        <Breadcrumb 
+        <Breadcrumb
           pages={[
-            {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "Cart", path: process.env.PUBLIC_URL + pathname }
-          ]} 
+            { label: "Үндсэн хуудас", path: process.env.PUBLIC_URL + "/" },
+            { label: "Сагс", path: process.env.PUBLIC_URL + pathname },
+          ]}
         />
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
             {cartItems && cartItems.length >= 1 ? (
               <Fragment>
-                <h3 className="cart-page-title">Your cart items</h3>
+                <h3 className="cart-page-title">Таны сагсанд байгаа зүйлс</h3>
                 <div className="row">
                   <div className="col-12">
                     <div className="table-content table-responsive cart-table-content">
                       <table>
                         <thead>
                           <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Unit Price</th>
-                            <th>Qty</th>
-                            <th>Subtotal</th>
-                            <th>action</th>
+                            <th>Зураг</th>
+                            <th>Барааны нэр</th>
+                            <th>Нэгжийн үнэ</th>
+                            <th>Тоо ширхэг</th>
+                            <th>Нийт дүн</th>
+                            <th>Үйлдэл</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -58,12 +63,10 @@ const Cart = () => {
                               cartItem.price,
                               cartItem.discount
                             );
-                            const finalProductPrice = (
-                              cartItem.price * currency.currencyRate
-                            ).toFixed(2);
-                            const finalDiscountedPrice = (
-                              discountedPrice * currency.currencyRate
-                            ).toFixed(2);
+                            const finalProductPrice =
+                              cartItem.price * currency.currencyRate;
+                            const finalDiscountedPrice =
+                              discountedPrice * currency.currencyRate;
 
                             discountedPrice != null
                               ? (cartTotalPrice +=
@@ -120,18 +123,30 @@ const Cart = () => {
                                   {discountedPrice !== null ? (
                                     <Fragment>
                                       <span className="amount old">
-                                        {currency.currencySymbol +
-                                          finalProductPrice}
+                                        {finalProductPrice
+                                          .toFixed(0)
+                                          .replace(
+                                            /\B(?=(\d{3})+(?!\d))/g,
+                                            ","
+                                          )}
+                                        ₮
                                       </span>
                                       <span className="amount">
-                                        {currency.currencySymbol +
-                                          finalDiscountedPrice}
+                                        {finalDiscountedPrice
+                                          .toFixed(0)
+                                          .replace(
+                                            /\B(?=(\d{3})+(?!\d))/g,
+                                            ","
+                                          )}
+                                        ₮
                                       </span>
                                     </Fragment>
                                   ) : (
                                     <span className="amount">
-                                      {currency.currencySymbol +
-                                        finalProductPrice}
+                                      {finalProductPrice
+                                        .toFixed(0)
+                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                      ₮
                                     </span>
                                   )}
                                 </td>
@@ -155,10 +170,12 @@ const Cart = () => {
                                     <button
                                       className="inc qtybutton"
                                       onClick={() =>
-                                        dispatch(addToCart({
-                                          ...cartItem,
-                                          quantity: quantityCount
-                                        }))
+                                        dispatch(
+                                          addToCart({
+                                            ...cartItem,
+                                            quantity: quantityCount,
+                                          })
+                                        )
                                       }
                                       disabled={
                                         cartItem !== undefined &&
@@ -177,20 +194,21 @@ const Cart = () => {
                                 </td>
                                 <td className="product-subtotal">
                                   {discountedPrice !== null
-                                    ? currency.currencySymbol +
-                                      (
-                                        finalDiscountedPrice * cartItem.quantity
-                                      ).toFixed(2)
-                                    : currency.currencySymbol +
-                                      (
-                                        finalProductPrice * cartItem.quantity
-                                      ).toFixed(2)}
+                                    ? (finalDiscountedPrice * cartItem.quantity)
+                                        .toFixed(0)
+                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                                    : (finalProductPrice * cartItem.quantity)
+                                        .toFixed(0)
+                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                  ₮
                                 </td>
 
                                 <td className="product-remove">
                                   <button
                                     onClick={() =>
-                                      dispatch(deleteFromCart(cartItem.cartItemId))
+                                      dispatch(
+                                        deleteFromCart(cartItem.cartItemId)
+                                      )
                                     }
                                   >
                                     <i className="fa fa-times"></i>
@@ -211,12 +229,12 @@ const Cart = () => {
                         <Link
                           to={process.env.PUBLIC_URL + "/shop-grid-standard"}
                         >
-                          Continue Shopping
+                          Дэлгүүр
                         </Link>
                       </div>
                       <div className="cart-clear">
                         <button onClick={() => dispatch(deleteAllFromCart())}>
-                          Clear Shopping Cart
+                          Сагсыг бүгдийн цэвэрлэх
                         </button>
                       </div>
                     </div>
@@ -225,7 +243,7 @@ const Cart = () => {
 
                 <div className="row">
                   <div className="col-lg-4 col-md-6">
-                    <div className="cart-tax">
+                    {/* <div className="cart-tax">
                       <div className="title-wrap">
                         <h4 className="cart-bottom-title section-bg-gray">
                           Estimate Shipping And Tax
@@ -265,22 +283,22 @@ const Cart = () => {
                           </button>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
 
                   <div className="col-lg-4 col-md-6">
                     <div className="discount-code-wrapper">
                       <div className="title-wrap">
                         <h4 className="cart-bottom-title section-bg-gray">
-                          Use Coupon Code
+                          Купон кодыг ашиглах
                         </h4>
                       </div>
                       <div className="discount-code">
-                        <p>Enter your coupon code if you have one.</p>
+                        <p>Хэрэв танд купоны код байгаа бол оруулна уу.</p>
                         <form>
                           <input type="text" required name="name" />
                           <button className="cart-btn-2" type="submit">
-                            Apply Coupon
+                            Купон шалгах
                           </button>
                         </form>
                       </div>
@@ -291,24 +309,30 @@ const Cart = () => {
                     <div className="grand-totall">
                       <div className="title-wrap">
                         <h4 className="cart-bottom-title section-bg-gary-cart">
-                          Cart Total
+                          Нийт дүн
                         </h4>
                       </div>
                       <h5>
-                        Total products{" "}
+                        Нийт бүтээгдэхүүн
                         <span>
-                          {currency.currencySymbol + cartTotalPrice.toFixed(2)}
+                          {cartTotalPrice
+                            .toFixed(0)
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                          ₮
                         </span>
                       </h5>
 
                       <h4 className="grand-totall-title">
-                        Grand Total{" "}
+                        Нийт дүн
                         <span>
-                          {currency.currencySymbol + cartTotalPrice.toFixed(2)}
+                          {cartTotalPrice
+                            .toFixed(0)
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                          ₮
                         </span>
                       </h4>
                       <Link to={process.env.PUBLIC_URL + "/checkout"}>
-                        Proceed to Checkout
+                        Төлбөр тооцоог үргэлжлүүлэх
                       </Link>
                     </div>
                   </div>
@@ -322,9 +346,9 @@ const Cart = () => {
                       <i className="pe-7s-cart"></i>
                     </div>
                     <div className="item-empty-area__text">
-                      No items found in cart <br />{" "}
+                      Сагсанд ямар ч бараа олдсонгүй <br />{" "}
                       <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                        Shop Now
+                        Дэлгүүр буцах
                       </Link>
                     </div>
                   </div>

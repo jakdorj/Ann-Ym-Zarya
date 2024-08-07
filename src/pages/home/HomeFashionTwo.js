@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
 const HomeFashionTwo = () => {
   const [loading, setLoading] = useState(true);
   const router = useNavigate();
@@ -49,8 +50,9 @@ const HomeFashionTwo = () => {
         <TabProductFive
           spaceBottomClass="pb-60"
           spaceTopClass="pt-60"
-          category="accessories"
+          category="Захиалга"
         />
+        <BrandLogoSliderOne spaceBottomClass="pb-70" />
         {/* blog featured */}
         {/* <BlogFeatured spaceBottomClass="pb-55" /> */}
       </LayoutOne>

@@ -84,7 +84,7 @@ const Tools = () => {
         });
       })
       .catch((err) => {
-        message.error("Бранд өнгө оруулааггүй байна!");
+        // message.error("Бранд өнгө оруулааггүй байна!");
         console.log("err: ", err);
       })
       .finally(() => {});

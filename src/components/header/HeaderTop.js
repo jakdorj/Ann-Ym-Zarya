@@ -6,14 +6,20 @@ import LanguageCurrencyChanger from "./sub-components/LanguageCurrencyChanger";
 const HeaderTop = ({ borderStyle }) => {
   const currency = useSelector((state) => state.currency);
   return (
-    <div className={clsx("header-top-wap", borderStyle === "fluid-border" && "border-bottom")}>
+    <div
+      className={clsx(
+        "header-top-wap",
+        borderStyle === "fluid-border" && "border-bottom"
+      )}
+    >
       <LanguageCurrencyChanger currency={currency} />
       <div className="header-offer">
         <p>
-          Free delivery on order over{" "}
           <span>
-            {currency.currencySymbol + (200 * currency.currencyRate).toFixed(2)}
+            {/* {currency.currencySymbol + (200 * currency.currencyRate).toFixed(2)} */}
+            {(100000).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </span>
+          -с дээш үнийн дүнтэй захиалга хүргэлт үнэгүй
         </p>
       </div>
     </div>

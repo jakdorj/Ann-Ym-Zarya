@@ -15,8 +15,8 @@ const IconGroup = ({ iconWhiteClass }) => {
     );
     offcanvasMobileMenu.classList.add("active");
   };
-  const { compareItems } = useSelector((state) => state.compare);
-  const { wishlistItems } = useSelector((state) => state.wishlist);
+  // const { compareItems } = useSelector((state) => state.compare);
+  // const { wishlistItems } = useSelector((state) => state.wishlist);
   const { cartItems } = useSelector((state) => state.cart);
 
   return (
@@ -34,7 +34,7 @@ const IconGroup = ({ iconWhiteClass }) => {
           </form>
         </div>
       </div>
-      <div className="same-style account-setting d-none d-lg-block">
+      {/* <div className="same-style account-setting d-none d-lg-block">
         <button
           className="account-setting-active"
           onClick={(e) => handleClick(e)}
@@ -58,23 +58,23 @@ const IconGroup = ({ iconWhiteClass }) => {
             </li>
           </ul>
         </div>
-      </div>
-      <div className="same-style header-compare">
+      </div> */}
+      {/* <div className="same-style header-compare">
         <Link to={process.env.PUBLIC_URL + "/compare"}>
           <i className="pe-7s-shuffle" />
           <span className="count-style">
             {compareItems && compareItems.length ? compareItems.length : 0}
           </span>
         </Link>
-      </div>
-      <div className="same-style header-wishlist">
+      </div> */}
+      {/* <div className="same-style header-wishlist">
         <Link to={process.env.PUBLIC_URL + "/wishlist"}>
           <i className="pe-7s-like" />
           <span className="count-style">
             {wishlistItems && wishlistItems.length ? wishlistItems.length : 0}
           </span>
         </Link>
-      </div>
+      </div> */}
       <div className="same-style cart-wrap d-none d-lg-block">
         <button className="icon-cart" onClick={(e) => handleClick(e)}>
           <i className="pe-7s-shopbag" />
