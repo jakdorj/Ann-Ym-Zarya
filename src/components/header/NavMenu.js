@@ -19,6 +19,14 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
     >
       <nav>
         <ul>
+          {mainContext.user ? (
+            <li>
+              <Link to={process.env.PUBLIC_URL + "/dashboard"}>
+                {t("dashboard")}
+              </Link>
+            </li>
+          ) : null}
+
           <li>
             <Link to={process.env.PUBLIC_URL + "/"}>
               {t("home")}

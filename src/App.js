@@ -397,7 +397,7 @@ const App = () => {
               element={<MyAccount />}
             /> */}
             <Route
-              path={process.env.PUBLIC_URL + "/login-register"}
+              path={process.env.PUBLIC_URL + "/login"}
               element={<LoginRegister />}
             />
 
