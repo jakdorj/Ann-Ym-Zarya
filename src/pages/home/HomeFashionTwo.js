@@ -40,7 +40,12 @@ const HomeFashionTwo = () => {
         headerPaddingClass="header-padding-2"
       >
         <Breadcrumb
-          pages={[{ label: "Бондоолой", path: process.env.PUBLIC_URL + "/" }]}
+          pages={[
+            {
+              label: "Бондоолой",
+              path: process.env.PUBLIC_URL + "/",
+            },
+          ]}
         />
         {/* hero slider */}
         {/* <HeroSliderNine spaceLeftClass="ml-70" spaceRightClass="mr-70" /> */}

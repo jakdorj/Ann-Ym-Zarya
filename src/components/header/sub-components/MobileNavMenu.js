@@ -19,7 +19,7 @@ const MobileNavMenu = () => {
             {t("shop")}
           </Link>
         </li>
-        <li className="menu-item-has-children">
+        {/* <li className="menu-item-has-children">
           <Link to={process.env.PUBLIC_URL + "/"}>{t("pages")}</Link>
           <ul className="sub-menu">
             <li>
@@ -73,7 +73,7 @@ const MobileNavMenu = () => {
               </Link>
             </li>
           </ul>
-        </li>
+        </li> */}
         {/* <li className="menu-item-has-children">
           <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
             {t("blog")}
