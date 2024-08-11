@@ -121,19 +121,21 @@ const App = () => {
       .then((res) => {
         const data = Object.entries(res.data).reverse();
         const result = [];
-        data.forEach((element) => {
+        data?.forEach((element) => {
           result.push({
             id: element[0],
             ...element[1]?.data,
-            image: [
-              "/assets/img/product/accessories/3.jpg",
-              "/assets/img/product/accessories/4.jpg",
-              "/assets/img/product/accessories/5.jpg",
-              "/assets/img/product/accessories/6.jpg",
-              "/assets/img/product/accessories/7.jpg",
-            ],
+            // image: [
+            //   "/assets/img/product/accessories/3.jpg",
+            //   "/assets/img/product/accessories/4.jpg",
+            //   "/assets/img/product/accessories/5.jpg",
+            //   "/assets/img/product/accessories/6.jpg",
+            //   "/assets/img/product/accessories/7.jpg",
+            // ],
           });
         });
+
+        console.log("result: ", result);
         store.dispatch(setProducts(result));
       })
       .finally(() => {
