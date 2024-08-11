@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
-import { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import {Fragment, useState} from "react";
+import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import clsx from "clsx";
-import { getDiscountPrice } from "../../helpers/product";
+import {getDiscountPrice} from "../../helpers/product";
 import ProductModal from "./ProductModal";
-import { addToCart } from "../../store/slices/cart-slice";
-import { addToWishlist } from "../../store/slices/wishlist-slice";
-import { addToCompare } from "../../store/slices/compare-slice";
+import {addToCart} from "../../store/slices/cart-slice";
+import {addToWishlist} from "../../store/slices/wishlist-slice";
+import {addToCompare} from "../../store/slices/compare-slice";
 
 const ProductGridSingleTwo = ({
   product,
@@ -49,7 +49,7 @@ const ProductGridSingleTwo = ({
               ""
             )}
           </Link>
-          {product.discount || product.new ? (
+          {product.discount || product.new || product.order ? (
             <div className="product-img-badges">
               {/* {product.discount ? (
                 <span className="pink">-{product.discount}%</span>
@@ -57,18 +57,19 @@ const ProductGridSingleTwo = ({
                 ""
               )} */}
               {product.new ? <span className="purple">Шинэ</span> : ""}
+              {product.order ? <span className="red">Захиалга</span> : ""}
             </div>
           ) : (
             ""
           )}
 
-          {product.order ? (
+          {/* {product.order ? (
             <div className="product-img-badges">
               {product.order ? <span className="purple">Захиалга</span> : ""}
             </div>
           ) : (
             ""
-          )}
+          )} */}
 
           <div className="product-action-2">
             {product.affiliateLink ? (

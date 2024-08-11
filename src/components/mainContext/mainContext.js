@@ -10,11 +10,8 @@ export const MainItem = (props) => {
   const [christmasData, setChrismasData] = useState();
   const [christmasDataLoad, setChrismasDataLoad] = useState(false);
   useEffect(() => {
-    getLogos();
     getLanguage();
     getAdmin();
-    homeSlider();
-    getChristmas();
   }, []);
   const getLanguage = () => {
     if (localStorage.getItem("language")) {
@@ -51,58 +48,6 @@ export const MainItem = (props) => {
     localStorage.removeItem("expireDate");
     setUser(false);
     getLanguage();
-  };
-  const getLogos = () => {
-    axios
-      .get(`logoList.json`)
-      .then((res) => {
-        setLogo(res.data.data);
-      })
-      .catch((err) => {
-        // message.error("Бранд лого оруулааггүй байна!");
-        console.log("err: ", err);
-      })
-      .finally(() => {
-        // setLogoLoading(false);
-      });
-  };
-  const homeSlider = () => {
-    axios
-      .get(`homeSlider.json?orderBy="values/type"&equalTo="1"`)
-      .then((res) => {
-        const data = Object.entries(res.data).reverse();
-        // setSilderData(data);
-        const resJson = [];
-        data.forEach((element) => {
-          resJson.push(element[1].values);
-        });
-        const datas = resJson.sort((a, b) => (a.first > b.first ? 1 : -1));
-        setHomeSliderData(datas);
-      })
-      .catch((err) => {
-        console.log("err: ", err);
-      });
-  };
-  const getChristmas = () => {
-    setChrismasDataLoad(true);
-    axios
-      .get(`christmastTheme.json`)
-      .then((res) => {
-        console.log("res: ", res.data);
-        if (res.data === "" || res.data === null) {
-          console.log("null");
-          return;
-        } else {
-          const data = Object.entries(res.data).reverse();
-          return setChrismasData(data[0][1].values);
-        }
-      })
-      .catch((err) => {
-        console.log("err: ", err);
-      })
-      .finally(() => {
-        setChrismasDataLoad(false);
-      });
   };
   return (
     <MainContext.Provider

@@ -1,8 +1,9 @@
-import { Fragment } from "react";
+import {Fragment} from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import { getProducts } from "../../helpers/product";
+import {useSelector} from "react-redux";
+import {getProducts} from "../../helpers/product";
 import ProductGridSingleTwo from "../../components/product/ProductGridSingleTwo";
+import {Spin} from "antd";
 
 const ProductGridTwo = ({
   spaceBottomClass,
@@ -12,15 +13,16 @@ const ProductGridTwo = ({
   type,
   limit,
 }) => {
-  const { products } = useSelector((state) => state.product);
+  const {products} = useSelector((state) => state.product);
   const currency = useSelector((state) => state.currency);
-  const { cartItems } = useSelector((state) => state.cart);
-  const { wishlistItems } = useSelector((state) => state.wishlist);
-  const { compareItems } = useSelector((state) => state.compare);
+  const {cartItems} = useSelector((state) => state.cart);
+  const {wishlistItems} = useSelector((state) => state.wishlist);
+  const {compareItems} = useSelector((state) => state.compare);
   const prods = getProducts(products, category, type, limit);
 
   return (
     <Fragment>
+      {prods.length == 0 && <Spin />}
       {prods?.map((product) => {
         return (
           <div className="col-xl-3 col-md-6 col-lg-4 col-sm-6" key={product.id}>

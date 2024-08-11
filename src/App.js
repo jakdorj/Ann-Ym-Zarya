@@ -1,11 +1,11 @@
-import { Suspense, lazy, useEffect } from "react";
+import {Suspense, lazy, useEffect, useState} from "react";
 import ScrollToTop from "./helpers/scroll-top";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Dashboard from "./pages/dashboard/Dashboard";
-import axios from "./axios-orders";
-import { store } from "./store/store";
-import { setProducts } from "./store/slices/product-slice";
+import {store} from "./store/store";
+import {setProducts} from "./store/slices/product-slice";
 import products from "./data/products.json";
+import axios from "axios";
 
 // home pages
 const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
@@ -110,22 +110,36 @@ const Checkout = lazy(() => import("./pages/other/Checkout"));
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    store.dispatch(setProducts(products));
-    // getData();
+    getData();
   }, []);
-  // const getData = () => {
-  //   axios
-  //     .get(`colorList.json`)
-  //     .then((res) => {
-  //       // const data = Object.entries(res.data).reverse();
-  //       console.log("colors:::: ", res.data);
-  //       store.dispatch(setProducts(products));
-  //     })
-  //     .catch((err) => {
-  //       console.log("err: ", err);
-  //     });
-  // };
+  const getData = () => {
+    setLoading(true);
+    axios
+      .get(`https://bondooloi-kids-default-rtdb.firebaseio.com/items.json`)
+      .then((res) => {
+        const data = Object.entries(res.data).reverse();
+        const result = [];
+        data.forEach((element) => {
+          result.push({
+            id: element[0],
+            ...element[1]?.data,
+            image: [
+              "/assets/img/product/accessories/3.jpg",
+              "/assets/img/product/accessories/4.jpg",
+              "/assets/img/product/accessories/5.jpg",
+              "/assets/img/product/accessories/6.jpg",
+              "/assets/img/product/accessories/7.jpg",
+            ],
+          });
+        });
+        store.dispatch(setProducts(result));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
   return (
     <Router>
       <ScrollToTop>

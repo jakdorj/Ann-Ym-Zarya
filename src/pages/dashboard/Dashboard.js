@@ -1,18 +1,11 @@
-import React, { Fragment } from "react";
+import React, {Fragment} from "react";
 import SEO from "../../components/seo";
 import LayoutSeven from "../../layouts/LayoutSeven";
-import {
-  MailOutlined,
-  AppstoreOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
-import { Layout, Menu, Tabs, theme } from "antd";
-import Theme from "../../components/dashboard/Theme";
-import Tools from "../../components/dashboard/tools";
-import { useState } from "react";
-import HomeSlider from "../../components/dashboard/homeSlider";
-import ThemeChristmas from "../../components/dashboard/themeChristmas";
-const { Content, Footer, Sider } = Layout;
+import {AppstoreOutlined, SettingOutlined} from "@ant-design/icons";
+import {Layout, Menu, theme} from "antd";
+import {useState} from "react";
+import Items from "../../components/items";
+const {Content, Footer, Sider} = Layout;
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -26,46 +19,20 @@ const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(true);
   const [menuKey, setMenuKey] = useState("theme");
   const {
-    token: { colorBgContainer },
+    token: {colorBgContainer},
   } = theme.useToken();
   const menuhandler = (e) => {
-    console.log("menuhandler: ", e);
     setMenuKey(e.key);
   };
   const mItems = [
-    getItem("Theme", "theme", <MailOutlined />),
-    getItem("Banner", "banner", <AppstoreOutlined />, [
-      getItem("Home banner", "homeBanner"),
-      getItem("busad", "6"),
-      // getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
-    ]),
-    getItem("Navigation Three", "sub4", <SettingOutlined />, [
-      getItem("Option 9", "9"),
-      getItem("Option 10", "10"),
-      getItem("Option 11", "11"),
-      getItem("Option 12", "12"),
-    ]),
+    getItem("Items", "items", <SettingOutlined />),
+    getItem("OrderHistory", "orderHistory", <AppstoreOutlined />),
+
+    // getItem("Navigation Three", "sub4", <SettingOutlined />, [
+    //   getItem("Option 9", "9"),
+    // ]),
   ];
-  const tabItems = [
-    {
-      key: "1",
-      label: "Theme",
-      children: <Theme />,
-    },
-    {
-      key: "2",
-      label: "Brand color",
-      children: <Tools />,
-    },
-    {
-      key: "3",
-      label: "Theme christmas",
-      children: <ThemeChristmas />,
-    },
-  ];
-  const onChange = (key) => {
-    // console.log(key);
-  };
+
   return (
     <Fragment>
       <SEO
@@ -76,7 +43,7 @@ const Dashboard = () => {
       <LayoutSeven headerTop="visible">
         {/* breadcrumb */}
         <div
-          style={{ width: "100%", height: "100px ", background: "#000" }}
+          style={{width: "100%", height: "100px ", background: "#000"}}
         ></div>
         <Layout>
           <Sider
@@ -128,15 +95,7 @@ const Dashboard = () => {
                   background: colorBgContainer,
                 }}
               >
-                {menuKey === "theme" ? (
-                  <Tabs
-                    defaultActiveKey="1"
-                    items={tabItems}
-                    onChange={onChange}
-                  />
-                ) : menuKey === "homeBanner" ? (
-                  <HomeSlider />
-                ) : null}
+                {menuKey === "items" ? <Items /> : null}
               </div>
             </Content>
             <Footer
