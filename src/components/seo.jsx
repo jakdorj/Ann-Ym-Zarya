@@ -6,7 +6,7 @@ const SEO = ({ title, titleTemplate, description }) => {
     <HelmetProvider>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Бондоолой | {titleTemplate}</title>
+        <title>Ann yum zarya | {titleTemplate}</title>
         <meta name="description" content={description} />
       </Helmet>
     </HelmetProvider>
