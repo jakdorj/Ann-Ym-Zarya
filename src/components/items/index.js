@@ -1,7 +1,7 @@
-import {Button, Image, Input, Space, Table} from "antd";
+import { Button, Image, Input, Space, Table } from "antd";
 import Highlighter from "react-highlight-words";
-import {useEffect, useRef, useState} from "react";
-import {SearchOutlined} from "@ant-design/icons";
+import { useEffect, useRef, useState } from "react";
+import { SearchOutlined } from "@ant-design/icons";
 import axios from "axios";
 import Add from "./add";
 import Edit from "./edit";
@@ -21,34 +21,20 @@ const Items = () => {
     }
   }, []);
 
-  //   const data = getData.map((e, i) => ({
-  //     key: i,
-  //     busName: e[1].data ? e[1].data.busName : "",
-  //     description: e[1].data ? e[1].data.description : "",
-  //     price: e[1].data ? e[1].data.price : "",
-  //     adventages: e[1].data ? e[1].data.adventages : "",
-  //     title: e[1].data ? e[1].data.title : "",
-  //     chairNumber: e[1].data ? e[1].data.chairNumber : "",
-  //     img: e[1].data ? (e[1].data.img ? e[1].data.img[0] : "") : "",
-  //     action: e,
-  //     allData: e,
-  //   }));
-
   const getItems = () => {
     setLoadingTable(true);
     // const token = localStorage.getItem("idToken");
     axios
-      .get(`https://bondooloi-kids-default-rtdb.firebaseio.com/items.json`)
+      .get(`https://ann-yum-zarya-default-rtdb.firebaseio.com/items.json`)
       .then((res) => {
-        const data = Object.entries(res.data).reverse();
-        const result = [];
-        data.forEach((element) => {
-          result.push({id: element[0], ...element[1]?.data});
-        });
-        setData(result);
-      })
-      .catch((err) => {
-        console.log("err: ", err);
+        if (res.data !== null) {
+          const data = Object.entries(res.data).reverse();
+          const result = [];
+          data.forEach((element) => {
+            result.push({ id: element[0], ...element[1]?.data });
+          });
+          setData(result);
+        }
       })
       .finally(() => {
         setLoadingTable(false);
@@ -71,7 +57,7 @@ const Items = () => {
       clearFilters,
       close,
     }) => (
-      <div style={{padding: 8}} onKeyDown={(e) => e.stopPropagation()}>
+      <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
           ref={searchInput}
           placeholder={`Search ${dataIndex}`}
@@ -91,14 +77,14 @@ const Items = () => {
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
             size="small"
-            style={{width: 90}}
+            style={{ width: 90 }}
           >
             Search
           </Button>
           <Button
             onClick={() => clearFilters && handleReset(clearFilters)}
             size="small"
-            style={{width: 90}}
+            style={{ width: 90 }}
           >
             Reset
           </Button>
@@ -175,8 +161,8 @@ const Items = () => {
       ...getColumnSearchProps("new"),
       ellipsis: true,
       render: (a) => (
-        <div style={{display: "flex"}}>
-          <div style={{paddingLeft: "5px"}}>{a ? "shine" : ""}</div>
+        <div style={{ display: "flex" }}>
+          <div style={{ paddingLeft: "5px" }}>{a ? "shine" : ""}</div>
         </div>
       ),
     },
@@ -248,9 +234,9 @@ const Items = () => {
       sorter: (a, b) => a.price.length - b.price.length,
       sortDirections: ["descend", "ascend"],
       render: (a) => (
-        <div style={{display: "flex"}}>
+        <div style={{ display: "flex" }}>
           {/* <Paragraph copyable={{text: a }}></Paragraph> */}
-          <div style={{paddingLeft: "5px"}}>{a}</div>
+          <div style={{ paddingLeft: "5px" }}>{a}</div>
         </div>
       ),
     },
@@ -260,7 +246,7 @@ const Items = () => {
       key: "allData",
       width: "100px",
       render: (action) => (
-        <div style={{display: "flex", gap: "10px"}}>
+        <div style={{ display: "flex", gap: "10px" }}>
           {/* <Edit data={action[0]} getItems={getItems} info={action[1].data} />
           <Delete data={action[0]} getItems={getItems} /> */}
         </div>
@@ -272,13 +258,12 @@ const Items = () => {
       <section>
         <div>
           <div>
-            {console.log("getData: ", getData)}
             <Add getItems={getItems} />
             <Table
               columns={columns}
               bordered
               dataSource={getData ? getData : []}
-              scroll={{y: 600, x: 1200}}
+              scroll={{ y: 600, x: 1200 }}
               loading={loadingTable}
               pagination={{
                 total: 0,

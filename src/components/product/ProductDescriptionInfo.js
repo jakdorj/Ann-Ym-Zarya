@@ -40,7 +40,6 @@ const ProductDescriptionInfo = ({
   return (
     <div className="product-details-content ml-70">
       <h2>{product.name}</h2>
-      <div>test2</div>
       <div className="product-details-price">
         {discountedPrice !== null ? (
           <Fragment>
@@ -206,11 +205,10 @@ const ProductDescriptionInfo = ({
                 }
                 disabled={productCartQty >= productStock}
               >
-                {" "}
-                Add To Cart{" "}
+                Сагсанд нэмэх
               </button>
             ) : (
-              <button disabled>Out of Stock</button>
+              <button disabled>Дуссан</button>
             )}
           </div>
           <div className="pro-details-wishlist">

@@ -12,12 +12,13 @@ import {
   Upload,
   message,
 } from "antd";
-import {useState} from "react";
+import { useState } from "react";
 
 import axios from "axios";
-import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import ImgCrop from "antd-img-crop";
 
-const {TextArea} = Input;
+const { TextArea } = Input;
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -26,7 +27,7 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-const Add = ({getItems}) => {
+const Add = ({ getItems }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -59,7 +60,7 @@ const Add = ({getItems}) => {
   const uploadButton = (
     <div>
       <PlusOutlined />
-      <div style={{marginTop: 8}}>Зураг</div>
+      <div style={{ marginTop: 8 }}>Зураг</div>
     </div>
   );
   const showModal = () => {
@@ -81,7 +82,7 @@ const Add = ({getItems}) => {
 
       const body = {
         localId: localStorage.getItem("localId"),
-        data: {...values, image: img},
+        data: { ...values, image: img },
       };
       if (body.order === false) {
         delete body.data.order;
@@ -90,7 +91,7 @@ const Add = ({getItems}) => {
       setTimeout(() => {
         axios
           .post(
-            `https://bondooloi-kids-default-rtdb.firebaseio.com/items.json?&auth=${token}`,
+            `https://ann-yum-zarya-default-rtdb.firebaseio.com/items.json?&auth=${token}`,
             body
           )
           .then((res) => {
@@ -108,9 +109,9 @@ const Add = ({getItems}) => {
     }
   };
   const options = [
-    {value: "Захиалга", label: "Захиалга"},
-    {value: "Шинэ", label: "Шинэ"},
-    {value: "Хувцас", label: "Хувцас"},
+    { value: "Захиалга", label: "Захиалга" },
+    { value: "Шинэ", label: "Шинэ" },
+    { value: "Хувцас", label: "Хувцас" },
   ];
   return (
     <div>
@@ -118,7 +119,7 @@ const Add = ({getItems}) => {
         type="primary"
         onClick={showModal}
         size="middle"
-        style={{marginBottom: "10px", marginLeft: "10px", marginTop: "10px"}}
+        style={{ marginBottom: "10px", marginLeft: "10px", marginTop: "10px" }}
       >
         + Бараа нэмэх
       </Button>
@@ -132,33 +133,35 @@ const Add = ({getItems}) => {
         <Form
           disabled={btnLoad}
           size="middle"
-          initialValues={{remember: true}}
+          initialValues={{ remember: true }}
           onFinish={onFinish}
-          style={{marginTop: "20px"}}
+          style={{ marginTop: "20px" }}
         >
-          <Upload
-            listType="picture-circle"
-            fileList={fileList}
-            onPreview={handlePreview}
-            onChange={handleChange}
-          >
-            {fileList.length >= 7 ? null : uploadButton}
-          </Upload>
+          <ImgCrop aspect={3 / 4} rotationSlider>
+            <Upload
+              listType="picture-circle"
+              fileList={fileList}
+              onPreview={handlePreview}
+              onChange={handleChange}
+            >
+              {fileList.length >= 7 ? null : uploadButton}
+            </Upload>
+          </ImgCrop>
           <Modal
             open={previewOpen}
             title={previewTitle}
             footer={null}
             onCancel={handleCancelImg}
           >
-            <img alt="example" style={{width: "100%"}} src={previewImage} />
+            <img alt="example" style={{ width: "100%" }} src={previewImage} />
           </Modal>
 
           <Form.Item
             label="Барааны нэр"
             name="name"
-            labelCol={{span: 4}}
-            wrapperCol={{span: 20}}
-            rules={[{required: true, message: "Барааны нэр ээ оруулна уу!"}]}
+            labelCol={{ span: 4 }}
+            wrapperCol={{ span: 20 }}
+            rules={[{ required: true, message: "Барааны нэр ээ оруулна уу!" }]}
           >
             <Input placeholder="Барааны нэр" allowClear />
           </Form.Item>
@@ -167,12 +170,12 @@ const Add = ({getItems}) => {
               <Form.Item
                 label="Үнэ"
                 name="price"
-                rules={[{required: true, message: "Үнэ ээ оруулна уу!"}]}
-                labelCol={{span: 11}}
-                wrapperCol={{span: 14}}
+                rules={[{ required: true, message: "Үнэ ээ оруулна уу!" }]}
+                labelCol={{ span: 11 }}
+                wrapperCol={{ span: 14 }}
               >
                 <InputNumber
-                  style={{width: "100%"}}
+                  style={{ width: "100%" }}
                   defaultValue={1000}
                   formatter={(value) =>
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -186,9 +189,9 @@ const Add = ({getItems}) => {
               <Form.Item
                 label="Хөнгөлөлт"
                 name="discount"
-                labelCol={{span: 14}}
+                labelCol={{ span: 14 }}
                 // wrapperCol={{span: 8}}
-                rules={[{required: false}]}
+                rules={[{ required: false }]}
               >
                 <InputNumber max={99} placeholder="Хөнгөлөлт" allowClear />
               </Form.Item>
@@ -197,9 +200,9 @@ const Add = ({getItems}) => {
               <Form.Item
                 label="Тоо ширхэг"
                 name="stock"
-                labelCol={{span: 16}}
+                labelCol={{ span: 16 }}
                 // wrapperCol={{span: 12}}
-                rules={[{required: true, message: "Тоо ширхэг оруулна уу!"}]}
+                rules={[{ required: true, message: "Тоо ширхэг оруулна уу!" }]}
               >
                 <InputNumber placeholder="Тоо ширхэг" allowClear />
               </Form.Item>
@@ -211,9 +214,9 @@ const Add = ({getItems}) => {
                 label="*"
                 name="order"
                 valuePropName="checked"
-                labelCol={{span: 23}}
-                wrapperCol={{span: 8}}
-                rules={[{required: false}]}
+                labelCol={{ span: 23 }}
+                wrapperCol={{ span: 8 }}
+                rules={[{ required: false }]}
               >
                 <Checkbox>Захиалга</Checkbox>
               </Form.Item>
@@ -223,9 +226,9 @@ const Add = ({getItems}) => {
                 label="*"
                 name="new"
                 valuePropName="checked"
-                labelCol={{span: 23}}
-                wrapperCol={{span: 10}}
-                rules={[{required: false}]}
+                labelCol={{ span: 23 }}
+                wrapperCol={{ span: 10 }}
+                rules={[{ required: false }]}
               >
                 <Checkbox>Шинэ</Checkbox>
               </Form.Item>
@@ -253,26 +256,26 @@ const Add = ({getItems}) => {
                 message: "Категори оруулна уу!",
               },
             ]}
-            labelCol={{span: 4}}
-            wrapperCol={{span: 20}}
+            labelCol={{ span: 4 }}
+            wrapperCol={{ span: 20 }}
           >
             <Select mode="tags" options={options}></Select>
           </Form.Item>
 
           <Form.List name="additionalInfo">
-            {(fields, {add, remove}) => (
+            {(fields, { add, remove }) => (
               <>
-                {fields.map(({key, name, ...restField}) => (
+                {fields.map(({ key, name, ...restField }) => (
                   <div key={key}>
                     <Row gutter={22}>
                       <Col span={10}>
                         <Form.Item
                           {...restField}
                           label="Гарчиг"
-                          labelCol={{span: 8}}
-                          wrapperCol={{span: 22}}
+                          labelCol={{ span: 8 }}
+                          wrapperCol={{ span: 22 }}
                           name={[name, "label"]}
-                          rules={[{required: true, message: "Missing key"}]}
+                          rules={[{ required: true, message: "Missing key" }]}
                         >
                           <Input
                             placeholder="Гарчиг"
@@ -285,10 +288,10 @@ const Add = ({getItems}) => {
                         <Form.Item
                           {...restField}
                           label="Утга"
-                          labelCol={{span: 8}}
-                          wrapperCol={{span: 22}}
+                          labelCol={{ span: 8 }}
+                          wrapperCol={{ span: 22 }}
                           name={[name, "value"]}
-                          rules={[{required: true, message: "Missing key"}]}
+                          rules={[{ required: true, message: "Missing key" }]}
                         >
                           <Input
                             placeholder="Утга"
@@ -305,8 +308,8 @@ const Add = ({getItems}) => {
                 ))}
                 <Form.Item
                   wrapperCol={{
-                    xl: {span: 18, offset: 6},
-                    xs: {span: 20, offset: 0},
+                    xl: { span: 18, offset: 6 },
+                    xs: { span: 20, offset: 0 },
                   }}
                 >
                   <Button
@@ -322,8 +325,8 @@ const Add = ({getItems}) => {
             )}
           </Form.List>
           <Form.Item
-            labelCol={{span: 6}}
-            wrapperCol={{span: 20}}
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 20 }}
             label="Богино дэлгэрэнгуй"
             name="shortDescription"
             rules={[
@@ -337,12 +340,12 @@ const Add = ({getItems}) => {
               placeholder="дэлгэрэнгуй"
               showCount
               allowClear
-              style={{height: "100px"}}
+              style={{ height: "100px" }}
             />
           </Form.Item>
           <Form.Item
-            labelCol={{span: 6}}
-            wrapperCol={{span: 20}}
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 20 }}
             label="Бүтэн дэлгэрэнгуй"
             name="fullDescription"
             rules={[
@@ -356,7 +359,7 @@ const Add = ({getItems}) => {
               placeholder="дэлгэрэнгуй"
               showCount
               allowClear
-              style={{height: "200px"}}
+              style={{ height: "200px" }}
             />
           </Form.Item>
 
@@ -366,7 +369,7 @@ const Add = ({getItems}) => {
               type="primary"
               htmlType="submit"
               className="login-form-button"
-              style={{width: "100%"}}
+              style={{ width: "100%" }}
               loading={btnLoad}
             >
               {" "}

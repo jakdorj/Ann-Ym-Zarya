@@ -39,16 +39,16 @@ const HomeFashionTwo = () => {
         headerContainerClass="container-fluid"
         headerPaddingClass="header-padding-2"
       >
-        <Breadcrumb
+        {/* <Breadcrumb
           pages={[
             {
-              label: "Бондоолой",
+              label: "Ann Yum Zarya-SHD",
               path: process.env.PUBLIC_URL + "/",
             },
           ]}
-        />
+        /> */}
         {/* hero slider */}
-        {/* <HeroSliderNine spaceLeftClass="ml-70" spaceRightClass="mr-70" /> */}
+        <HeroSliderNine spaceLeftClass="ml-70" spaceRightClass="mr-70" />
         {/* banner */}
         {/* <BannerOne spaceTopClass="pt-60" spaceBottomClass="pb-65" /> */}
         {/* tab product */}

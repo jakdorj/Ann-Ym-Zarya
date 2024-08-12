@@ -120,19 +120,15 @@ function ProductModal({
           <div className="col-md-7 col-sm-12 col-xs-12">
             <div className="product-details-content quickview-content">
               <h2>{product.name}</h2>
-              <div>test: {product?.text}</div>
+              <div> {product?.text}</div>
               <div className="product-details-price">
                 {discountedPrice !== null ? (
                   <Fragment>
-                    <span>
-                      {currency.currencySymbol + finalDiscountedPrice}
-                    </span>{" "}
-                    <span className="old">
-                      {currency.currencySymbol + finalProductPrice}
-                    </span>
+                    <span>{finalDiscountedPrice}₮</span>
+                    <span className="old">{finalProductPrice}₮</span>
                   </Fragment>
                 ) : (
-                  <span>{currency.currencySymbol + finalProductPrice} </span>
+                  <span>{finalProductPrice}₮ </span>
                 )}
               </div>
               {product.rating && product.rating > 0 ? (

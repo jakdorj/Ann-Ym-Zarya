@@ -6,6 +6,7 @@
     "@reduxjs/toolkit": "^1.8.6",
     "animate.css": "^4.1.1",
     "antd": "^5.11.1",
+    "antd-img-crop": "^4.22.0",
     "axios": "^1.6.2",
     "bootstrap": "^5.2.2",
     "clsx": "^1.2.1",

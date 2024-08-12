@@ -10,6 +10,7 @@ export const getProducts = (products, category, type, limit) => {
     const newProducts = finalProducts.filter((single) => single.new);
     return newProducts.slice(0, limit ? limit : newProducts.length);
   }
+  console.log("type", type);
   if (type && type === "bestSeller") {
     return finalProducts
       .sort((a, b) => {

@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
-import {Fragment, useState} from "react";
-import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import clsx from "clsx";
-import {getDiscountPrice} from "../../helpers/product";
+import { getDiscountPrice } from "../../helpers/product";
 import ProductModal from "./ProductModal";
-import {addToCart} from "../../store/slices/cart-slice";
-import {addToWishlist} from "../../store/slices/wishlist-slice";
-import {addToCompare} from "../../store/slices/compare-slice";
+import { addToCart } from "../../store/slices/cart-slice";
+import { addToWishlist } from "../../store/slices/wishlist-slice";
+import { addToCompare } from "../../store/slices/compare-slice";
 
 const ProductGridSingleTwo = ({
   product,
@@ -24,9 +24,7 @@ const ProductGridSingleTwo = ({
   const finalProductPrice = product.price
     .toFixed(0)
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  const finalDiscountedPrice = +(
-    discountedPrice * currency.currencyRate
-  ).toFixed(2);
+  const finalDiscountedPrice = +(discountedPrice * currency.currencyRate);
   const dispatch = useDispatch();
 
   return (
@@ -174,7 +172,9 @@ const ProductGridSingleTwo = ({
         currency={currency}
         discountedPrice={discountedPrice}
         finalProductPrice={finalProductPrice}
-        finalDiscountedPrice={finalDiscountedPrice}
+        finalDiscountedPrice={finalDiscountedPrice
+          .toFixed(0)
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         wishlistItem={wishlistItem}
         compareItem={compareItem}
       />
