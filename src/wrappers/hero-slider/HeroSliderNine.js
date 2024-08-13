@@ -20,9 +20,7 @@ const params = {
 
 const HeroSliderNine = ({ spaceLeftClass, spaceRightClass }) => {
   const mainContext = useContext(MainContext);
-  useEffect(() => {
-    console.log("aHeroSliderNine", mainContext.homeSliderData);
-  }, [mainContext.homeSliderData]);
+  useEffect(() => {}, [mainContext.homeSliderData]);
   return (
     <div className={clsx("slider-area", spaceLeftClass, spaceRightClass)}>
       <div className="slider-active nav-style-1">

@@ -25,8 +25,11 @@ const Product = () => {
         {/* breadcrumb */}
         <Breadcrumb
           pages={[
-            { label: "Home", path: process.env.PUBLIC_URL + "/" },
-            { label: "Shop Product", path: process.env.PUBLIC_URL + pathname },
+            { label: "Үндсэн хуудас", path: process.env.PUBLIC_URL + "/" },
+            {
+              label: "Барааны дэлгэрэнгуй",
+              path: process.env.PUBLIC_URL + pathname,
+            },
           ]}
         />
         {/* product description with image */}
@@ -38,13 +41,13 @@ const Product = () => {
         {/* product description tab */}
         <ProductDescriptionTab
           spaceBottomClass="pb-90"
-          productFullDesc={product.fullDescription}
+          productFullDesc={product?.fullDescription}
           product={product}
         />
         {/* related product slider */}
         <RelatedProductSlider
           spaceBottomClass="pb-95"
-          category={product.category[0]}
+          category={product?.category[0]}
         />
       </LayoutOne>
     </Fragment>

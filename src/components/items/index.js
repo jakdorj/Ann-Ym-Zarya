@@ -1,11 +1,12 @@
-import { Button, Image, Input, Space, Table } from "antd";
+import { Button, Image, Input, Space, Table, Tabs } from "antd";
 import Highlighter from "react-highlight-words";
 import { useEffect, useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import axios from "axios";
+import axios from "../../axios-orders";
 import Add from "./add";
 import Edit from "./edit";
 import Delete from "./delete";
+import CategoryComponent from "../category-component";
 // import Paragraph from "antd/es/skeleton/Paragraph";
 
 const Items = () => {
@@ -13,19 +14,37 @@ const Items = () => {
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
   const [getData, setData] = useState([]);
+  const [category, setCategory] = useState([]);
   const [loadingTable, setLoadingTable] = useState(false);
+
   useEffect(() => {
     const localId = localStorage.getItem("localId");
     if (localId) {
       getItems();
+      getCategory();
     }
   }, []);
-
+  const getCategory = () => {
+    axios
+      .get(`category.json`)
+      .then((res) => {
+        if (res.data !== null) {
+          const data = Object.entries(res.data).reverse();
+          const result = [];
+          data.forEach((element) => {
+            result.push({ id: element[0], ...element[1]?.data });
+          });
+          setCategory(result);
+        }
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+      });
+  };
   const getItems = () => {
     setLoadingTable(true);
-    // const token = localStorage.getItem("idToken");
     axios
-      .get(`https://ann-yum-zarya-default-rtdb.firebaseio.com/items.json`)
+      .get(`items.json`)
       .then((res) => {
         if (res.data !== null) {
           const data = Object.entries(res.data).reverse();
@@ -253,24 +272,42 @@ const Items = () => {
       ),
     },
   ];
+  const tabItems = [
+    {
+      key: "1",
+      label: "Бараа нэмэх",
+      children: (
+        <>
+          <Add getItems={getItems} category={category} />
+          <Table
+            columns={columns}
+            bordered
+            dataSource={getData ? getData : []}
+            scroll={{ y: 600, x: 1200 }}
+            loading={loadingTable}
+            pagination={{
+              total: 0,
+              showTotal: (total) => `Нийт: ${total}`,
+            }}
+          />
+        </>
+      ),
+    },
+    {
+      key: "2",
+      label: "Категори нэмэх",
+      children: <CategoryComponent />,
+    },
+  ];
+  const onChange = (key) => {
+    // console.log(key);
+  };
+
   return (
     <div>
       <section>
         <div>
-          <div>
-            <Add getItems={getItems} />
-            <Table
-              columns={columns}
-              bordered
-              dataSource={getData ? getData : []}
-              scroll={{ y: 600, x: 1200 }}
-              loading={loadingTable}
-              pagination={{
-                total: 0,
-                showTotal: (total) => `Нийт: ${total}`,
-              }}
-            />
-          </div>
+          <Tabs defaultActiveKey="1" items={tabItems} onChange={onChange} />
         </div>
       </section>
     </div>

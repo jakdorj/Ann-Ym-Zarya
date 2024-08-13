@@ -1,22 +1,23 @@
 import { Button, Popconfirm, message } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import axios from "../../../../axios-orders";
+import axios from "axios";
 
-const Delete = ({ data, getData }) => {
+const Delete = (props) => {
   const deleteFunc = () => {
     const token = localStorage.getItem("idToken");
     axios
-      .delete(`homeSlider/${data}.json?&auth=${token}`)
+      .delete(
+        `https://eagle-festival-2c130-default-rtdb.firebaseio.com/bus/${props.data}.json?&auth=${token}`
+      )
       .then((res) => {
         message.success("Амжилттай устлаа");
-        getData();
+        props.getBus();
       })
       .catch((err) => {
-        console.log("errL ", err);
-        if (err.response.data.error === "Permission denied")
-          return message.error("Системээс гараад дахин нэврэнэ үү!");
+        props.getBus();
       });
   };
+
   return (
     <div>
       <Popconfirm title="Устгахдаа итгэлтэй байна уу?" onConfirm={deleteFunc}>

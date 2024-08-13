@@ -1,11 +1,19 @@
-import React, {Fragment} from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import SEO from "../../components/seo";
 import LayoutSeven from "../../layouts/LayoutSeven";
-import {AppstoreOutlined, SettingOutlined} from "@ant-design/icons";
-import {Layout, Menu, theme} from "antd";
-import {useState} from "react";
+import {
+  AppstoreOutlined,
+  SettingOutlined,
+  AntDesignOutlined,
+  ContainerOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
+import { Layout, Menu, theme } from "antd";
+import { useState } from "react";
 import Items from "../../components/items";
-const {Content, Footer, Sider} = Layout;
+import HomeSlider from "../../components/dashboard/homeSlider";
+import MainContext from "../../components/mainContext/mainContext";
+const { Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -19,14 +27,23 @@ const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(true);
   const [menuKey, setMenuKey] = useState("theme");
   const {
-    token: {colorBgContainer},
+    token: { colorBgContainer },
   } = theme.useToken();
+  const mainContext = useContext(MainContext);
+  useEffect(() => {}, [mainContext]);
+
   const menuhandler = (e) => {
     setMenuKey(e.key);
+    if (e.key === "logout") {
+      mainContext.logout();
+      return;
+    }
   };
   const mItems = [
-    getItem("Items", "items", <SettingOutlined />),
-    getItem("OrderHistory", "orderHistory", <AppstoreOutlined />),
+    getItem("Бараа", "items", <AntDesignOutlined />),
+    getItem("Баннер", "banner", <AppstoreOutlined />),
+    getItem("Захиалгын түүх", "orderHistory", <ContainerOutlined />),
+    getItem("Системээс гарах", "logout", <LogoutOutlined />),
 
     // getItem("Navigation Three", "sub4", <SettingOutlined />, [
     //   getItem("Option 9", "9"),
@@ -43,7 +60,7 @@ const Dashboard = () => {
       <LayoutSeven headerTop="visible">
         {/* breadcrumb */}
         <div
-          style={{width: "100%", height: "100px ", background: "#000"}}
+          style={{ width: "100%", height: "100px ", background: "#000" }}
         ></div>
         <Layout>
           <Sider
@@ -95,7 +112,13 @@ const Dashboard = () => {
                   background: colorBgContainer,
                 }}
               >
-                {menuKey === "items" ? <Items /> : null}
+                {menuKey === "items" ? (
+                  <Items />
+                ) : menuKey === "banner" ? (
+                  <HomeSlider />
+                ) : (
+                  <Items />
+                )}
               </div>
             </Content>
             <Footer
@@ -103,7 +126,7 @@ const Dashboard = () => {
                 textAlign: "center",
               }}
             >
-              Bondooloi kids ©2023 Created by Bondooloi
+              Ann yum zarya ©2024 Created by Ann yum zarya
             </Footer>
           </Layout>
         </Layout>

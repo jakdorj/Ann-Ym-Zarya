@@ -1,5 +1,6 @@
 import {
   Button,
+  Card,
   Checkbox,
   Col,
   Form,
@@ -11,12 +12,18 @@ import {
   Space,
   Upload,
   message,
+  notification,
 } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  MinusCircleOutlined,
+  PlusOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 import ImgCrop from "antd-img-crop";
+import { label } from "yet-another-react-lightbox/core";
 
 const { TextArea } = Input;
 const getBase64 = (file) =>
@@ -27,16 +34,30 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-const Add = ({ getItems }) => {
+const Add = ({ getItems, category }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
   const [fileList, setFileList] = useState([]);
-
   const [btnLoad, setBtnLoad] = useState(false);
-
   const handleCancelImg = () => setPreviewOpen(false);
+  const [api, contextHolder] = notification.useNotification();
+  const [isWideScreen, setIsWideScreen] = useState(
+    window.matchMedia("(min-width: 768px)").matches
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const handleChange = (e) => {
+      setIsWideScreen(e.matches);
+    };
+    handleChange(mediaQuery);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, []);
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
@@ -68,6 +89,7 @@ const Add = ({ getItems }) => {
   };
   const handleCancel = () => {
     setIsModalOpen(false);
+    setBtnLoad(false);
   };
   const onFinish = (values) => {
     if (fileList.length === 0) {
@@ -84,8 +106,36 @@ const Add = ({ getItems }) => {
         localId: localStorage.getItem("localId"),
         data: { ...values, image: img },
       };
-      if (body.order === false) {
+
+      if (body.data.order === undefined || body.data.order === false) {
         delete body.data.order;
+      }
+
+      if (body.data.variation === undefined || body.data.variation === "") {
+        delete body.data.variation;
+      } else {
+        let totalNumber = body.data.variation?.reduce((total, item) => {
+          return (
+            total +
+            item.size.reduce((sum, size) => sum + parseInt(size.stock, 10), 0)
+          );
+        }, 0);
+
+        if (body.data.stock !== totalNumber) {
+          api["error"]({
+            message: "Барааны нийт тоо ширхэг таарахгүй байна",
+            description: (
+              <div>
+                <div>
+                  {" "}
+                  Барааны нийт тоо ширхэг өнгөний тоо ширхэгтэй таарахгүй байна
+                </div>
+                <div style={{ color: "green" }}>Нийт: {totalNumber} </div>
+              </div>
+            ),
+          });
+          return;
+        }
       }
 
       setTimeout(() => {
@@ -99,7 +149,17 @@ const Add = ({ getItems }) => {
             getItems();
           })
           .catch((err) => {
-            message.error("Амжилтгүй");
+            if (err.response.data.error === "Permission denied") {
+              api["error"]({
+                message: "Системээс гараад дахин нэврэнэ үү!",
+                description: (
+                  <div>
+                    Нэвтрэх хүчинтэй хугацаа дууссан тул системээс гараад дахин
+                    нэврэнэ үү!
+                  </div>
+                ),
+              });
+            }
           })
           .finally(() => {
             setIsModalOpen(false);
@@ -108,13 +168,27 @@ const Add = ({ getItems }) => {
       }, 800);
     }
   };
-  const options = [
-    { value: "Захиалга", label: "Захиалга" },
-    { value: "Шинэ", label: "Шинэ" },
-    { value: "Хувцас", label: "Хувцас" },
-  ];
+
+  const options = category.map((e) => ({
+    value: e.name,
+    label: e.name,
+  }));
+
+  const onFinishFailed = (param) => {
+    api["error"]({
+      message: "Заавал бөглөнө үү",
+      description: (
+        <div>
+          {param.errorFields?.map((e) => (
+            <div> {e?.errors[0]} </div>
+          ))}
+        </div>
+      ),
+    });
+  };
   return (
     <div>
+      {contextHolder}
       <Button
         type="primary"
         onClick={showModal}
@@ -127,7 +201,7 @@ const Add = ({ getItems }) => {
         title="Нэмэх"
         open={isModalOpen}
         onCancel={handleCancel}
-        width={"50%"}
+        width={isWideScreen ? "50%" : "100%"}
         footer={null}
       >
         <Form
@@ -135,6 +209,7 @@ const Add = ({ getItems }) => {
           size="middle"
           initialValues={{ remember: true }}
           onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
           style={{ marginTop: "20px" }}
         >
           <ImgCrop aspect={3 / 4} rotationSlider>
@@ -162,6 +237,7 @@ const Add = ({ getItems }) => {
             labelCol={{ span: 4 }}
             wrapperCol={{ span: 20 }}
             rules={[{ required: true, message: "Барааны нэр ээ оруулна уу!" }]}
+            style={{ marginTop: "20px" }}
           >
             <Input placeholder="Барааны нэр" allowClear />
           </Form.Item>
@@ -193,7 +269,12 @@ const Add = ({ getItems }) => {
                 // wrapperCol={{span: 8}}
                 rules={[{ required: false }]}
               >
-                <InputNumber max={99} placeholder="Хөнгөлөлт" allowClear />
+                <InputNumber
+                  defaultValue={0}
+                  max={99}
+                  placeholder="Хөнгөлөлт"
+                  allowClear
+                />
               </Form.Item>
             </Col>
             <Col>
@@ -221,7 +302,7 @@ const Add = ({ getItems }) => {
                 <Checkbox>Захиалга</Checkbox>
               </Form.Item>
             </Col>
-            <Col>
+            {/* <Col>
               <Form.Item
                 label="*"
                 name="new"
@@ -232,7 +313,7 @@ const Add = ({ getItems }) => {
               >
                 <Checkbox>Шинэ</Checkbox>
               </Form.Item>
-            </Col>
+            </Col> */}
           </Row>
 
           {/* 
@@ -259,7 +340,11 @@ const Add = ({ getItems }) => {
             labelCol={{ span: 4 }}
             wrapperCol={{ span: 20 }}
           >
-            <Select mode="tags" options={options}></Select>
+            <Select
+              mode="tags"
+              options={options}
+              placeholder="Категори сонгоно уу"
+            ></Select>
           </Form.Item>
 
           <Form.List name="additionalInfo">
@@ -324,11 +409,91 @@ const Add = ({ getItems }) => {
               </>
             )}
           </Form.List>
+          <Form.List name="variation">
+            {(fields, { add, remove }) => (
+              <div
+                style={{
+                  display: "flex",
+                  rowGap: 16,
+                  flexDirection: "column",
+                  marginLeft: "20px",
+                }}
+              >
+                {fields.map((field) => (
+                  <Card
+                    size="small"
+                    title={`Өнгө ${field.name + 1}`}
+                    key={field.key}
+                    extra={
+                      <CloseOutlined
+                        onClick={() => {
+                          remove(field.name);
+                        }}
+                      />
+                    }
+                  >
+                    <Form.Item label="Өнгө" name={[field.name, "color"]}>
+                      <Input />
+                    </Form.Item>
+
+                    {/* Nest Form.List */}
+                    <Form.Item label="size">
+                      <Form.List name={[field.name, "size"]}>
+                        {(subFields, subOpt) => (
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              rowGap: 16,
+                            }}
+                          >
+                            {subFields.map((subField) => (
+                              <Space key={subField.key}>
+                                <Form.Item
+                                  noStyle
+                                  name={[subField.name, "name"]}
+                                >
+                                  <Input placeholder="Хэмжээ" />
+                                </Form.Item>
+                                <Form.Item
+                                  noStyle
+                                  name={[subField.name, "stock"]}
+                                >
+                                  <InputNumber placeholder="Тоо ширхэг" />
+                                </Form.Item>
+                                <CloseOutlined
+                                  onClick={() => {
+                                    subOpt.remove(subField.name);
+                                  }}
+                                />
+                              </Space>
+                            ))}
+                            <Button
+                              type="dashed"
+                              onClick={() => subOpt.add()}
+                              block
+                            >
+                              + Хэмжээ нэмэх
+                            </Button>
+                          </div>
+                        )}
+                      </Form.List>
+                    </Form.Item>
+                  </Card>
+                ))}
+
+                <Button type="dashed" onClick={() => add()} block>
+                  + Өнгө нэмэх
+                </Button>
+              </div>
+            )}
+          </Form.List>
           <Form.Item
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 20 }}
             label="Богино дэлгэрэнгуй"
             name="shortDescription"
+            style={{ marginTop: "30px" }}
             rules={[
               {
                 required: true,

@@ -17,19 +17,12 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
       <div className="container">
         <div className="row">
           <div className="col-xl-6 col-lg-6 col-md-7 ms-auto">
-            <div className="slider-content-2 slider-animated-1">
-              <h3 className="animated">
-                {i18n.resolvedLanguage === "en"
-                  ? data.subTitleEng
-                  : data.subTitleMn}
-              </h3>
+            {/* <div className="slider-content-2 slider-animated-1">
+              <h3 className="animated">{data?.subTitle}</h3>
               <h1
                 className="animated"
                 dangerouslySetInnerHTML={{
-                  __html:
-                    i18n.resolvedLanguage === "en"
-                      ? data.titleEng
-                      : data.titleMn,
+                  __html: data?.title,
                 }}
               ></h1>
               <div className="slider-btn btn-hover">
@@ -37,12 +30,10 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
                   className="animated"
                   to={process.env.PUBLIC_URL + "/shop-grid-standard"}
                 >
-                  {i18n.resolvedLanguage === "en"
-                    ? data.buttonNameEng
-                    : data.buttonNameMn}
+                  {data?.buttonName}
                 </Link>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -6,11 +6,21 @@ const Logo = ({ logoClass, imageUrl }) => {
   return (
     <div className={clsx(logoClass)}>
       <Link to={process.env.PUBLIC_URL + "/"}>
-        <img
+        <div
+          style={{
+            color: "#ffb386",
+            fontWeight: "bold",
+            fontSize: "20px",
+            textTransform: "uppercase",
+          }}
+        >
+          Ann Yum Zarya
+        </div>
+        {/* <img
           alt=""
           src={process.env.PUBLIC_URL + imageUrl}
           style={{ width: "50px" }}
-        />
+        /> */}
       </Link>
     </div>
   );

@@ -62,71 +62,7 @@ const Edit = (props) => {
           thumbUrl: props.info.img[0],
         },
       ]);
-    } else if (props.info.img.length === 2) {
-      setFileList([
-        {
-          uid: "-1",
-          name: "image.png",
-          status: "done",
-          thumbUrl: props.info.img[0],
-        },
-        {
-          uid: "-2",
-          name: "image2.png",
-          status: "done",
-          thumbUrl: props.info.img[1],
-        },
-      ]);
-    } else if (props.info.img.length === 3) {
-      setFileList([
-        {
-          uid: "-1",
-          name: "image.png",
-          status: "done",
-          thumbUrl: props.info.img[0],
-        },
-        {
-          uid: "-2",
-          name: "image2.png",
-          status: "done",
-          thumbUrl: props.info.img[1],
-        },
-        {
-          uid: "-3",
-          name: "image3.png",
-          status: "done",
-          thumbUrl: props.info.img[2],
-        },
-      ]);
-    } else if (props.info.img.length === 4) {
-      setFileList([
-        {
-          uid: "-1",
-          name: "image.png",
-          status: "done",
-          thumbUrl: props.info.img[0],
-        },
-        {
-          uid: "-2",
-          name: "image2.png",
-          status: "done",
-          thumbUrl: props.info.img[1],
-        },
-        {
-          uid: "-3",
-          name: "image3.png",
-          status: "done",
-          thumbUrl: props.info.img[2],
-        },
-        {
-          uid: "-4",
-          name: "image4.png",
-          status: "done",
-          thumbUrl: props.info.img[3],
-        },
-      ]);
     }
-
     setInfo(props.info);
     setIsModalOpen(true);
   };
@@ -146,14 +82,11 @@ const Edit = (props) => {
     setTimeout(() => {
       const body = {
         localId: localStorage.getItem("localId"),
-        values: {
-          titleMn: values.titleMn,
+        data: {
+          // title: values.title,
           type: values.type,
-          titleEng: values.titleEng,
-          subTitleMn: values.subTitleMn,
-          subTitleEng: values.subTitleEng,
-          buttonNameMn: values.buttonNameMn,
-          buttonNameEng: values.buttonNameEng,
+          // subTitle: values.subTitle,
+          // buttonName: values.buttonName,
           first: values.first,
           img: img,
         },
@@ -163,11 +96,12 @@ const Edit = (props) => {
         .then((res) => {
           if (res.data.name) message.success("Success");
           props.getData();
-          setIsModalOpen(false);
         })
         .catch((err) => {
-          console.log("err: ", err);
-          message.error("error");
+          if (err.response.data.error === "Permission denied")
+            return message.error("Системээс гараад дахин нэврэнэ үү!");
+        })
+        .finally(() => {
           setIsModalOpen(false);
         });
     }, 800);
@@ -197,12 +131,9 @@ const Edit = (props) => {
           }}
           initialValues={{
             remember: true,
-            titleMn: getInfo.titleMn,
-            titleEng: getInfo.titleEng,
-            subTitleMn: getInfo.subTitleMn,
-            subTitleEng: getInfo.subTitleEng,
-            buttonNameMn: getInfo.buttonNameMn,
-            buttonNameEng: getInfo.buttonNameEng,
+            // title: getInfo.title,
+            // subTitle: getInfo.subTitle,
+            // buttonName: getInfo.buttonName,
             first: getInfo.first,
             type: getInfo.type,
             img: getInfo.img ? getInfo.img[0] : "",
@@ -225,23 +156,16 @@ const Edit = (props) => {
           >
             <img alt="example" style={{ width: "100%" }} src={previewImage} />
           </Modal>
-          <Form.Item
+          {/* <Form.Item
             label="Гарчиг"
-            name="titleMn"
+            name="title"
             rules={[{ required: true, message: "Гарчиг аа оруулна уу!" }]}
           >
             <Input placeholder="Гарчиг" allowClear size="small" />
           </Form.Item>
           <Form.Item
-            label="Title"
-            name="titleEng"
-            rules={[{ required: true, message: "Гарчиг аа оруулна уу!" }]}
-          >
-            <Input placeholder="Title" allowClear size="small" />
-          </Form.Item>
-          <Form.Item
             label="Гарчиг/Дэд/"
-            name="subTitleMn"
+            name="subTitle"
             tooltip={{
               title: "<br/> - текстийг доош нь унгана.",
               icon: <InfoCircleOutlined />,
@@ -250,42 +174,13 @@ const Edit = (props) => {
           >
             <Input placeholder="Гарчиг/Дэд/" allowClear />
           </Form.Item>
-
-          <Form.Item
-            label="Subtitle"
-            name="subTitleEng"
-            tooltip={{
-              title: "<br/> - текстийг доош нь унгана.",
-              icon: <InfoCircleOutlined />,
-            }}
-            rules={[{ required: true, message: "Гарчиг/Дэд/ аа оруулна уу!" }]}
-          >
-            <Input placeholder="Subtitle" allowClear />
-          </Form.Item>
-          {/* <Form.Item
-            label="Гарчиг/Доод/"
-            name="smallTitleDown"
-            tooltip={{ title: "Заавал биш", icon: <InfoCircleOutlined /> }}
-            rules={[
-              { required: false, message: "Гарчиг/Доод/ аа оруулна уу!" },
-            ]}
-          >
-            <Input placeholder="Гарчиг/Доод/" allowClear />
-          </Form.Item> */}
           <Form.Item
             label="Товчлуур"
-            name="buttonNameMn"
+            name="buttonName"
             rules={[{ required: true, message: "Товчлуур нэр ээ оруулна уу!" }]}
           >
             <Input placeholder="Товчлуур нэр" allowClear />
-          </Form.Item>
-          <Form.Item
-            label="Button name"
-            name="buttonNameEng"
-            rules={[{ required: true, message: "Товчлуур нэр ээ оруулна уу!" }]}
-          >
-            <Input placeholder="Button name" allowClear />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item name="type" label="Төрөл">
             <Select
               size="large"

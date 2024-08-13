@@ -5,19 +5,19 @@ import { setActiveSort } from "../../helpers/product";
 const ShopCategories = ({ categories, getSortParams }) => {
   return (
     <div className="sidebar-widget">
-      <h4 className="pro-sidebar-title">Categories </h4>
+      <h4 className="pro-sidebar-title">Бүх барааны ангилал </h4>
       <div className="sidebar-widget-list mt-30">
         {categories ? (
           <ul>
             <li>
               <div className="sidebar-widget-list-left">
                 <button
-                  onClick={e => {
+                  onClick={(e) => {
                     getSortParams("category", "");
                     setActiveSort(e);
                   }}
                 >
-                  <span className="checkmark" /> All Categories
+                  <span className="checkmark" /> Бүгд
                 </button>
               </div>
             </li>
@@ -26,7 +26,7 @@ const ShopCategories = ({ categories, getSortParams }) => {
                 <li key={key}>
                   <div className="sidebar-widget-list-left">
                     <button
-                      onClick={e => {
+                      onClick={(e) => {
                         getSortParams("category", category);
                         setActiveSort(e);
                       }}
@@ -49,7 +49,7 @@ const ShopCategories = ({ categories, getSortParams }) => {
 
 ShopCategories.propTypes = {
   categories: PropTypes.array,
-  getSortParams: PropTypes.func
+  getSortParams: PropTypes.func,
 };
 
 export default ShopCategories;

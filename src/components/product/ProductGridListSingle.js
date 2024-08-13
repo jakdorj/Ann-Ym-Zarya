@@ -19,8 +19,10 @@ const ProductGridListSingle = ({
   spaceBottomClass,
 }) => {
   const [modalShow, setModalShow] = useState(false);
-  const discountedPrice = getDiscountPrice(product.price, product.discount);
-  const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
+  const discountedPrice = getDiscountPrice(product?.price, product?.discount);
+  const finalProductPrice = +(product?.price * currency?.currencyRate).toFixed(
+    2
+  );
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate
   ).toFixed(2);
@@ -86,7 +88,7 @@ const ProductGridListSingle = ({
                 </a>
               ) : product.variation && product.variation.length >= 1 ? (
                 <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
-                  Select Option
+                  Сонголт ихтэй
                 </Link>
               ) : product.stock && product.stock > 0 ? (
                 <button
@@ -160,6 +162,7 @@ const ProductGridListSingle = ({
           </div>
         </div>
       </div>
+
       <div className="shop-list-wrap mb-30">
         <div className="row">
           <div className="col-xl-4 col-md-5 col-sm-6">
@@ -207,14 +210,25 @@ const ProductGridListSingle = ({
                 {discountedPrice !== null ? (
                   <Fragment>
                     <span>
-                      {currency.currencySymbol + finalDiscountedPrice}
+                      {finalDiscountedPrice
+                        .toFixed(0)
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                      ₮
                     </span>{" "}
                     <span className="old">
-                      {currency.currencySymbol + finalProductPrice}
+                      {finalProductPrice
+                        .toFixed(0)
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                      ₮
                     </span>
                   </Fragment>
                 ) : (
-                  <span>{currency.currencySymbol + finalProductPrice} </span>
+                  <span>
+                    {finalProductPrice
+                      .toFixed(0)
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    ₮{" "}
+                  </span>
                 )}
               </div>
               {product.rating && product.rating > 0 ? (
@@ -247,7 +261,7 @@ const ProductGridListSingle = ({
                     <Link
                       to={`${process.env.PUBLIC_URL}/product/${product.id}`}
                     >
-                      Select Option
+                      Сонголт ихтэй
                     </Link>
                   ) : product.stock && product.stock > 0 ? (
                     <button
@@ -265,12 +279,12 @@ const ProductGridListSingle = ({
                       {" "}
                       <i className="pe-7s-cart"></i>{" "}
                       {cartItem !== undefined && cartItem.quantity > 0
-                        ? "Added"
-                        : "Add to cart"}
+                        ? "Сагсанд байна"
+                        : "Сагсанд нэмэх"}
                     </button>
                   ) : (
                     <button disabled className="active">
-                      Out of Stock
+                      Дууссан
                     </button>
                   )}
                 </div>

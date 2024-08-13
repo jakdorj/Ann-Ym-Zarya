@@ -81,7 +81,7 @@ const LanguageCurrencyChanger = ({ currency }) => {
         </div>
       </div> */}
       <div className="same-language-currency">
-        <p>Call Us +97688096009</p>
+        <p>Бидэнтэй холбогдох +976 88096009</p>
       </div>
     </div>
   );

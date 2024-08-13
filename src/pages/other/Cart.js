@@ -108,10 +108,10 @@ const Cart = () => {
                                   cartItem.selectedProductSize ? (
                                     <div className="cart-item-variation">
                                       <span>
-                                        Color: {cartItem.selectedProductColor}
+                                        Өнгө: {cartItem.selectedProductColor}
                                       </span>
                                       <span>
-                                        Size: {cartItem.selectedProductSize}
+                                        Хэмжээ: {cartItem.selectedProductSize}
                                       </span>
                                     </div>
                                   ) : (

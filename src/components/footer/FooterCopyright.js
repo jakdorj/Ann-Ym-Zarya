@@ -10,7 +10,17 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
     <div className={clsx("copyright", spaceBottomClass, colorClass)}>
       <div className="footer-logo">
         <Link to={process.env.PUBLIC_URL + "/"}>
-          <img alt="" src={process.env.PUBLIC_URL + footerLogo} />
+          {/* <img alt="" src={process.env.PUBLIC_URL + footerLogo} /> */}
+          <div
+            style={{
+              color: "#ffb386",
+              fontWeight: "bold",
+              fontSize: "20px",
+              textTransform: "uppercase",
+            }}
+          >
+            Ann Yum Zarya
+          </div>
           {/* <img alt="" src={mainContext.logo.logoBlack} /> */}
         </Link>
       </div>
@@ -21,7 +31,7 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
           rel="noopener noreferrer"
           target="_blank"
         >
-          Bondooloi kids
+          Ann yum zarya
         </a>
         .<br /> All Rights Reserved
       </p>

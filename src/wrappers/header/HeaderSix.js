@@ -56,16 +56,38 @@ const HeaderSix = ({ layout, headerPaddingClass, headerBgClass }) => {
             {/* header logo */}
             <div className="logo text-center logo-hm5">
               <Link className="sticky-none" to={process.env.PUBLIC_URL + "/"}>
-                <img alt="" src={mainContext.logo.logoWhite} />
+                {/* <img alt="" src={""} /> */}
+                <div
+                  style={{
+                    color: "#ffb386",
+                    fontWeight: "bold",
+                    fontSize: "20px",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Ann Yum Zarya
+                </div>
               </Link>
               <Link className="sticky-block" to={process.env.PUBLIC_URL + "/"}>
-                <img alt="" src={mainContext.logo.logoBlack} />
+                <div
+                  style={{
+                    color: "#ffb386",
+                    fontWeight: "bold",
+                    fontSize: "20px",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Ann Yum Zarya
+                </div>
               </Link>
             </div>
           </div>
           <div className="col-xl-5 col-lg-4 col-md-6 col-6">
             {/* Icon group */}
-            <IconGroup iconWhiteClass="header-right-wrap-white" />
+            <IconGroup
+              iconWhiteClass="header-right-wrap-white"
+              black={"black"}
+            />
           </div>
         </div>
       </div>

@@ -60,6 +60,7 @@ const LoginRegister = () => {
           localStorage.setItem("idToken", res.data.idToken);
           localStorage.setItem("localId", res.data.localId);
           localStorage.setItem("expireDate", expireDate);
+          localStorage.setItem("expIn", expIn);
           localStorage.setItem("refreshToken", res.data.refreshToken);
           refreshToken(expIn * 1000);
           document.location.replace("/");

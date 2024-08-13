@@ -3,8 +3,15 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
 import MenuCart from "./sub-components/MenuCart";
+import { useContext, useEffect, useState } from "react";
+import moment from "moment";
+import { Button } from "antd";
+import MainContext from "../mainContext/mainContext";
 
-const IconGroup = ({ iconWhiteClass }) => {
+const IconGroup = ({ iconWhiteClass, black }) => {
+  const [date, setDate] = useState("");
+  const mainContext = useContext(MainContext);
+  useEffect(() => {}, [mainContext]);
   const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
@@ -18,6 +25,13 @@ const IconGroup = ({ iconWhiteClass }) => {
   // const { compareItems } = useSelector((state) => state.compare);
   // const { wishlistItems } = useSelector((state) => state.wishlist);
   const { cartItems } = useSelector((state) => state.cart);
+  useEffect(() => {
+    if (localStorage.getItem("expireDate")) {
+      const day = new Date(localStorage.getItem("expireDate"));
+      const formattedDate = moment(day).format("HH:mm:ss");
+      setDate(formattedDate);
+    }
+  }, []);
 
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)}>
@@ -85,6 +99,23 @@ const IconGroup = ({ iconWhiteClass }) => {
         {/* menu cart */}
         <MenuCart />
       </div>
+      {black === "black" ? (
+        <>
+          <div
+            className="same-style cart-wrap d-none d-lg-block"
+            style={{ color: "rgb(255, 179, 134)" }}
+          >
+            Нэвтрэх хүчинтэй хугацаа: {date}
+          </div>
+          <div
+            className="same-style cart-wrap d-none d-lg-block"
+            style={{ color: "red", cursor: "pointer" }}
+            onClick={() => mainContext.logout()}
+          >
+            Гарах
+          </div>
+        </>
+      ) : null}
       <div className="same-style cart-wrap d-block d-lg-none">
         <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
           <i className="pe-7s-shopbag" />

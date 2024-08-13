@@ -43,7 +43,12 @@ const ProductDescriptionInfo = ({
       <div className="product-details-price">
         {discountedPrice !== null ? (
           <Fragment>
-            <span>{finalDiscountedPrice}₮</span>{" "}
+            <span>
+              {finalDiscountedPrice
+                .toFixed(0)
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              ₮
+            </span>{" "}
             <span className="old">
               {finalProductPrice
                 .toFixed(0)
@@ -74,13 +79,16 @@ const ProductDescriptionInfo = ({
       {product.variation ? (
         <div className="pro-details-size-color">
           <div className="pro-details-color-wrap">
-            <span>Color</span>
+            <span>Өнгө</span>
             <div className="pro-details-color-content">
               {product.variation.map((single, key) => {
                 return (
                   <label
                     className={`pro-details-color-content--single ${single.color}`}
                     key={key}
+                    style={{
+                      background: single.color ? single.color : "green",
+                    }}
                   >
                     <input
                       type="radio"
@@ -103,7 +111,7 @@ const ProductDescriptionInfo = ({
             </div>
           </div>
           <div className="pro-details-size">
-            <span>Size</span>
+            <span>Хэмжээ</span>
             <div className="pro-details-size-content">
               {product.variation &&
                 product.variation.map((single) => {
@@ -243,7 +251,7 @@ const ProductDescriptionInfo = ({
       )}
       {product.category ? (
         <div className="pro-details-meta">
-          <span>Categories :</span>
+          <span>Категори :</span>
           <ul>
             {product.category.map((single, key) => {
               return (
@@ -281,7 +289,7 @@ const ProductDescriptionInfo = ({
       <div className="pro-details-social">
         <ul>
           <li>
-            <a href="//facebook.com">
+            <a href="https://www.facebook.com/profile.php?id=61562868644217">
               <i className="fa fa-facebook" />
             </a>
           </li>

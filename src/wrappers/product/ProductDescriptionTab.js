@@ -28,7 +28,7 @@ const ProductDescriptionTab = ({
               <Tab.Pane eventKey="additionalInfo">
                 <div className="product-anotherinfo-wrapper">
                   <ul>
-                    {product.additionalInfo?.map((e, i) => (
+                    {product?.additionalInfo?.map((e, i) => (
                       <li key={i}>
                         <span>{e.label}</span> {e.value}
                       </li>
@@ -52,7 +52,7 @@ const ProductDescriptionTab = ({
               </Tab.Pane>
               <Tab.Pane eventKey="productDescription">
                 {productFullDesc}
-                {product?.name}
+                {/* {product?.name} */}
               </Tab.Pane>
               <Tab.Pane eventKey="productReviews">
                 <div className="row">

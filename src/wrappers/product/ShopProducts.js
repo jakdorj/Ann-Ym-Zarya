@@ -14,7 +14,7 @@ const ShopProducts = ({ products, layout }) => {
 
 ShopProducts.propTypes = {
   layout: PropTypes.string,
-  products: PropTypes.array
+  products: PropTypes.array,
 };
 
 export default ShopProducts;
