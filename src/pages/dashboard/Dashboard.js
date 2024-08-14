@@ -13,6 +13,7 @@ import { useState } from "react";
 import Items from "../../components/items";
 import HomeSlider from "../../components/dashboard/homeSlider";
 import MainContext from "../../components/mainContext/mainContext";
+import OrderHistory from "../../components/order-history";
 const { Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children, type) {
   return {
@@ -116,6 +117,8 @@ const Dashboard = () => {
                   <Items />
                 ) : menuKey === "banner" ? (
                   <HomeSlider />
+                ) : menuKey === "orderHistory" ? (
+                  <OrderHistory />
                 ) : (
                   <Items />
                 )}

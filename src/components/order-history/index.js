@@ -7,51 +7,34 @@ import Add from "./add";
 import Edit from "./edit";
 import Delete from "./delete";
 import CategoryComponent from "../category-component";
+import Details from "./details";
 // import Paragraph from "antd/es/skeleton/Paragraph";
 
-const Items = () => {
+const OrderHistory = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
   const [getData, setData] = useState([]);
-  const [category, setCategory] = useState([]);
   const [loadingTable, setLoadingTable] = useState(false);
 
   useEffect(() => {
     const localId = localStorage.getItem("localId");
     if (localId) {
       getItems();
-      getCategory();
     }
   }, []);
-  const getCategory = () => {
-    axios
-      .get(`category.json`)
-      .then((res) => {
-        if (res.data !== null) {
-          const data = Object.entries(res.data).reverse();
-          const result = [];
-          data.forEach((element) => {
-            result.push({ id: element[0], ...element[1]?.data });
-          });
-          setCategory(result);
-        }
-      })
-      .catch((err) => {
-        console.log("err: ", err);
-      });
-  };
   const getItems = () => {
     setLoadingTable(true);
     axios
-      .get(`items.json`)
+      .get(`orderHistory.json`)
       .then((res) => {
         if (res.data !== null) {
           const data = Object.entries(res.data).reverse();
           const result = [];
           data.forEach((element) => {
-            result.push({ id: element[0], ...element[1]?.data });
+            result.push({ id: element[0], ...element[1] });
           });
+          console.log("result: ", result);
           setData(result);
         }
       })
@@ -149,90 +132,47 @@ const Items = () => {
       ellipsis: true,
     },
     {
-      title: "Барааны нэр",
-      dataIndex: "name",
-      key: "name",
+      title: "Захиалгач нэр",
+      dataIndex: "username",
+      key: "username",
       width: "100px",
       ellipsis: true,
-      ...getColumnSearchProps("name"),
+      ...getColumnSearchProps("username"),
     },
     {
-      title: "Үнэ",
-      dataIndex: "price",
-      key: "price",
+      title: "Захиалгын дугаар",
+      dataIndex: "orderNumber",
+      key: "orderNumber",
       width: "100px",
       ellipsis: true,
-      ...getColumnSearchProps("price"),
-    },
-    {
-      title: "Хөнгөлөлт",
-      dataIndex: "discount",
-      key: "discount",
-      width: "100px",
-      ellipsis: true,
-      ...getColumnSearchProps("discount"),
+      ...getColumnSearchProps("orderNumber"),
     },
     // {
-    //   title: "Категори",
-    //   dataIndex: "category",
-    //   key: "category",
+    //   title: "Зураг",
+    //   dataIndex: "image",
+    //   key: "image",
     //   width: "80px",
-    //   ellipsis: true,
-    //   render: (a) => (
-    //     <div style={{display: "flex"}}>
-    //
-    //       {/* <div style={{paddingLeft: "5px"}}>{a}</div> */}
+    //   render: (img) => (
+    //     <div>
+    //       <Image src={img[0]} width={50} />{" "}
     //     </div>
     //   ),
     // },
     {
-      title: "Тоо ширхэг",
-      dataIndex: "stock",
-      key: "stock",
-      width: "80px",
-      ...getColumnSearchProps("stock"),
+      title: "Е-мэйл",
+      dataIndex: "email",
+      key: "email",
+      width: "100px",
       ellipsis: true,
+      ...getColumnSearchProps("orderNumber"),
     },
     {
-      title: "Бүтэн дэлгэрэнгүй",
-      dataIndex: "fullDescription",
-      key: "fullDescription",
-      width: "80px",
-      ...getColumnSearchProps("fullDescription"),
+      title: "Утас",
+      dataIndex: "phone",
+      key: "phone",
+      width: "100px",
       ellipsis: true,
-    },
-    // {
-    //   title: "Богино дэлгэрэнгүй",
-    //   dataIndex: "shortDescription",
-    //   key: "shortDescription",
-    //   width: "80px",
-    //   ...getColumnSearchProps("shortDescription"),
-    //   ellipsis: true,
-    // },
-    // {
-    //   title: "Нэмэлт мэдээлэл",
-    //   dataIndex: "additionalInfo",
-    //   key: "additionalInfo",
-    //   width: "80px",
-    //   ellipsis: true,
-    //   render: (a) => (
-    //     <div style={{display: "flex"}}>
-    //       {/* <Paragraph copyable={{text: a }}></Paragraph> */}
-    //       <div style={{paddingLeft: "5px"}}>xooson</div>
-    //     </div>
-    //   ),
-    // },
-    {
-      title: "Зураг",
-      dataIndex: "image",
-      key: "image",
-      width: "80px",
-      render: (img) => (
-        <div>
-          <Image src={img[0]} width={50} />{" "}
-        </div>
-      ),
-      ellipsis: true,
+      ...getColumnSearchProps("phone"),
     },
     {
       title: "Үнэ",
@@ -257,51 +197,28 @@ const Items = () => {
       width: "100px",
       render: (action, data) => (
         <div style={{ display: "flex", gap: "10px" }}>
-          {/*   <Edit data={action[0]} getItems={getItems} info={action[1].data} /> */}
-          <Delete data={data?.id} getItems={getItems} />
+          <Delete data={data.id} getItems={getItems} />
+          <Details data={data?.orders?.updateData} />
         </div>
       ),
     },
   ];
-  const tabItems = [
-    {
-      key: "1",
-      label: "Бараа нэмэх",
-      children: (
-        <>
-          <Add getItems={getItems} category={category} />
-          <Table
-            columns={columns}
-            bordered
-            dataSource={getData ? getData : []}
-            scroll={{ y: 600, x: 1200 }}
-            loading={loadingTable}
-            pagination={{
-              total: 0,
-              showTotal: (total) => `Нийт: ${total}`,
-            }}
-          />
-        </>
-      ),
-    },
-    {
-      key: "2",
-      label: "Категори нэмэх",
-      children: <CategoryComponent />,
-    },
-  ];
-  const onChange = (key) => {
-    // console.log(key);
-  };
-
   return (
     <div>
       <section>
-        <div>
-          <Tabs defaultActiveKey="1" items={tabItems} onChange={onChange} />
-        </div>
+        <Table
+          columns={columns}
+          bordered
+          dataSource={getData ? getData : []}
+          scroll={{ y: 600, x: 800 }}
+          loading={loadingTable}
+          pagination={{
+            total: 0,
+            showTotal: (total) => `Нийт: ${total}`,
+          }}
+        />
       </section>
     </div>
   );
 };
-export default Items;
+export default OrderHistory;

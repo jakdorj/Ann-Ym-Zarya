@@ -6,7 +6,7 @@ const Delete = (props) => {
   const deleteFunc = () => {
     const token = localStorage.getItem("idToken");
     axios
-      .delete(`items/${props.data}.json?&auth=${token}`)
+      .delete(`orderHistory/${props.data}.json?&auth=${token}`)
       .then((res) => {
         message.success("Амжилттай устлаа");
         props.getItems();

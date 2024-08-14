@@ -1,10 +1,11 @@
 import { Fragment, useEffect, useState } from "react";
-import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getDiscountPrice } from "../../helpers/product";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import emailjs from "emailjs-com";
 import {
   Alert,
   Avatar,
@@ -15,6 +16,7 @@ import {
   Typography,
 } from "antd";
 import axios from "../../axios-orders";
+import moment from "moment";
 const { Paragraph } = Typography;
 const Checkout = () => {
   let cartTotalPrice = 0;
@@ -61,6 +63,7 @@ const Checkout = () => {
     setLoad(true);
     const cartIds = cartItems.map((item) => item.id);
     let error = false;
+    let success = false;
     try {
       // Fetch items data
       const res = await axios.get("items.json");
@@ -76,7 +79,7 @@ const Checkout = () => {
           const cartItem = cartItems.find((cart) => cart.id === item.id);
           if (cartItem) {
             const stockDifference = item.stock - cartItem.quantity;
-
+            console.log("cartItem.quantity: ", cartItem.quantity);
             if (stockDifference < 0) {
               error = true;
               return api["error"]({
@@ -154,7 +157,10 @@ const Checkout = () => {
 
         const updateData = updatedResult.filter((e) => cartIds.includes(e.id));
 
-        // Collect all patch requests
+        if (error) {
+          return;
+        }
+
         const patchRequests = updateData.map((element) => {
           const body = { stock: element.stock, variation: element.variation };
           if (element.variation === undefined || element.variation === "null") {
@@ -162,32 +168,37 @@ const Checkout = () => {
           }
           return axios
             .patch(`items/${element.id}/data.json`, body)
-            .then(() => {
-              const orderBody = {
-                ...userInfo,
-                id: element.id,
-                image: element.image,
-                selectedProductColor: element.selectedProductColor,
-                selectedProductSize: element.selectedProductSize,
-                name: element.name,
-                price: element.price,
-                quantity: element.quantity,
-                orderNumber: orderNumber,
-              };
-              return axios.post(`orderHistory.json`, orderBody);
-            })
+            .then(() => {})
             .catch((err) => {
               console.error("Error updating data:", err);
               throw err; // Propagate the error to be handled by Promise.all
             });
         });
 
-        // Wait for all patch requests to complete
         await Promise.all(patchRequests);
 
         if (!error) {
-          localStorage.setItem("orderNumber", orderNumber);
-          navigate("/payment");
+          const body = {
+            date: moment().format("YYYY-MM-DD, HH:mm:ss"),
+            ...userInfo,
+            price: totalPrice,
+            orderNumber: orderNumber,
+            orders: { updateData },
+          };
+
+          await axios
+            .post(`orderHistory.json`, body)
+            .then((res) => {
+              email(body);
+              setTimeout(() => {
+                setLoad(false);
+                localStorage.setItem("orderNumber", orderNumber);
+                navigate("/payment");
+              }, 5000);
+            })
+            .catch((err) => {
+              console.log("err: ", err);
+            });
         }
         // All updates succeeded, proceed with navigation
       }
@@ -200,7 +211,6 @@ const Checkout = () => {
         pauseOnHover: true,
       });
     } finally {
-      setLoad(false);
     }
   };
 
@@ -232,6 +242,56 @@ const Checkout = () => {
       const orderNumber = "AY" + Math.floor(Math.random() * 1000000);
       setOrderNumber(orderNumber);
     }
+  };
+
+  const email = async (data) => {
+    const mailData = {
+      client_name: "jakdorj0@gmail.com",
+      email: data.email,
+      name: data.username,
+      orderNumber: data.orderNumber,
+      price: data.price.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+      message: "Таны захиалга амжилттай төлөгдлөө",
+    };
+    emailjs
+      .send(
+        "service_m68200h", // service id service_rq0sez5
+        "template_1fopgy9", // template id
+        mailData,
+        "tfQLBSkpvKb1FGeAI" // public api uZb0rDKmRujoy7mfg
+      )
+      .then(
+        (res) => {},
+        (err) => {
+          message.error("Амжилтгүй хүсэлт");
+        }
+      );
+
+    await setTimeout(() => {
+      const mailDataAdmin = {
+        client_name: data.email,
+        email: "jakdorj0@gmail.com",
+        name: data.username,
+        orderNumber: data.orderNumber,
+        price: data.price.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+        message: "Таны захиалга амжилттай төлөгдлөө",
+      };
+      emailjs
+        .send(
+          "service_m68200h", // service id service_rq0sez5
+          "template_1fopgy9", // template id
+          mailDataAdmin,
+          "tfQLBSkpvKb1FGeAI" // public api uZb0rDKmRujoy7mfg
+        )
+        .then(
+          (res) => {
+            console.log("res ===> ", res);
+          },
+          (err) => {
+            message.error("Амжилтгүй хүсэлт");
+          }
+        );
+    }, 2500);
   };
   return (
     <Fragment>
