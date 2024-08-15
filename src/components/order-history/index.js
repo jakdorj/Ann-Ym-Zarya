@@ -132,6 +132,14 @@ const OrderHistory = () => {
       ellipsis: true,
     },
     {
+      title: "Огноо",
+      dataIndex: "date",
+      key: "date",
+      width: "100px",
+      ellipsis: true,
+      ...getColumnSearchProps("date"),
+    },
+    {
       title: "Захиалгач нэр",
       dataIndex: "username",
       key: "username",
