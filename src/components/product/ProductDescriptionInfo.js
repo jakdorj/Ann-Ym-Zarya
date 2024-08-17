@@ -7,6 +7,7 @@ import Rating from "./sub-components/ProductRating";
 import { addToCart } from "../../store/slices/cart-slice";
 import { addToWishlist } from "../../store/slices/wishlist-slice";
 import { addToCompare } from "../../store/slices/compare-slice";
+import FacebookVideoEmbed from "../facebook-video/FacebookVideoEmbed";
 
 const ProductDescriptionInfo = ({
   product,
@@ -148,6 +149,11 @@ const ProductDescriptionInfo = ({
       ) : (
         ""
       )}
+      {product?.video ? (
+        <div style={{ marginTop: "20px" }}>
+          <FacebookVideoEmbed videoUrl={product.video} />
+        </div>
+      ) : null}
       {product.affiliateLink ? (
         <div className="pro-details-quality">
           <div className="pro-details-cart btn-hover ml-0">
@@ -249,6 +255,7 @@ const ProductDescriptionInfo = ({
           </div>
         </div>
       )}
+
       {product.category ? (
         <div className="pro-details-meta">
           <span>Категори :</span>

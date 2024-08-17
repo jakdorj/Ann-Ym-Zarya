@@ -14,6 +14,9 @@ import Items from "../../components/items";
 import HomeSlider from "../../components/dashboard/homeSlider";
 import MainContext from "../../components/mainContext/mainContext";
 import OrderHistory from "../../components/order-history";
+import moment from "moment";
+import VideoPopup from "../../components/video-popup/VideoPopup";
+import FacebookVideoEmbed from "../../components/facebook-video/FacebookVideoEmbed";
 const { Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children, type) {
   return {
@@ -27,6 +30,7 @@ function getItem(label, key, icon, children, type) {
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(true);
   const [menuKey, setMenuKey] = useState("theme");
+  const [date, setDate] = useState("");
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -50,7 +54,22 @@ const Dashboard = () => {
     //   getItem("Option 9", "9"),
     // ]),
   ];
+  useEffect(() => {
+    const expireDateStr = localStorage.getItem("expireDate");
 
+    if (expireDateStr) {
+      const expireDate = new Date(expireDateStr);
+      const now = new Date();
+      if (now >= expireDate) {
+        mainContext.logout();
+      } else {
+        const formattedDate = moment(expireDate).format("HH:mm:ss");
+        setDate(formattedDate);
+      }
+    }
+  }, []);
+  const facebookVideoUrl =
+    "https://www.facebook.com/61558053802771/videos/1023137109474043";
   return (
     <Fragment>
       <SEO
@@ -61,7 +80,12 @@ const Dashboard = () => {
       <LayoutSeven headerTop="visible">
         {/* breadcrumb */}
         <div
-          style={{ width: "100%", height: "100px ", background: "#000" }}
+          style={{
+            width: "100%",
+            height: "100px ",
+            background: "#000",
+            color: "#fff",
+          }}
         ></div>
         <Layout>
           <Sider
@@ -113,6 +137,12 @@ const Dashboard = () => {
                   background: colorBgContainer,
                 }}
               >
+                <div>
+                  <div style={{ color: "rgb(255, 179, 134)" }}>
+                    Нэвтрэх хүчинтэй хугацаа: {date}
+                  </div>
+                </div>
+                {/* <FacebookVideoEmbed videoUrl={facebookVideoUrl} /> */}
                 {menuKey === "items" ? (
                   <Items />
                 ) : menuKey === "banner" ? (

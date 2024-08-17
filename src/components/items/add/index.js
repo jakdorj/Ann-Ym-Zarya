@@ -48,7 +48,7 @@ const Add = ({ getItems, category }) => {
   );
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
     const handleChange = (e) => {
       setIsWideScreen(e.matches);
     };
@@ -95,7 +95,6 @@ const Add = ({ getItems, category }) => {
     if (fileList.length === 0) {
       message.error("Зураг заавал оруулна уу!");
     } else {
-      setBtnLoad(true);
       const token = localStorage.getItem("idToken");
       const img = [];
       fileList.forEach((element) => {
@@ -137,7 +136,7 @@ const Add = ({ getItems, category }) => {
           return;
         }
       }
-
+      setBtnLoad(true);
       setTimeout(() => {
         axios
           .post(
@@ -145,8 +144,20 @@ const Add = ({ getItems, category }) => {
             body
           )
           .then((res) => {
-            if (res.data.name) message.success("Амжилттай");
-            getItems();
+            if (res.data.name) {
+              message.success("Амжилттай");
+              getItems();
+            } else {
+              api["error"]({
+                message: "Системээс гараад дахин нэврэнэ үү!",
+                description: (
+                  <div>
+                    Нэвтрэх хүчинтэй хугацаа дууссан тул системээс гараад дахин
+                    нэврэнэ үү!
+                  </div>
+                ),
+              });
+            }
           })
           .catch((err) => {
             if (err.response.data.error === "Permission denied") {
@@ -290,7 +301,7 @@ const Add = ({ getItems, category }) => {
             </Col>
           </Row>
           <Row gutter={40}>
-            <Col>
+            {/* <Col>
               <Form.Item
                 label="*"
                 name="order"
@@ -301,7 +312,7 @@ const Add = ({ getItems, category }) => {
               >
                 <Checkbox>Захиалга</Checkbox>
               </Form.Item>
-            </Col>
+            </Col> */}
             {/* <Col>
               <Form.Item
                 label="*"
@@ -488,6 +499,16 @@ const Add = ({ getItems, category }) => {
               </div>
             )}
           </Form.List>
+          <Form.Item
+            label="Бичлэг"
+            name="video"
+            labelCol={{ span: 4 }}
+            wrapperCol={{ span: 20 }}
+            rules={[{ required: false }]}
+            style={{ marginTop: "20px" }}
+          >
+            <Input placeholder="Бичлэгийн линк" allowClear />
+          </Form.Item>
           <Form.Item
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 20 }}

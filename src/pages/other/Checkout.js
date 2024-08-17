@@ -32,9 +32,7 @@ const Checkout = () => {
   const [api, contextHolder] = notification.useNotification();
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
-    username: "",
     phone: "",
-    email: "",
     address: "",
   });
   const [isWideScreen, setIsWideScreen] = useState(
@@ -245,27 +243,27 @@ const Checkout = () => {
   };
 
   const email = async (data) => {
-    const mailData = {
-      client_name: "jakdorj0@gmail.com",
-      email: data.email,
-      name: data.username,
-      orderNumber: data.orderNumber,
-      price: data.price.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-      message: "Таны захиалга амжилттай төлөгдлөө",
-    };
-    emailjs
-      .send(
-        "service_m68200h", // service id service_rq0sez5
-        "template_1fopgy9", // template id
-        mailData,
-        "tfQLBSkpvKb1FGeAI" // public api uZb0rDKmRujoy7mfg
-      )
-      .then(
-        (res) => {},
-        (err) => {
-          message.error("Амжилтгүй хүсэлт");
-        }
-      );
+    // const mailData = {
+    //   client_name: "jakdorj0@gmail.com",
+    //   email: data.email,
+    //   name: data.username,
+    //   orderNumber: data.orderNumber,
+    //   price: data.price.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+    //   message: "Таны захиалга амжилттай төлөгдлөө",
+    // };
+    // emailjs
+    //   .send(
+    //     "service_m68200h", // service id service_rq0sez5
+    //     "template_1fopgy9", // template id
+    //     mailData,
+    //     "tfQLBSkpvKb1FGeAI" // public api uZb0rDKmRujoy7mfg
+    //   )
+    //   .then(
+    //     (res) => {},
+    //     (err) => {
+    //       message.error("Амжилтгүй хүсэлт");
+    //     }
+    //   );
 
     await setTimeout(() => {
       const mailDataAdmin = {
@@ -274,7 +272,8 @@ const Checkout = () => {
         name: data.username,
         orderNumber: data.orderNumber,
         price: data.price.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-        message: "Таны захиалга амжилттай төлөгдлөө",
+        message:
+          "Таны захиалга амжилттай. Бид тантай тун удахгүй холбогдох болно.",
       };
       emailjs
         .send(
@@ -288,10 +287,15 @@ const Checkout = () => {
             console.log("res ===> ", res);
           },
           (err) => {
-            message.error("Амжилтгүй хүсэлт");
+            api["error"]({
+              message: "И-мэйл амжилтгүй!",
+              description: <div>И-мэйл буруу байна!</div>,
+              showProgress: true,
+              pauseOnHover: true,
+            });
           }
         );
-    }, 2500);
+    }, 1500);
   };
   return (
     <Fragment>
@@ -322,13 +326,13 @@ const Checkout = () => {
                       <div className="row">
                         <div className="col-lg-12">
                           <div className="billing-info mb-20">
-                            <label>Захиалагчийн нэр</label>
+                            <label>Холбоо барих утасны дугаар</label>
                             <input
                               type="text"
                               onChange={(e) =>
                                 setUserInfo({
                                   ...userInfo,
-                                  username: e.target.value,
+                                  phone: e.target.value,
                                 })
                               }
                             />
@@ -347,7 +351,7 @@ const Checkout = () => {
                           </select>
                         </div>
                       </div> */}
-                        <div className="col-lg-6 col-md-6">
+                        {/* <div className="col-lg-6 col-md-6">
                           <div className="billing-info mb-20">
                             <label>Холбоо барих утасны дугаар</label>
                             <input
@@ -374,7 +378,7 @@ const Checkout = () => {
                               }
                             />
                           </div>
-                        </div>
+                        </div> */}
                       </div>
 
                       <div className="additional-info-wrap">
@@ -627,13 +631,13 @@ const Checkout = () => {
                         >
                           <div style={{ fontWeight: "bold" }}>
                             {segmentValue === 0
-                              ? "530 101 9298"
+                              ? "592 517 6911"
                               : "456 108 617"}
                           </div>
                           <Paragraph
                             style={{ marginBottom: "0px" }}
                             copyable={{
-                              text: "5301019298",
+                              text: "5925176911",
                             }}
                           />
                         </div>
@@ -664,11 +668,11 @@ const Checkout = () => {
                             alignItems: "center",
                           }}
                         >
-                          <div style={{ fontWeight: "bold" }}>Амарбаяр</div>
+                          <div style={{ fontWeight: "bold" }}>Жавзан</div>
                           <Paragraph
                             style={{ marginBottom: "0px" }}
                             copyable={{
-                              text: "Амарбаяр",
+                              text: "Жавзан",
                             }}
                           />
                         </div>

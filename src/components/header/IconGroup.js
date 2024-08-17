@@ -48,7 +48,7 @@ const IconGroup = ({ iconWhiteClass, black }) => {
           </form>
         </div>
       </div>
-      {/* <div className="same-style account-setting d-none d-lg-block">
+      <div className="same-style account-setting d-none d-lg-block">
         <button
           className="account-setting-active"
           onClick={(e) => handleClick(e)}
@@ -57,22 +57,25 @@ const IconGroup = ({ iconWhiteClass, black }) => {
         </button>
         <div className="account-dropdown">
           <ul>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
-            </li>
-            <li>
+            {mainContext.user ? (
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/dashboard"}>
+                  Хяналтын самбар
+                </Link>
+              </li>
+            ) : (
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/login"}>Нэвтрэх</Link>
+              </li>
+            )}
+            {/* <li>
               <Link to={process.env.PUBLIC_URL + "/login-register"}>
                 Register
               </Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                my account
-              </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
-      </div> */}
+      </div>
       {/* <div className="same-style header-compare">
         <Link to={process.env.PUBLIC_URL + "/compare"}>
           <i className="pe-7s-shuffle" />

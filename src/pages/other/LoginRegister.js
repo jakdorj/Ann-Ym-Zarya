@@ -63,7 +63,7 @@ const LoginRegister = () => {
           localStorage.setItem("expIn", expIn);
           localStorage.setItem("refreshToken", res.data.refreshToken);
           refreshToken(expIn * 1000);
-          document.location.replace("/");
+          document.location.replace("/dashboard");
         } else {
           // message.error(res.data.errors[0].message)
         }
@@ -86,6 +86,15 @@ const LoginRegister = () => {
         } else if (
           err.response.data.error.message === "INVALID_LOGIN_CREDENTIALS"
         ) {
+          api["error"]({
+            message: "АЛДАА ГАРЛАА.",
+            description: (
+              <div style={{ textTransform: "uppercase", fontWeight: "500" }}>
+                Нэтрэх нэр болон нууц үг буруу байна!
+              </div>
+            ),
+          });
+        } else {
           api["error"]({
             message: "АЛДАА ГАРЛАА.",
             description: (
@@ -122,9 +131,9 @@ const LoginRegister = () => {
         {/* breadcrumb */}
         <Breadcrumb
           pages={[
-            { label: "Home", path: process.env.PUBLIC_URL + "/" },
+            { label: "Үндсэн хуудас", path: process.env.PUBLIC_URL + "/" },
             {
-              label: "Login Register",
+              label: "Системд нэвтрэх",
               path: process.env.PUBLIC_URL + pathname,
             },
           ]}

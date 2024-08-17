@@ -9,6 +9,7 @@ import { getProductCartQuantity } from "../../helpers/product";
 import { addToCart } from "../../store/slices/cart-slice";
 import { addToWishlist } from "../../store/slices/wishlist-slice";
 import { addToCompare } from "../../store/slices/compare-slice";
+import FacebookVideoEmbed from "../facebook-video/FacebookVideoEmbed";
 
 function ProductModal({
   product,
@@ -154,6 +155,9 @@ function ProductModal({
                           <label
                             className={`pro-details-color-content--single ${single.color}`}
                             key={key}
+                            style={{
+                              background: single.color ? single.color : "green",
+                            }}
                           >
                             <input
                               type="radio"
@@ -217,6 +221,12 @@ function ProductModal({
               ) : (
                 ""
               )}
+
+              {product?.video ? (
+                <div style={{ marginTop: "20px" }}>
+                  <FacebookVideoEmbed videoUrl={product.video} />
+                </div>
+              ) : null}
               {product.affiliateLink ? (
                 <div className="pro-details-quality">
                   <div className="pro-details-cart btn-hover">

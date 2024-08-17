@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import FooterCopyright from "../../components/footer/FooterCopyright";
 import FooterNewsletter from "../../components/footer/FooterNewsletter";
 
-
 const FooterOne = ({
   backgroundColorClass,
   spaceTopClass,
@@ -13,10 +12,20 @@ const FooterOne = ({
   spaceRightClass,
   containerClass,
   extraFooterClass,
-  sideMenu
+  sideMenu,
 }) => {
   return (
-    <footer className={clsx("footer-area", backgroundColorClass, spaceTopClass, spaceBottomClass, extraFooterClass, spaceLeftClass, spaceRightClass )}>
+    <footer
+      className={clsx(
+        "footer-area",
+        backgroundColorClass,
+        spaceTopClass,
+        spaceBottomClass,
+        extraFooterClass,
+        spaceLeftClass,
+        spaceRightClass
+      )}
+    >
       <div className={`${containerClass ? containerClass : "container"}`}>
         <div className="row">
           <div
@@ -37,26 +46,26 @@ const FooterOne = ({
           >
             <div className="footer-widget mb-30 ml-30">
               <div className="footer-title">
-                <h3>ABOUT US</h3>
+                <h3>Бидний тухай</h3>
               </div>
               <div className="footer-list">
                 <ul>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "/about"}>About us</Link>
+                    <Link to={process.env.PUBLIC_URL + "/"}>Бидний тухай</Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>
-                      Store location
+                    <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                      Дэлгүүр
                     </Link>
                   </li>
                   <li>
                     <Link to={process.env.PUBLIC_URL + "/contact"}>
-                      Contact
+                      Холбоо барих
                     </Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>
-                      Orders tracking
+                    <Link to={process.env.PUBLIC_URL + "/cart"}>
+                      Захиалгыг хянах
                     </Link>
                   </li>
                 </ul>
@@ -76,23 +85,25 @@ const FooterOne = ({
               }`}
             >
               <div className="footer-title">
-                <h3>USEFUL LINKS</h3>
+                <h3>Линкүүд</h3>
               </div>
               <div className="footer-list">
                 <ul>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>Returns</Link>
+                    <Link to={process.env.PUBLIC_URL + "/"}>Буцах</Link>
                   </li>
                   <li>
                     <Link to={process.env.PUBLIC_URL + "#/"}>
-                      Support Policy
+                      Дэмжих бодлого
                     </Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>Size guide</Link>
+                    <Link to={process.env.PUBLIC_URL + "#/"}>Гарын авлага</Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>FAQs</Link>
+                    <Link to={process.env.PUBLIC_URL + "#/"}>
+                      Түгээмэл асуултууд
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -111,13 +122,13 @@ const FooterOne = ({
               }`}
             >
               <div className="footer-title">
-                <h3>FOLLOW US</h3>
+                <h3>Бидний дагаарай</h3>
               </div>
               <div className="footer-list">
                 <ul>
                   <li>
                     <a
-                      href="//www.facebook.com"
+                      href="https://www.facebook.com/profile.php?id=61562868644217"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -160,7 +171,6 @@ const FooterOne = ({
               sideMenu ? "col-xl-3 col-sm-8" : "col-lg-4 col-sm-6"
             }`}
           >
-            {/* footer newsletter */}
             <FooterNewsletter
               spaceBottomClass="mb-30"
               spaceLeftClass="ml-70"
@@ -181,7 +191,7 @@ FooterOne.propTypes = {
   spaceBottomClass: PropTypes.string,
   spaceTopClass: PropTypes.string,
   spaceLeftClass: PropTypes.string,
-  spaceRightClass: PropTypes.string
+  spaceRightClass: PropTypes.string,
 };
 
 export default FooterOne;

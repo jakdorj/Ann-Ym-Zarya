@@ -4,11 +4,10 @@ import axios from "../../../axios-orders";
 
 const Delete = (props) => {
   const deleteFunc = () => {
-    const token = localStorage.getItem("idToken");
     axios
-      .delete(`orderHistory/${props.data}.json?&auth=${token}`)
+      .delete(`orderHistory/${props.data}.json `)
       .then((res) => {
-        message.success("Амжилттай устлаа");
+        message.success("Амжилттай устлаа.");
         props.getItems();
       })
       .catch((err) => {

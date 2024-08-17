@@ -30,9 +30,9 @@ const Payment = () => {
             <Result
               status="success"
               title="Таны захиалга амжилттай!"
-              subTitle={`Order number: ${localStorage.getItem(
+              subTitle={`Захиалгын дугаар: ${localStorage.getItem(
                 "orderNumber"
-              )} Cloud server configuration takes 1-5 minutes, please wait.`}
+              )}, Бид тантай 1-5 минутад холбогдох болно.`}
               extra={[
                 <Button
                   type="primary"

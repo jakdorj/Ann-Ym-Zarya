@@ -34,7 +34,6 @@ const OrderHistory = () => {
           data.forEach((element) => {
             result.push({ id: element[0], ...element[1] });
           });
-          console.log("result: ", result);
           setData(result);
         }
       })
@@ -135,23 +134,15 @@ const OrderHistory = () => {
       title: "Огноо",
       dataIndex: "date",
       key: "date",
-      width: "100px",
+      width: "160px",
       ellipsis: true,
       ...getColumnSearchProps("date"),
-    },
-    {
-      title: "Захиалгач нэр",
-      dataIndex: "username",
-      key: "username",
-      width: "100px",
-      ellipsis: true,
-      ...getColumnSearchProps("username"),
     },
     {
       title: "Захиалгын дугаар",
       dataIndex: "orderNumber",
       key: "orderNumber",
-      width: "100px",
+      width: "150px",
       ellipsis: true,
       ...getColumnSearchProps("orderNumber"),
     },
@@ -166,14 +157,6 @@ const OrderHistory = () => {
     //     </div>
     //   ),
     // },
-    {
-      title: "Е-мэйл",
-      dataIndex: "email",
-      key: "email",
-      width: "100px",
-      ellipsis: true,
-      ...getColumnSearchProps("orderNumber"),
-    },
     {
       title: "Утас",
       dataIndex: "phone",
@@ -194,7 +177,9 @@ const OrderHistory = () => {
       render: (a) => (
         <div style={{ display: "flex" }}>
           {/* <Paragraph copyable={{text: a }}></Paragraph> */}
-          <div style={{ paddingLeft: "5px" }}>{a}</div>
+          <div style={{ paddingLeft: "5px" }}>
+            {a?.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "₮"}
+          </div>
         </div>
       ),
     },
@@ -205,8 +190,8 @@ const OrderHistory = () => {
       width: "100px",
       render: (action, data) => (
         <div style={{ display: "flex", gap: "10px" }}>
-          <Delete data={data.id} getItems={getItems} />
           <Details data={data?.orders?.updateData} />
+          <Delete data={data.id} getItems={getItems} />
         </div>
       ),
     },

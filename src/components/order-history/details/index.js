@@ -10,6 +10,7 @@ const Details = ({ data }) => {
   const [isWideScreen, setIsWideScreen] = useState(
     window.matchMedia("(min-width: 768px)").matches
   );
+
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -144,7 +145,7 @@ const Details = ({ data }) => {
       title: "Тоо ширхэг",
       dataIndex: "quantity",
       key: "quantity",
-      width: "50px",
+      width: "70px",
       ellipsis: true,
       ...getColumnSearchProps("quantity"),
     },
@@ -160,7 +161,9 @@ const Details = ({ data }) => {
       render: (a) => (
         <div style={{ display: "flex" }}>
           {/* <Paragraph copyable={{text: a }}></Paragraph> */}
-          <div style={{ paddingLeft: "5px" }}>{a}</div>
+          <div style={{ paddingLeft: "5px" }}>
+            {a?.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "₮"}
+          </div>
         </div>
       ),
     },
@@ -168,7 +171,7 @@ const Details = ({ data }) => {
       title: "Хөнгөлөлт",
       dataIndex: "discount",
       key: "discount",
-      width: "30px",
+      width: "70px",
       ellipsis: true,
       ...getColumnSearchProps("discount"),
     },

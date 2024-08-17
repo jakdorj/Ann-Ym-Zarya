@@ -10,10 +10,18 @@ const MobileNavMenu = () => {
   return (
     <nav className="offcanvas-navigation" id="offcanvas-navigation">
       <ul>
-        <li className="menu-item-has-children">
-          <Link to={process.env.PUBLIC_URL + "/"}>{t("home")}</Link>
-        </li>
-
+        {mainContext.user ? null : (
+          <li className="menu-item-has-children">
+            <Link to={process.env.PUBLIC_URL + "/login"}>Нэвтрэх</Link>
+          </li>
+        )}
+        {mainContext.user ? (
+          <li className="menu-item-has-children">
+            <Link to={process.env.PUBLIC_URL + "/dashboard"}>
+              {t("dashboard")}
+            </Link>
+          </li>
+        ) : null}
         <li className="menu-item-has-children">
           <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
             {t("shop")}

@@ -6,11 +6,11 @@ const MobileWidgets = () => {
           <ul className="header-contact-info__list">
             <li>
               <i className="fa fa-phone"></i>{" "}
-              <a href="tel://88096009">(+976) 88096009 </a>
+              <a href="tel://95343540">(+976) 95343540 </a>
             </li>
             <li>
               <i className="fa fa-envelope"></i>{" "}
-              <a href="mailto:info@yourdomain.com">bondooloi.kids@gmail.com</a>
+              <a href="mailto:info@yourdomain.com">jakdorj0@gmail.com</a>
             </li>
           </ul>
         </div>
@@ -23,7 +23,10 @@ const MobileWidgets = () => {
         <a href="//instagram.com" title="Instagram">
           <i className="fa fa-instagram"></i>
         </a>
-        <a href="//facebook.com" title="Facebook">
+        <a
+          href="https://www.facebook.com/profile.php?id=61562868644217"
+          title="Facebook"
+        >
           <i className="fa fa-facebook"></i>
         </a>
         <a href="//pinterest.com" title="Pinterest">

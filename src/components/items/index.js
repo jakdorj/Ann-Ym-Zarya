@@ -160,17 +160,19 @@ const Items = () => {
       title: "Үнэ",
       dataIndex: "price",
       key: "price",
-      width: "100px",
+      width: "50px",
       ellipsis: true,
       ...getColumnSearchProps("price"),
-    },
-    {
-      title: "Хөнгөлөлт",
-      dataIndex: "discount",
-      key: "discount",
-      width: "100px",
-      ellipsis: true,
-      ...getColumnSearchProps("discount"),
+      sorter: (a, b) => a.price - b.price,
+      sortDirections: ["descend", "ascend"],
+      render: (a) => (
+        <div style={{ display: "flex" }}>
+          {/* <Paragraph copyable={{text: a }}></Paragraph> */}
+          <div style={{ paddingLeft: "5px" }}>
+            {a?.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "₮"}
+          </div>
+        </div>
+      ),
     },
     // {
     //   title: "Категори",
@@ -189,9 +191,17 @@ const Items = () => {
       title: "Тоо ширхэг",
       dataIndex: "stock",
       key: "stock",
-      width: "80px",
-      ...getColumnSearchProps("stock"),
+      width: "70px",
       ellipsis: true,
+      ...getColumnSearchProps("stock"),
+      sorter: (a, b) => a.stock - b.stock,
+      sortDirections: ["descend", "ascend"],
+      render: (a) => (
+        <div style={{ display: "flex" }}>
+          {/* <Paragraph copyable={{text: a }}></Paragraph> */}
+          <div style={{ paddingLeft: "5px" }}>{a}</div>
+        </div>
+      ),
     },
     {
       title: "Бүтэн дэлгэрэнгүй",
@@ -226,7 +236,7 @@ const Items = () => {
       title: "Зураг",
       dataIndex: "image",
       key: "image",
-      width: "80px",
+      width: "40px",
       render: (img) => (
         <div>
           <Image src={img[0]} width={50} />{" "}
@@ -234,27 +244,12 @@ const Items = () => {
       ),
       ellipsis: true,
     },
-    {
-      title: "Үнэ",
-      dataIndex: "price",
-      key: "price",
-      width: "150px",
-      ellipsis: true,
-      ...getColumnSearchProps("price"),
-      sorter: (a, b) => a.price.length - b.price.length,
-      sortDirections: ["descend", "ascend"],
-      render: (a) => (
-        <div style={{ display: "flex" }}>
-          {/* <Paragraph copyable={{text: a }}></Paragraph> */}
-          <div style={{ paddingLeft: "5px" }}>{a}</div>
-        </div>
-      ),
-    },
+
     {
       title: "Үйлдэл",
       dataIndex: "allData",
       key: "allData",
-      width: "100px",
+      width: "50px",
       render: (action, data) => (
         <div style={{ display: "flex", gap: "10px" }}>
           {/*   <Edit data={action[0]} getItems={getItems} info={action[1].data} /> */}
