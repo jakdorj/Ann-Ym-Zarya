@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import FooterCopyright from "../../components/footer/FooterCopyright";
 import FooterNewsletter from "../../components/footer/FooterNewsletter";
 
@@ -122,7 +122,7 @@ const FooterOne = ({
               }`}
             >
               <div className="footer-title">
-                <h3>Бидний дагаарай</h3>
+                <h3>Холбоосууд</h3>
               </div>
               <div className="footer-list">
                 <ul>
