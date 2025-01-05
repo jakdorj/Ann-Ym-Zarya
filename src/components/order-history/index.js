@@ -126,7 +126,7 @@ const OrderHistory = () => {
       title: "№",
       dataIndex: "key",
       key: "key",
-      width: "5px",
+      width: "15px",
       render: (text, record, index) => index + 1,
       ellipsis: true,
     },
